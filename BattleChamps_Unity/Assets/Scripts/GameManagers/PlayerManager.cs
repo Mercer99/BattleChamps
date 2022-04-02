@@ -36,15 +36,16 @@ public class PlayerManager : MonoBehaviour
                 allPlayers.Add(player);
                 cameraFollow.targetPositions.Add(player.transform);
 
-                CharacterStats characterStats = player.GetComponent<CharacterStats>();
-                StartCoroutine(wait(characterStats));
+                StartCoroutine(wait(player));
             }
         }
     }
-    IEnumerator wait(CharacterStats characterStats)
-    { 
+    IEnumerator wait(GameObject player)
+    {
+        PlayerUI_Handler playerUI = player.GetComponent<PlayerUI_Handler>();
+        player.GetComponent<CharacterStats>().playerID = allPlayers.Count - 1;
         yield return new WaitForSeconds(0.1f);
-        UIManager.Instance.AddColour(characterStats.playerColour, allPlayers.Count);
+        UIManager.Instance.AddColour(playerUI.playerColour, allPlayers.Count);
     }
     public void PlayerLeft()
     {

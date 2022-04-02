@@ -185,6 +185,30 @@ public class CharacterHandler : MonoBehaviour
             }
         }
     }
+    public void OnAbility1(InputAction.CallbackContext context)
+    {
+        if (!disabled)
+        {
+            if (!usingAbility)
+            {
+                usingAbility = true;
+                AnimLengthCheck();
+                StartCoroutine(AbilityCoroutine(1));
+            }
+        }
+    }
+    public void OnAbility2(InputAction.CallbackContext context)
+    {
+        if (!disabled)
+        {
+            if (!usingAbility)
+            {
+                usingAbility = true;
+                AnimLengthCheck();
+                StartCoroutine(AbilityCoroutine(2));
+            }
+        }
+    }
     #endregion
 
     void Update()
@@ -231,7 +255,8 @@ public class CharacterHandler : MonoBehaviour
         yield return new WaitForSecondsRealtime(dashTime);
         currentSpeed = defaultSpeed;
 
-        GetComponent<CharacterStats>().DashCDTimer(dashCooldown);
+        GetComponent<PlayerUI_Handler>().DashCDTimer(dashCooldown);
+
         yield return new WaitForSeconds(dashCooldown);
         dashed = false;
     }
@@ -248,15 +273,23 @@ public class CharacterHandler : MonoBehaviour
         shield.SetActive(true);
         GetComponent<CharacterStats>().canBeDamaged = false;
         charAnimator.SetTrigger("AnimTriggerShield");
+        GetComponent<PlayerUI_Handler>().ShieldCDTimer(animLength);
+
         yield return new WaitForSecondsRealtime(animLength);
+
         shield.SetActive(false);
         GetComponent<CharacterStats>().canBeDamaged = true;
         usingAbility = false;
     }
 
-    private IEnumerator AbilityCoroutine()
+    private IEnumerator AbilityCoroutine(int abilityNum)
     {
         charAnimator.SetTrigger("AnimTriggerShield");
+
+        if (abilityNum == 1)
+        { GetComponent<PlayerUI_Handler>().Ability1CDTimer(animLength); }
+        else if (abilityNum != 1)
+        { GetComponent<PlayerUI_Handler>().Ability2CDTimer(animLength); }
 
         yield return new WaitForSecondsRealtime(animLength);
         chargingAbility = false;

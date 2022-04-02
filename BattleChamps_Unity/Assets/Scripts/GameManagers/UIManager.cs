@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : Singleton<UIManager>
 {
-    public bool gamePaused= false;
+    public bool gamePaused = false;
     public GameObject pauseMenuPanel;
 
     public GameObject coloursPanel;
