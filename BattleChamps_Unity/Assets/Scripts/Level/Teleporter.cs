@@ -7,6 +7,8 @@ public class Teleporter : MonoBehaviour
 {
     [HideInInspector]
     public bool recentlyActivated = false;
+    public Material runeActive;
+    public Material runeDeactive;
 
     public TeleporterMaster tpMaster;
     public GameObject otherTeleporter;
@@ -17,6 +19,11 @@ public class Teleporter : MonoBehaviour
     private void Start()
     {
         CD_Canvas.SetActive(false);
+    }
+
+    private void Update()
+    {
+        GetComponent<Renderer>().material = recentlyActivated ? runeDeactive : runeActive;
     }
 
     private void OnTriggerEnter(Collider other)

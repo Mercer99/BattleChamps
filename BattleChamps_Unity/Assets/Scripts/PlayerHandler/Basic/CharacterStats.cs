@@ -26,6 +26,7 @@ public class CharacterStats : MonoBehaviour
         currentHealth = maxHealth;
 
         GetComponent<PlayerUI_Handler>().EnableUI(playerID);
+        UIManager.Instance.AddColour(GetComponent<PlayerUI_Handler>().playerColour, playerID + 1);
     }
 
     // Update is called once per frame
@@ -43,18 +44,30 @@ public class CharacterStats : MonoBehaviour
         {
             currentHealth -= damage;
 
+            ParticleSystem particle = Instantiate(hitParticle, particlePos);
+            GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
+
             if (currentHealth <= 0)
             {
-                currentHealth = 0; playerDied = true;
-                Camera.main.GetComponent<Screenshake>().StartShake(1);
+                StartCoroutine(DeathWait());
             }
             else { 
                 Camera.main.GetComponent<Screenshake>().StartShake(0);
             }
             audioSource.PlayOneShot(hitSound);
-
-            ParticleSystem particle = Instantiate(hitParticle, particlePos);
         }
+    }
+    IEnumerator DeathWait()
+    {
+        currentHealth = 0; playerDied = true;
+        Camera.main.GetComponent<Screenshake>().StartShake(1);
+        CameraFollow.Instance.targetPositions.Remove(transform);
+
+        GetComponent<CharacterHandler>().disabled = true;
+        GetComponent<CharacterHandler>().StopAllCoroutines();
+
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
     }
 
     public void HealHealth()

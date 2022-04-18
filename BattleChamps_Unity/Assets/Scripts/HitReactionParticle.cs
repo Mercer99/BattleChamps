@@ -9,10 +9,9 @@ public class HitReactionParticle : MonoBehaviour
     public float time;
 
     // Start is called before the first frame update
-    void Awake()
+    void OnEnable()
     {
-        int length = particleMaterials.Length + 1;
-        GetComponent<ParticleSystemRenderer>().material = particleMaterials[Random.Range(0, length)];
+        GetComponent<ParticleSystemRenderer>().material = particleMaterials[Random.Range(0, particleMaterials.Length)];
         Destroy(gameObject, GetComponent<ParticleSystem>().main.startLifetimeMultiplier);
         GetComponent<ParticleSystem>().Play();
     }

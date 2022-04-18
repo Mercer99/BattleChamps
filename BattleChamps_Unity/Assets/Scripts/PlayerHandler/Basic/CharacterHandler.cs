@@ -9,12 +9,17 @@ public class CharacterHandler : MonoBehaviour
     private CharacterController charController;
     private Animator charAnimator;
     PlayerInput playerInput;
+    public GameObject head;
 
+    [HideInInspector]
     public UIManager uiManager;
+
+    public PLAYER_VALUES playerValues;
 
     [Header("Player Values")]
     public float defaultSpeed = 12f;
     public float gravity = -9.81f;
+    [HideInInspector]
     public string playerName;
 
     [Header("Dash")]
@@ -31,10 +36,6 @@ public class CharacterHandler : MonoBehaviour
     private Vector3 velocity;
     private bool isGrounded;
 
-    [HideInInspector]
-    public bool applyGravity;
-    [HideInInspector]
-    public bool applyMovement;
     private Vector2 movementInput = Vector2.zero;
     private Vector2 rotationInput;
 
@@ -47,6 +48,16 @@ public class CharacterHandler : MonoBehaviour
     private bool chargingAbility = false;
     public bool disabled = false;
 
+    [HideInInspector]
+    public bool applyGravity = true;
+    public bool applyMovement()
+    {
+        if (chargingAbility || disabled)
+        { return false; }
+
+        return true;
+    }
+
     #region Customisation Variables
     public GameObject shield;
 
@@ -54,8 +65,8 @@ public class CharacterHandler : MonoBehaviour
     private GameObject currentWeapon;
     private WeaponHandler weaponHandler;
 
-    //public GameObject[] headAccessories;
-    //private GameObject currentHeadAccessory;
+    public GameObject[] headAccessories;
+    private GameObject currentHeadAccessory;
 
     //public GameObject[] bodyAccessories;
     //private GameObject currentBodyAccessory;
@@ -66,26 +77,34 @@ public class CharacterHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        playerValues = GetComponent<PLAYER_VALUES>();
+
+        applyGravity = true;
+
         shield.SetActive(false);
 
         charController = GetComponent<CharacterController>();
         charAnimator = GetComponent<Animator>();
 
-        applyGravity = true;
-        applyMovement = true;
         currentSpeed = defaultSpeed;
 
         uiManager = UIManager.Instance;
 
-        foreach (GameObject weapon in allWeapons)
-        {
-            if (weapon.activeInHierarchy)
-            {
-                currentWeapon = weapon;
-            }
-        }
+        GetComponent<CharacterStats>().playerID = Mode_AttritionManager.Instance.allPlayers.Count;
+        Mode_AttritionManager.Instance.PlayerJoined(gameObject);
 
+        foreach (GameObject weapon in allWeapons)
+        { weapon.SetActive(false); }
+        int randWeapon = Random.Range(0, allWeapons.Length);
+        allWeapons[randWeapon].SetActive(true);
+        currentWeapon = allWeapons[randWeapon];
         weaponHandler = currentWeapon.GetComponent<WeaponHandler>();
+
+        foreach (GameObject hat in headAccessories)
+        { hat.SetActive(false); }
+        int randHeadAcc = Random.Range(0, headAccessories.Length);
+        headAccessories[randHeadAcc].SetActive(true);
+        currentHeadAccessory = headAccessories[randHeadAcc];
     }
 
     #region Inputs
@@ -116,82 +135,52 @@ public class CharacterHandler : MonoBehaviour
     { uiManager.Pause_TogglePause(); }
 
     public void OnMove(InputAction.CallbackContext context)
-    {
-        if (!disabled)
-        {
-            movementInput = context.ReadValue<Vector2>();
-
-            if (!chargingAbility && applyMovement)
-            {
-                float movementValue;
-                float movementValueX = movementInput.x;
-                float movementValueY = movementInput.y;
-
-                if (movementValueX < 0 || movementValueY < 0)
-                { movementValue = 1; }
-                else if (movementValueX > 0 || movementValueY > 0)
-                { movementValue = 1; }
-                else
-                { movementValue = 0; }
-
-                charAnimator.SetFloat("AnimFloatRunning", movementValue);
-            }
-            else
-            { charAnimator.SetFloat("AnimFloatRunning", 0); }
-        }
-    }
+    { movementInput = context.ReadValue<Vector2>(); }
     public void PlayerRotation(InputAction.CallbackContext context)
-    {
-        if (!disabled)
-        { rotationInput = context.ReadValue<Vector2>(); }
-    }
+    { rotationInput = context.ReadValue<Vector2>(); }
+
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (!disabled)
+        if (applyMovement() == false)
+        { return; }
+        if (dashed)
+        { return; }
+
+        if (isGrounded)
         {
-            if (isGrounded && applyMovement)
-            {
-                if (!dashed)
-                {
-                    dashed = true;
-                    StartCoroutine(DashCoroutine());
-                }
-            }
+            dashed = true;
+            StartCoroutine(DashCoroutine());
         }
     }
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!disabled)
-        {
-            if (!attacking && !usingAbility)
-            {
-                attacking = true;
-                weaponHandler.EnableCollider(true);
-                AnimLengthCheck();
-                GetComponent<PlayerSounds>().playAttackVoiceline();
-                StartCoroutine(AttackCoroutine());
-            }
-        }
+        if (disabled)
+        { return; }
+
+        if (usingAbility || attacking)
+        { return; }
+
+        attacking = true;
+        weaponHandler.EnableCollider(true);
+        AnimLengthCheck();
+        GetComponent<PlayerSounds>().playAttackVoiceline();
+        StartCoroutine(AttackCoroutine());
     }
     public void OnShield(InputAction.CallbackContext context)
     {
-        if (!disabled)
-        {
-            if (!usingAbility)
-            {
-                usingAbility = true;
-                AnimLengthCheck();
-                StartCoroutine(ShieldCoroutine());
-            }
-        }
+        if (usingAbility || disabled)
+        { return; }
+
+        usingAbility = true;
+        AnimLengthCheck();
+        StartCoroutine(ShieldCoroutine());
     }
     public void OnAbility1(InputAction.CallbackContext context)
     {
-        if (!disabled)
+        if (disabled == false)
         {
             if (!usingAbility)
             {
-                usingAbility = true;
                 AnimLengthCheck();
                 StartCoroutine(AbilityCoroutine(1));
             }
@@ -199,11 +188,10 @@ public class CharacterHandler : MonoBehaviour
     }
     public void OnAbility2(InputAction.CallbackContext context)
     {
-        if (!disabled)
+        if (disabled == false)
         {
             if (!usingAbility)
             {
-                usingAbility = true;
                 AnimLengthCheck();
                 StartCoroutine(AbilityCoroutine(2));
             }
@@ -213,14 +201,15 @@ public class CharacterHandler : MonoBehaviour
 
     void Update()
     {
-        applyMovement = !chargingAbility;
-
         if (applyGravity)
         { ApplyGravity(); }
-        if (applyMovement)
+        if (applyMovement())
         { ApplyMovement(); }
+
+        HandleRotation();
     }
 
+    #region Movement & Gravity
     private void ApplyGravity()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -236,19 +225,37 @@ public class CharacterHandler : MonoBehaviour
 
     private void ApplyMovement()
     {
+        float movementValue()
+        {
+            if (applyMovement() == false)
+            { return 0; }
+
+            if (movementInput.x != 0 || movementInput.y != 0)
+            { return 1; }
+            else { return 0; }
+        }
+
+        charAnimator.SetFloat("AnimFloatRunning", movementValue());
+
+        if (applyMovement() == false)
+        { return; }
+
         Vector3 moveDirection = new Vector3(movementInput.x, 0, movementInput.y);
         charController.Move(moveDirection * currentSpeed * Time.deltaTime);
-
-        HandleRotation();
     }
     private void HandleRotation()
     {
+        if (disabled)
+        { return; }
+
         Vector3 lookDirection = new Vector3(rotationInput.x, 0, rotationInput.y).normalized;
 
         if (rotationInput != Vector2.zero)
         { transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection).normalized, 0.15F); }
     }
+    #endregion
 
+    #region Ability Use Coroutines
     private IEnumerator DashCoroutine()
     {
         currentSpeed = dashSpeed;
@@ -274,9 +281,11 @@ public class CharacterHandler : MonoBehaviour
         GetComponent<CharacterStats>().canBeDamaged = false;
         charAnimator.SetTrigger("AnimTriggerShield");
         GetComponent<PlayerUI_Handler>().ShieldCDTimer(animLength);
+        chargingAbility = true;
 
         yield return new WaitForSecondsRealtime(animLength);
 
+        chargingAbility = false;
         shield.SetActive(false);
         GetComponent<CharacterStats>().canBeDamaged = true;
         usingAbility = false;
@@ -284,15 +293,18 @@ public class CharacterHandler : MonoBehaviour
 
     private IEnumerator AbilityCoroutine(int abilityNum)
     {
-        charAnimator.SetTrigger("AnimTriggerShield");
-
+        if (usingAbility)
+        { yield break; }
+        
         if (abilityNum == 1)
         { GetComponent<PlayerUI_Handler>().Ability1CDTimer(animLength); }
         else if (abilityNum != 1)
         { GetComponent<PlayerUI_Handler>().Ability2CDTimer(animLength); }
 
+        usingAbility = true;
         yield return new WaitForSecondsRealtime(animLength);
         chargingAbility = false;
         usingAbility = false;
     }
+    #endregion
 }

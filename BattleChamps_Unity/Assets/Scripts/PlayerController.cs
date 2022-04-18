@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         if (value.started)
         {
-            PlayerSelectionManager.Instance.TogglePauseState(this);
+            SelectionManager.Instance.TogglePauseState(this);
         }
     }
 

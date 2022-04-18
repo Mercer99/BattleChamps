@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    public CameraFollow cameraFollow;
+    /*public CameraFollow cameraFollow;
     public List<GameObject> allPlayers = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -59,5 +59,5 @@ public class PlayerManager : MonoBehaviour
         allPlayers.Clear();
         cameraFollow.targetPositions.Clear();
         PlayerJoined();
-    }
+    }*/
 }
