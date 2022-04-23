@@ -32,7 +32,6 @@ public class SelectionManager : Singleton<SelectionManager>
 
     void Start()
     {
-
         isPaused = false;
 
         SetupBasedOnGameState();
@@ -84,10 +83,10 @@ public class SelectionManager : Singleton<SelectionManager>
 
         for (int i = 0; i < numberOfPlayers; i++)
         {
-            Vector3 spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
-            Quaternion spawnRotation = CalculateRotation();
+            //Vector3 spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
+            //Quaternion spawnRotation = CalculateRotation();
 
-            GameObject spawnedPlayer = Instantiate(playerPrefab, spawnPosition, spawnRotation) as GameObject;
+            GameObject spawnedPlayer = Instantiate(playerPrefab /*, spawnPosition, spawnRotation*/) as GameObject;
             AddPlayerToActivePlayerList(spawnedPlayer.GetComponent<PlayerController>());
         }
     }
@@ -197,7 +196,7 @@ public class SelectionManager : Singleton<SelectionManager>
 
 
     //Spawn Utilities
-
+    /*
     Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
     {
         if (numberOfPlayers == 1)
@@ -212,5 +211,5 @@ public class SelectionManager : Singleton<SelectionManager>
     Quaternion CalculateRotation()
     {
         return Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0));
-    }
+    }*/
 }
