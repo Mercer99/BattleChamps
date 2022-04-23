@@ -10,7 +10,7 @@ public class CharacterStats : MonoBehaviour
 
     public float startingHealth = 50f;
     private float maxHealth;
-    private float currentHealth;
+    public float currentHealth;
     public bool playerDied;
 
     public bool canBeDamaged;

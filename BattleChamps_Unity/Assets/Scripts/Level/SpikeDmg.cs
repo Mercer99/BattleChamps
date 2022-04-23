@@ -10,7 +10,7 @@ public class SpikeDmg : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(spikeDamage, gameObject); //dmg when collided with the spikes
+            other.gameObject.GetComponent<CharacterStats>().TakeDamage(spikeDamage, gameObject.name); //dmg when collided with the spikes
         }
         Debug.Log("Dmg taken");
     }
