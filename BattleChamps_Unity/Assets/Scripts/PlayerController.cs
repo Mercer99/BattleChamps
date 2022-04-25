@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         if (value.started)
         {
-            SelectionManager.Instance.TogglePauseState(this);
+            //SelectionManager.Instance.TogglePauseState(this);
         }
     }
 
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     //(IE: Keyboard -> Xbox Controller)
     public void OnControlsChanged()
     {
-
         if (playerInput.currentControlScheme != currentControlScheme)
         {
             currentControlScheme = playerInput.currentControlScheme;
