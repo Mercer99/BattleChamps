@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
   m_Name: DepthOfField
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
     m_Value: 1
   gaussianStart:
     m_OverrideState: 1
-    m_Value: 60
+    m_Value: 70
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 100
+    m_Value: 120
   gaussianMaxRadius:
     m_OverrideState: 0
     m_Value: 1
@@ -29,8 +29,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 1
   focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 60
   aperture:
     m_OverrideState: 0
     m_Value: 5.6
@@ -58,16 +58,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfbdbb87d3286943a057f7791b43141, type: 3}
   m_Name: ChannelMixer
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   redOutRedIn:
-    m_OverrideState: 0
-    m_Value: 100
+    m_OverrideState: 1
+    m_Value: 99
   redOutGreenIn:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 6
   redOutBlueIn:
     m_OverrideState: 1
-    m_Value: -10
+    m_Value: -5
   greenOutRedIn:
     m_OverrideState: 0
     m_Value: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   - {fileID: 7334199470390144474}
   - {fileID: 4374771525166478373}
   - {fileID: -7086186882985626895}
+  - {fileID: 7488050485259845687}
 --- !u!114 &4374771525166478373
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -115,22 +116,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   postExposure:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   contrast:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 15
   colorFilter:
     m_OverrideState: 0
-    m_Value: {r: 0.26415092, g: 0.24805155, b: 0.20060517, a: 1}
+    m_Value: {r: 0.6603774, g: 0.5539608, b: 0.15263441, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 1
-    m_Value: -19.5
+    m_Value: 30
 --- !u!114 &7334199470390144474
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -143,7 +144,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
+--- !u!114 &7488050485259845687
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 0
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 1, z: 1, w: -0.062111802}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 1, z: 1, w: -0.11180124}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 1, z: 1, w: 0.024844723}
