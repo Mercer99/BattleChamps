@@ -13,7 +13,6 @@ public class WeaponHandler : MonoBehaviour
     private GameObject playerObj;
     private string playerName;
 
-
     void OnEnable()
     {
         weaponCollider = GetComponent<MeshCollider>();
