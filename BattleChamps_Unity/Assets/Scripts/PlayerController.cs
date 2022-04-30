@@ -11,8 +11,7 @@ public class PlayerController : MonoBehaviour
     private string currentControlScheme;
 
     //Action Maps
-    private string actionMapPlayerControls = "Player Controls";
-    private string actionMapMenuControls = "Menu Controls";
+    private string actionMapMenuControls = "MenuActions";
 
     //This is called from the GameManager; when the game is being setup.
     public void SetupPlayer(int newPlayerID)
@@ -26,15 +25,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         
-    }
-
-    //This is called from Player Input, when a button has been pushed, that correspons with the 'TogglePause' action
-    public void OnTogglePause(InputAction.CallbackContext value)
-    {
-        if (value.started)
-        {
-            //SelectionManager.Instance.TogglePauseState(this);
-        }
     }
 
     //INPUT SYSTEM AUTOMATIC CALLBACKS --------------
@@ -92,11 +82,6 @@ public class PlayerController : MonoBehaviour
 
 
     //Switching Action Maps ----
-
-    public void EnableGameplayControls()
-    {
-        playerInput.SwitchCurrentActionMap(actionMapPlayerControls);
-    }
 
     public void EnablePauseMenuControls()
     {

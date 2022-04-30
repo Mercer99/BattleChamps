@@ -372,6 +372,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeMenu",
+                    "type": "Button",
+                    "id": "dfd47ef8-57a9-4e96-8851-def664aaf237",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShuffleLeft",
+                    "type": "Button",
+                    "id": "3ebeaf6f-fceb-413e-a380-a7b74bbf4570",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShuffleRight",
+                    "type": "Button",
+                    "id": "1c6aa81a-3e5b-4988-b948-f67bbd03665b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -654,7 +681,7 @@
                     "name": "",
                     "id": "1b30016f-6094-49d0-a32b-c9f8ecc83d85",
                     "path": "*/{Cancel}",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Cancel",
@@ -790,6 +817,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eaede190-9b4e-4bc7-b870-4e9974828110",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "ChangeMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1791fc4-e46e-484c-a003-260527ae2b61",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "ShuffleLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f91b843a-af82-4a41-8178-bc05ee086c6b",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "ShuffleRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

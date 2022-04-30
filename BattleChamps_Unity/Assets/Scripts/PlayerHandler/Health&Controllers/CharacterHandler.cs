@@ -14,8 +14,6 @@ public class CharacterHandler : MonoBehaviour
     [HideInInspector]
     public UIManager uiManager;
 
-    public PLAYER_VALUES playerValues;
-
     [Header("Player Values")]
     public float defaultSpeed = 12f;
     public float gravity = -9.81f;
@@ -81,8 +79,6 @@ public class CharacterHandler : MonoBehaviour
 
     private void OnEnable()
     {
-        playerValues = GetComponent<PLAYER_VALUES>();
-
         applyGravity = true;
 
         shield.SetActive(false);

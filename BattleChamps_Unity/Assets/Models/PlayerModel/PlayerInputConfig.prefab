@@ -1,0 +1,235 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1709055296121320339
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709055296121320337}
+  - component: {fileID: 2036388145006189689}
+  - component: {fileID: 1709055296121320338}
+  m_Layer: 0
+  m_Name: PlayerInputConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1709055296121320337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709055296121320339}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.4160373, y: 5.1727614, z: -3.2692256}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2036388145006189689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709055296121320339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27332251ce14b94a8f71f4da035d90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSetupMenuPrefab: {fileID: 1317594160009771848, guid: fb78e78f0d34c2b4aa0f7354eb899023, type: 3}
+  input: {fileID: 1709055296121320338}
+--- !u!114 &1709055296121320338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709055296121320339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: cfd0033153389d842a3c755ef70e9be5, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6905b973-5b76-4911-8282-ea417ed37922
+    m_ActionName: InGameActions/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 321d2208-1bbb-43aa-9114-2cdff6917fa1
+    m_ActionName: InGameActions/Aiming[/Mouse/position,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 48dd6f4e-d8eb-4288-82a9-ffa1c06c18ed
+    m_ActionName: InGameActions/Dash[/Keyboard/leftShift,/XInputControllerWindows/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dedf904b-f007-43d9-a12e-de691726d4f4
+    m_ActionName: InGameActions/BasicAttack[/Keyboard/space,/XInputControllerWindows/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cb217b9b-1944-43fc-a5e3-7b49bb8c59ed
+    m_ActionName: InGameActions/Shield/Parry[/Keyboard/q,/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6f3b8601-96b5-4b62-843d-8932f0ea37b6
+    m_ActionName: InGameActions/Ability1[/XInputControllerWindows/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 692c7f77-a168-4fac-8064-63997f542131
+    m_ActionName: InGameActions/Ability2[/XInputControllerWindows/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 203e2db7-ae74-4a27-b657-0a284fce87a1
+    m_ActionName: InGameActions/Pause[/XInputControllerWindows/start,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036388145006189689}
+        m_TargetAssemblyTypeName: SpawnPlayerSetupMenu, Assembly-CSharp
+        m_MethodName: NavigateScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7cbaddff-57cc-4902-9df4-c0ab4393f067
+    m_ActionName: MenuActions/Navigate[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036388145006189689}
+        m_TargetAssemblyTypeName: SpawnPlayerSetupMenu, Assembly-CSharp
+        m_MethodName: Ready
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5cd3cab7-adb3-48f8-9948-322e17a90a94
+    m_ActionName: MenuActions/Submit[/XInputControllerWindows/buttonSouth,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036388145006189689}
+        m_TargetAssemblyTypeName: SpawnPlayerSetupMenu, Assembly-CSharp
+        m_MethodName: BackOut
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e2f77e37-dd79-4714-8c31-ee598b13e35e
+    m_ActionName: MenuActions/Cancel[/XInputControllerWindows/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0e51c559-ded4-4ddd-9ec5-d20426ec66a0
+    m_ActionName: MenuActions/Point[/Mouse/position,/Pen/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e7824d64-3f65-4212-acd6-e60c1357be57
+    m_ActionName: MenuActions/Click[/Mouse/leftButton,/Pen/tip]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bf3ae8b5-86bb-4dae-8218-cb35a6993fa2
+    m_ActionName: MenuActions/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 69a379f9-2969-43b0-9473-fd96e3584d46
+    m_ActionName: MenuActions/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 43cbf066-94a7-48cd-9386-817e1d761e65
+    m_ActionName: MenuActions/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 67bdb843-064e-464e-85f7-986c9ab5be29
+    m_ActionName: MenuActions/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5be50d62-669d-4110-8fd1-b26cf31fc011
+    m_ActionName: MenuActions/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036388145006189689}
+        m_TargetAssemblyTypeName: SpawnPlayerSetupMenu, Assembly-CSharp
+        m_MethodName: ChangeMenu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dfd47ef8-57a9-4e96-8851-def664aaf237
+    m_ActionName: MenuActions/ChangeMenu[/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036388145006189689}
+        m_TargetAssemblyTypeName: SpawnPlayerSetupMenu, Assembly-CSharp
+        m_MethodName: NavigateChangeItemLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+    m_ActionId: 3ebeaf6f-fceb-413e-a380-a7b74bbf4570
+    m_ActionName: MenuActions/ShuffleLeft[/XInputControllerWindows/leftShoulder]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036388145006189689}
+        m_TargetAssemblyTypeName: SpawnPlayerSetupMenu, Assembly-CSharp
+        m_MethodName: NavigateChangeItemRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1c6aa81a-3e5b-4988-b948-f67bbd03665b
+    m_ActionName: MenuActions/ShuffleRight[/XInputControllerWindows/rightShoulder]
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Controller
+  m_DefaultActionMap: MenuActions
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
