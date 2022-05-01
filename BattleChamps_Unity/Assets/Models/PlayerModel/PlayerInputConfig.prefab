@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27332251ce14b94a8f71f4da035d90f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSetupMenuPrefab: {fileID: 1317594160009771848, guid: fb78e78f0d34c2b4aa0f7354eb899023, type: 3}
   input: {fileID: 1709055296121320338}
 --- !u!114 &1709055296121320338
 MonoBehaviour:
@@ -60,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: cfd0033153389d842a3c755ef70e9be5, type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -230,6 +229,6 @@ MonoBehaviour:
     m_ActionName: MenuActions/ShuffleRight[/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Controller
-  m_DefaultActionMap: MenuActions
+  m_DefaultActionMap: fb3409e8-2fc5-4b1b-858c-f1f72503a7db
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

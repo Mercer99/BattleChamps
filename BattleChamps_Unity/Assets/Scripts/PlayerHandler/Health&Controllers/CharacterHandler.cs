@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterHandler : MonoBehaviour
 {
-    private CharacterController charController;
+    [Header("Initialising")]
     public Animator charAnimator;
-    PlayerInput playerInput;
+    private CharacterController charController;
     public GameObject head;
+
+    private PlayerControls controls;
+    private PlayerConfiguration playerConfig;
 
     [HideInInspector]
     public UIManager uiManager;
@@ -26,11 +30,9 @@ public class CharacterHandler : MonoBehaviour
     public float dashTime = 1;
 
     [Header("Gravity")]
-    // Assign to Gameobject placed at players feet (checks if the feet are touching ground)
-    public Transform groundCheck;
+    public Transform groundCheck; // Assign to Gameobject placed at players feet (checks if the feet are touching ground)
     public float groundDistance = 0.4f;
-    // Assign to Custom layer that includes the ground
-    public LayerMask groundMask;
+    public LayerMask groundMask; // Assign to Custom layer that includes the ground
     private Vector3 velocity;
     private bool isGrounded;
 
@@ -60,14 +62,11 @@ public class CharacterHandler : MonoBehaviour
     public GameObject shield;
 
     public GameObject[] allWeapons;
-    private GameObject currentWeapon;
     private WeaponHandler weaponHandler;
 
     public GameObject[] headAccessories;
-    private GameObject currentHeadAccessory;
 
-    //public GameObject[] bodyAccessories;
-    //private GameObject currentBodyAccessory;
+    public GameObject[] bodyAccessories;
     #endregion
 
     public AnimationClip[] chargeAbilities;
@@ -75,6 +74,54 @@ public class CharacterHandler : MonoBehaviour
 
     private void Awake()
     {
+        controls = new PlayerControls();
+    }
+
+    public GameObject currentWeapon;
+
+    public void InitializePlayer(PlayerConfiguration config)
+    {
+        playerConfig = config;
+        currentWeapon = allWeapons[playerConfig.chosenWeapon];
+        currentWeapon.SetActive(true);
+
+        weaponHandler = currentWeapon.GetComponent<WeaponHandler>();
+
+        headAccessories[playerConfig.chosenHeadAccessory].SetActive(true);
+        bodyAccessories[playerConfig.chosenBodyAccessory].SetActive(true);
+        playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+    }
+
+    private void Input_onActionTriggered(CallbackContext obj)
+    {
+        if (obj.action.name == controls.InGameActions.Movement.name)
+        {
+            OnMove(obj);
+        }
+        if (obj.action.name == controls.InGameActions.Aiming.name)
+        {
+            PlayerRotation(obj);
+        }
+        if (obj.action.name == controls.InGameActions.Dash.name)
+        {
+            OnDash(obj);
+        }
+        if (obj.action.name == controls.InGameActions.BasicAttack.name)
+        {
+            OnAttack(obj);
+        }
+        if (obj.action.name == controls.InGameActions.ShieldParry.name)
+        {
+            OnShield(obj);
+        }
+        if (obj.action.name == controls.InGameActions.Ability1.name)
+        {
+            OnAbility1(obj);
+        }
+        if (obj.action.name == controls.InGameActions.Ability2.name)
+        {
+            OnAbility2(obj);
+        }
     }
 
     private void OnEnable()
@@ -91,19 +138,6 @@ public class CharacterHandler : MonoBehaviour
 
         GetComponent<CharacterStats>().playerID = Mode_AttritionManager.Instance.allPlayers.Count;
         Mode_AttritionManager.Instance.PlayerJoined(gameObject);
-
-        foreach (GameObject weapon in allWeapons)
-        { weapon.SetActive(false); }
-        int randWeapon = Random.Range(0, allWeapons.Length);
-        allWeapons[randWeapon].SetActive(true);
-        currentWeapon = allWeapons[randWeapon];
-        weaponHandler = currentWeapon.GetComponent<WeaponHandler>();
-
-        foreach (GameObject hat in headAccessories)
-        { hat.SetActive(false); }
-        int randHeadAcc = Random.Range(0, headAccessories.Length);
-        headAccessories[randHeadAcc].SetActive(true);
-        currentHeadAccessory = headAccessories[randHeadAcc];
     }
 
     #region Inputs
@@ -130,15 +164,15 @@ public class CharacterHandler : MonoBehaviour
     }
     #endregion
 
-    public void OnPause(InputAction.CallbackContext context)
+    public void OnPause(CallbackContext context)
     { uiManager.Pause_TogglePause(); }
 
-    public void OnMove(InputAction.CallbackContext context)
+    public void OnMove(CallbackContext context)
     { movementInput = context.ReadValue<Vector2>(); }
-    public void PlayerRotation(InputAction.CallbackContext context)
+    public void PlayerRotation(CallbackContext context)
     { rotationInput = -context.ReadValue<Vector2>(); }
 
-    public void OnDash(InputAction.CallbackContext context)
+    public void OnDash(CallbackContext context)
     {
         if (applyMovement() == false)
         { return; }
@@ -152,7 +186,7 @@ public class CharacterHandler : MonoBehaviour
             StartCoroutine(DashCoroutine());
         }
     }
-    public void OnAttack(InputAction.CallbackContext context)
+    public void OnAttack(CallbackContext context)
     {
         if (disabled)
         { return; }
@@ -166,7 +200,7 @@ public class CharacterHandler : MonoBehaviour
         GetComponent<PlayerSounds>().playAttackVoiceline();
         StartCoroutine(AttackCoroutine());
     }
-    public void OnShield(InputAction.CallbackContext context)
+    public void OnShield(CallbackContext context)
     {
         if (usingAbility || disabled)
         { return; }
@@ -175,7 +209,7 @@ public class CharacterHandler : MonoBehaviour
         AnimLengthCheck();
         StartCoroutine(ShieldCoroutine());
     }
-    public void OnAbility1(InputAction.CallbackContext context)
+    public void OnAbility1(CallbackContext context)
     {
         if (disabled == false)
         {
@@ -186,7 +220,7 @@ public class CharacterHandler : MonoBehaviour
             }
         }
     }
-    public void OnAbility2(InputAction.CallbackContext context)
+    public void OnAbility2(CallbackContext context)
     {
         if (disabled == false)
         {

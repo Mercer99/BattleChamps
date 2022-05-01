@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.SceneManagement;
 
 public class CustomiserController : MonoBehaviour
 {
@@ -40,6 +43,8 @@ public class CustomiserController : MonoBehaviour
     public AudioClip swing;
     public AudioClip click;
 
+    private PlayerControls controls;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -48,6 +53,86 @@ public class CustomiserController : MonoBehaviour
 
         menu1.SetActive(true);
         menu2.SetActive(false);
+
+        controls = new PlayerControls();
+    }
+
+    public void InitializePlayer(PlayerConfiguration config)
+    {
+        config.Input.onActionTriggered += Input_onActionTriggered;
+    }
+
+    private void Input_onActionTriggered(CallbackContext obj)
+    {
+        if (obj.action.name == controls.MenuActions.Navigate.name)
+        {
+            Vector2 scrollValue = obj.ReadValue<Vector2>();
+
+            if (obj.action.WasPressedThisFrame())
+            {
+                if (inputDisabled)
+                { return; }
+                if (scrollValue.y > 0)
+                {
+                    onPressUp();
+                }
+                else if (scrollValue.y < 0)
+                {
+                    onPressDown();
+                }
+            }
+
+            if (obj.action.WasReleasedThisFrame())
+            {
+                onReleaseUp();
+                onReleaseDown();
+                if (scrollValue.y > 0)
+                {
+                    onReleaseUp();
+                }
+                else if (scrollValue.y < 0)
+                {
+                    onReleaseDown();
+                }
+            }
+        }
+        if (obj.action.name == controls.MenuActions.Submit.name)
+        {
+            PlayerReady();
+            playerReady = true;
+        }
+        if (obj.action.name == controls.MenuActions.Cancel.name)
+        {
+            if (obj.performed)
+            {
+                if (playerReady)
+                {
+                    PlayerUnready();
+                    playerReady = false;
+                    return;
+                }
+                else
+                {
+                    PlayerConfigurationManager.Instance.Destroy();
+                    SceneManager.LoadScene(0);
+                }
+            }
+        }
+        if (obj.action.name == controls.MenuActions.ChangeMenu.name)
+        {
+            if (obj.performed)
+            { MenuSwap(); }
+        }
+        if (obj.action.name == controls.MenuActions.ShuffleLeft.name)
+        {
+            if (obj.performed)
+            { PreviousItem(); }
+        }
+        if (obj.action.name == controls.MenuActions.ShuffleRight.name)
+        {
+            if (obj.performed)
+            { NextItem(); }
+        }
     }
 
     #region Scroll Inputs
@@ -171,7 +256,7 @@ public class CustomiserController : MonoBehaviour
 
         int randomVL = Random.Range(0, readyVoicelines.Length - 1);
         voicelinesSource.PlayOneShot(readyVoicelines[randomVL]);
-        GetComponent<PlayerSetupMenuController>().ReadyPlayer();
+        GetComponent<PlayerSetupMenuController>().SelectItems();
     }
     public void PlayerUnready()
     {

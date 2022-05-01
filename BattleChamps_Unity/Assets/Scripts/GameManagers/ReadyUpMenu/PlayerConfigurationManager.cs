@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerConfigurationManager : MonoBehaviour
 {
-    private List<PlayerConfiguration> playerConfigs;
+    public List<PlayerConfiguration> playerConfigs;
     [SerializeField]
-    private int MaxPlayers = 4;
+    private int maxPlayers = 4;
 
     public GameObject[] customisers;
 
@@ -24,7 +24,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         else
         {
             Instance = this;
-            //DontDestroyOnLoad(Instance);
+            DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfiguration>();
         }
 
@@ -36,12 +36,15 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void HandlePlayerJoin(PlayerInput pi)
     {
-        Debug.Log("player joined " + pi.playerIndex);
-        pi.transform.SetParent(transform);
-
-        if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
+        if (playerConfigs.Count < maxPlayers)
         {
-            playerConfigs.Add(new PlayerConfiguration(pi));
+            Debug.Log("player joined " + pi.playerIndex);
+            pi.transform.SetParent(transform);
+
+            if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
+            {
+                playerConfigs.Add(new PlayerConfiguration(pi));
+            }
         }
     }
     public void HandlePlayerLeft(PlayerInput pi)
@@ -62,15 +65,19 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public void SetPlayerValues(int index, int headAccInt, int bodyAccInt, int weaponInt)
     {
-        playerConfigs[index].chosenHeadAccessory = headAccInt;
-        playerConfigs[index].chosenBodyAccessory = bodyAccInt;
-        playerConfigs[index].chosenWeapon = weaponInt;
+        int pIndex = index;
+        playerConfigs[pIndex].chosenHeadAccessory = headAccInt;
+        playerConfigs[pIndex].chosenBodyAccessory = bodyAccInt;
+        playerConfigs[pIndex].chosenWeapon = weaponInt;
+
+        ReadyPlayer(pIndex);
     }
 
     public void ReadyPlayer(int index)
     {
         playerConfigs[index].isReady = true;
-        if (playerConfigs.Count == MaxPlayers && playerConfigs.All(p => p.isReady == true))
+
+        if (playerConfigs.All(p => p.isReady == true))
         {
             SceneManager.LoadScene(2);
         }

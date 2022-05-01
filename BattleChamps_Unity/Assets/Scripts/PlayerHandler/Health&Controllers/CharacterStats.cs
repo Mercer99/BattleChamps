@@ -26,7 +26,6 @@ public class CharacterStats : MonoBehaviour
         currentHealth = maxHealth;
 
         GetComponent<PlayerUI_Handler>().EnableUI(playerID);
-        UIManager.Instance.AddColour(GetComponent<PlayerUI_Handler>().playerColour, playerID + 1);
     }
 
     // Update is called once per frame
@@ -45,7 +44,7 @@ public class CharacterStats : MonoBehaviour
             currentHealth -= damage;
 
             ParticleSystem particle = Instantiate(hitParticle, particlePos);
-            GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
+            //GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
 
             if (currentHealth <= 0)
             {

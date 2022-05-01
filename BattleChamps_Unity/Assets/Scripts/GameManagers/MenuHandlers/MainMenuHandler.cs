@@ -7,9 +7,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : Singleton<MainMenuHandler>
 {
+    public GameObject playerObj;
+
     void Start()
     {
+        if (GameObject.Find("ConfigManager") != null)
+        { Destroy(GameObject.Find("ConfigManager")); }
 
+        GetComponent<PlayerInputManager>().enabled = true;
+        playerObj.SetActive(true);
     }
 
     void Update()

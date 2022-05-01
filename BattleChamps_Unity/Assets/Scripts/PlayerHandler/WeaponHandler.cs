@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour
 {
-    private MeshCollider weaponCollider;
+    private Collider weaponCollider;
 
     public float weaponDamage;
     [HideInInspector]
@@ -13,16 +13,16 @@ public class WeaponHandler : MonoBehaviour
     private GameObject playerObj;
     private string playerName;
 
-    void OnEnable()
+    void Start()
     {
-        weaponCollider = GetComponent<MeshCollider>();
+        weaponCollider = GetComponent<Collider>();
         enableDamage = false;
 
         playerObj = transform.root.gameObject;
-        playerName = playerObj.GetComponent<CharacterStats>().playerName;
+        playerName = "DAVE"; //playerObj.GetComponent<CharacterStats>().playerName;
         
         // Ignore collision between weapon & weapon holder
-        Physics.IgnoreCollision(weaponCollider, playerObj.GetComponent<CharacterController>());
+        Physics.IgnoreCollision(playerObj.GetComponent<CharacterController>(), weaponCollider);
     }
 
     // Update is called once per frame
