@@ -35,15 +35,8 @@ public class PlayerSetupMenuController : MonoBehaviour
         CustomiserController controller = GetComponent<CustomiserController>();
         PlayerConfigurationManager.Instance.SetPlayerValues(playerIndex, controller.currentHeadAccessory, 
             controller.currentBodyAccessory, controller.currentWeapon);
-        ReadyPlayer();
     }
 
-    public void ReadyPlayer()
-    {
-        if (!inputEnabled) { return; }
-
-        PlayerConfigurationManager.Instance.ReadyPlayer(playerIndex);
-    }
     public void UnreadyPlayer()
     {
         if (!inputEnabled) { return; }

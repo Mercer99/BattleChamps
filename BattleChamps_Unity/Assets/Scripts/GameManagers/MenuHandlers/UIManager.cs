@@ -27,17 +27,6 @@ public class UIManager : Singleton<UIManager>
 
     }
 
-    public void AddColour(Color colour, int playerNum)
-    {
-        GameObject playerColour = Instantiate(coloursPrefab, coloursPanel.transform);
-        playerList.Add(playerColour);
-        playerColour.GetComponent<PlayerColour>().ChangeInfo(colour, playerNum);
-    }
-    public void RemoveColour(int playerNum)
-    {
-        Destroy(playerList[playerNum].gameObject);
-    }
-
     #region Pause Menu Functions
     public void Pause_ResumeGame()
     {
