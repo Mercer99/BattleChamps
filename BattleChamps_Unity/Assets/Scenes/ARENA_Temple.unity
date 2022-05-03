@@ -6839,7 +6839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.66
+      value: 11.459
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6847,7 +6847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.568
+      value: 4.828
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8788,7 +8788,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.66
+      value: 11.541
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24998,7 +24998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.89
+      value: -3.831
       objectReference: {fileID: 0}
     - target: {fileID: 5609218093238982765, guid: b23b489e9dea7084bbef35bd2f16ecdf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26636,7 +26636,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraFollow: {fileID: 341161630}
   allPlayers: []
-  players: []
+  configManager: {fileID: 0}
+  PlayerSpawns: []
+  playerPrefab: {fileID: 0}
 --- !u!114 &1769252045
 MonoBehaviour:
   m_ObjectHideFlags: 0
