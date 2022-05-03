@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/0_MainMenu.unity
+    path: Assets/Scenes/MENU_MainMenu.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/1_PlayerSelectScreen.unity
+    path: Assets/Scenes/MENU_GameSelection.unity
+    guid: db25de19f110ae74c8f3104dd07f360e
+  - enabled: 1
+    path: Assets/Scenes/MENU_PlayerSelection.unity
     guid: 2620734c2cdecb6418b6b18373fc3dbc
+  - enabled: 1
+    path: Assets/Scenes/ARENA_Temple.unity
+    guid: 204b498e83cbbfc41b3c14070782fad4
+  - enabled: 1
+    path: Assets/Scenes/ARENA_Coliseum.unity
+    guid: c3cfe814f0d41da4999a9cc2a1e73fda
   - enabled: 1
     path: Assets/Scenes/Level_ArenaTest.unity
     guid: 83b9b8cc06fefc242a55d4b9ba0d1fc1

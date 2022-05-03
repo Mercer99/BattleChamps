@@ -13,6 +13,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public GameObject[] customisers;
 
+    public int levelNum;
+
     public static PlayerConfigurationManager Instance { get; private set; }
 
     private void Awake()
@@ -27,7 +29,6 @@ public class PlayerConfigurationManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
             playerConfigs = new List<PlayerConfiguration>();
         }
-
     }
     public void Destroy()
     {
@@ -79,7 +80,9 @@ public class PlayerConfigurationManager : MonoBehaviour
 
         if (playerConfigs.All(p => p.isReady == true))
         {
-            SceneManager.LoadScene(2);
+            GameObject gameConfig = GameObject.Find("GameConfigManager");
+            GameConfigurationManager gameConfigManager = gameConfig.GetComponent<GameConfigurationManager>();
+            SceneManager.LoadScene(gameConfigManager.levelName);
         }
     }
     public void UnreadyPlayer(int index)

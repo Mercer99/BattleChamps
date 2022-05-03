@@ -42,6 +42,7 @@ public class CharacterHandler : MonoBehaviour
     private bool dashed = false;
     private bool attacking = false;
     private bool usingAbility = false;
+
     private float currentSpeed;
     private float animLength;
 
@@ -59,6 +60,7 @@ public class CharacterHandler : MonoBehaviour
     }
 
     #region Customisation Variables
+    [Header("Accessories & Weapons")]
     public GameObject shield;
 
     public GameObject[] allWeapons;
@@ -73,11 +75,13 @@ public class CharacterHandler : MonoBehaviour
     public AnimationClip[] quickAbilites;
 
     private void Awake()
-    {
-        controls = new PlayerControls();
-    }
+    { controls = new PlayerControls(); }
 
     public GameObject currentWeapon;
+    public GameObject abilityHolderObj1;
+    public GameObject abilityHolderObj2;
+    private AbilityHolder abilityHolder1;
+    private AbilityHolder abilityHolder2;
 
     public void InitializePlayer(PlayerConfiguration config)
     {
@@ -126,6 +130,9 @@ public class CharacterHandler : MonoBehaviour
 
     private void OnEnable()
     {
+        abilityHolder1 = abilityHolderObj1.GetComponent<AbilityHolder>();
+        abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
+
         applyGravity = true;
 
         shield.SetActive(false);
@@ -211,25 +218,27 @@ public class CharacterHandler : MonoBehaviour
     }
     public void OnAbility1(CallbackContext context)
     {
-        if (disabled == false)
-        {
-            if (!usingAbility)
-            {
-                AnimLengthCheck();
-                StartCoroutine(AbilityCoroutine(1));
-            }
-        }
+        if (usingAbility || disabled)
+        { return; }
+
+        if (abilityHolder1.state != AbilityHolder.AbilityState.ready)
+        { return; }
+        float abilityCooldown = abilityHolder1.ability.activeTime + abilityHolder1.ability.cooldownTime;
+        abilityHolder1.Activate();
+
+        StartCoroutine(AbilityCoroutine1(abilityCooldown, abilityHolder1.ability.activeTime));
     }
     public void OnAbility2(CallbackContext context)
     {
-        if (disabled == false)
-        {
-            if (!usingAbility)
-            {
-                AnimLengthCheck();
-                StartCoroutine(AbilityCoroutine(2));
-            }
-        }
+        if (usingAbility || disabled)
+        { return; }
+
+        if (abilityHolder2.state != AbilityHolder.AbilityState.ready)
+        { return; }
+        float abilityCooldown = abilityHolder2.ability.activeTime + abilityHolder2.ability.cooldownTime;
+        abilityHolder2.Activate();
+
+        StartCoroutine(AbilityCoroutine2(abilityCooldown, abilityHolder2.ability.activeTime));
     }
     #endregion
 
@@ -241,6 +250,11 @@ public class CharacterHandler : MonoBehaviour
         { ApplyMovement(); }
 
         HandleRotation();
+        charAnimator.SetBool("AnimBoolStunned", disabled);
+
+        if (abilityHolder1.state == AbilityHolder.AbilityState.active || abilityHolder2.state == AbilityHolder.AbilityState.active || shield.activeInHierarchy || currentSpeed != defaultSpeed)
+        { usingAbility = true; }
+        else { usingAbility = false; }
     }
 
     #region Movement & Gravity
@@ -249,9 +263,7 @@ public class CharacterHandler : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
+        { velocity.y = -2f; }
 
         velocity.y += gravity * Time.deltaTime;
         charController.Move(velocity * Time.deltaTime);
@@ -313,32 +325,27 @@ public class CharacterHandler : MonoBehaviour
     {
         shield.SetActive(true);
         GetComponent<CharacterStats>().canBeDamaged = false;
-        charAnimator.SetTrigger("AnimTriggerShield");
+        charAnimator.Play("A_Shield");
         GetComponent<PlayerUI_Handler>().ShieldCDTimer(animLength);
-        chargingAbility = true;
 
         yield return new WaitForSecondsRealtime(animLength);
-
-        chargingAbility = false;
         shield.SetActive(false);
         GetComponent<CharacterStats>().canBeDamaged = true;
-        usingAbility = false;
     }
 
-    private IEnumerator AbilityCoroutine(int abilityNum)
+    private IEnumerator AbilityCoroutine1(float cooldown, float activeTime)
     {
-        if (usingAbility)
-        { yield break; }
-        
-        if (abilityNum == 1)
-        { GetComponent<PlayerUI_Handler>().Ability1CDTimer(animLength); }
-        else if (abilityNum != 1)
-        { GetComponent<PlayerUI_Handler>().Ability2CDTimer(animLength); }
-
-        usingAbility = true;
-        yield return new WaitForSecondsRealtime(animLength);
-        chargingAbility = false;
-        usingAbility = false;
+        GetComponent<PlayerUI_Handler>().Ability1CDTimer(cooldown);
+        if (abilityHolder2.state == AbilityHolder.AbilityState.ready)
+        { GetComponent<PlayerUI_Handler>().Ability2CDTimer(activeTime); }
+        yield break;
+    }
+    private IEnumerator AbilityCoroutine2(float cooldown, float activeTime)
+    {
+        if (abilityHolder1.state == AbilityHolder.AbilityState.ready)
+        { GetComponent<PlayerUI_Handler>().Ability1CDTimer(activeTime); }
+        GetComponent<PlayerUI_Handler>().Ability2CDTimer(cooldown);
+        yield break;
     }
     #endregion
 }
