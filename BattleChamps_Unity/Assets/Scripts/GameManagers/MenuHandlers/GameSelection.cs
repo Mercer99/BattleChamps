@@ -47,7 +47,7 @@ public class GameSelection : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake()
-    { 
+    {
         foreach (var level in allArenas)
         { level.arenaObj.SetActive(false); }
         allArenas[currentLevelNum].arenaObj.SetActive(true);
@@ -64,12 +64,6 @@ public class GameSelection : MonoBehaviour
         if (gameLength <= 0)
         { gameLengthTextbox.text = "Endless"; }
         else { gameLengthTextbox.text = gameLength.ToString("F0"); }
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
         
     }
 
@@ -127,5 +121,10 @@ public class GameSelection : MonoBehaviour
         configManager.levelName = arenaSwitchName;
 
         SceneManager.LoadScene(2);
+    }
+
+    public void BackToMain()
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -10,7 +10,6 @@ public class CharacterHandler : MonoBehaviour
     [Header("Initialising")]
     public Animator charAnimator;
     private CharacterController charController;
-    public GameObject head;
 
     private PlayerControls controls;
     private PlayerConfiguration playerConfig;
@@ -74,18 +73,40 @@ public class CharacterHandler : MonoBehaviour
     public AnimationClip[] chargeAbilities;
     public AnimationClip[] quickAbilites;
 
-    private void Awake()
-    { controls = new PlayerControls(); }
-
     public GameObject currentWeapon;
     public GameObject abilityHolderObj1;
     public GameObject abilityHolderObj2;
     private AbilityHolder abilityHolder1;
     private AbilityHolder abilityHolder2;
 
+    #region Initialising & Update
+    private void Awake()
+    { controls = new PlayerControls(); }
+
+    private void OnEnable()
+    {
+        abilityHolder1 = abilityHolderObj1.GetComponent<AbilityHolder>();
+        abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
+
+        applyGravity = true;
+
+        shield.SetActive(false);
+
+        charController = GetComponent<CharacterController>();
+
+        currentSpeed = defaultSpeed;
+
+        uiManager = UIManager.Instance;
+
+        GetComponent<CharacterStats>().playerID = Mode_AttritionManager.Instance.allPlayers.Count;
+        Mode_AttritionManager.Instance.PlayerJoined(gameObject);
+    }
+
     public void InitializePlayer(PlayerConfiguration config)
     {
         playerConfig = config;
+        GetComponent<CharacterStats>().teamNumber = playerConfig.teamNum;
+
         currentWeapon = allWeapons[playerConfig.chosenWeapon];
         currentWeapon.SetActive(true);
 
@@ -95,6 +116,22 @@ public class CharacterHandler : MonoBehaviour
         bodyAccessories[playerConfig.chosenBodyAccessory].SetActive(true);
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
+
+    void Update()
+    {
+        if (applyGravity)
+        { ApplyGravity(); }
+        if (applyMovement())
+        { ApplyMovement(); }
+
+        HandleRotation();
+        charAnimator.SetBool("AnimBoolStunned", disabled);
+
+        if (abilityHolder1.state == AbilityHolder.AbilityState.active || abilityHolder2.state == AbilityHolder.AbilityState.active || shield.activeInHierarchy || currentSpeed != defaultSpeed)
+        { usingAbility = true; }
+        else { usingAbility = false; }
+    }
+    #endregion
 
     private void Input_onActionTriggered(CallbackContext obj)
     {
@@ -126,25 +163,6 @@ public class CharacterHandler : MonoBehaviour
         {
             OnAbility2(obj);
         }
-    }
-
-    private void OnEnable()
-    {
-        abilityHolder1 = abilityHolderObj1.GetComponent<AbilityHolder>();
-        abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
-
-        applyGravity = true;
-
-        shield.SetActive(false);
-
-        charController = GetComponent<CharacterController>();
-
-        currentSpeed = defaultSpeed;
-
-        uiManager = UIManager.Instance;
-
-        GetComponent<CharacterStats>().playerID = Mode_AttritionManager.Instance.allPlayers.Count;
-        Mode_AttritionManager.Instance.PlayerJoined(gameObject);
     }
 
     #region Inputs
@@ -242,21 +260,6 @@ public class CharacterHandler : MonoBehaviour
     }
     #endregion
 
-    void Update()
-    {
-        if (applyGravity)
-        { ApplyGravity(); }
-        if (applyMovement())
-        { ApplyMovement(); }
-
-        HandleRotation();
-        charAnimator.SetBool("AnimBoolStunned", disabled);
-
-        if (abilityHolder1.state == AbilityHolder.AbilityState.active || abilityHolder2.state == AbilityHolder.AbilityState.active || shield.activeInHierarchy || currentSpeed != defaultSpeed)
-        { usingAbility = true; }
-        else { usingAbility = false; }
-    }
-
     #region Movement & Gravity
     private void ApplyGravity()
     {
@@ -342,9 +345,11 @@ public class CharacterHandler : MonoBehaviour
     }
     private IEnumerator AbilityCoroutine2(float cooldown, float activeTime)
     {
-        if (abilityHolder1.state == AbilityHolder.AbilityState.ready)
-        { GetComponent<PlayerUI_Handler>().Ability1CDTimer(activeTime); }
-        GetComponent<PlayerUI_Handler>().Ability2CDTimer(cooldown);
+        //if (abilityHolder1.state == AbilityHolder.AbilityState.ready)
+        //{ GetComponent<PlayerUI_Handler>().Ability1CDTimer(activeTime); }
+        //GetComponent<PlayerUI_Handler>().Ability2CDTimer(cooldown);
+
+        disabled = true;
         yield break;
     }
     #endregion

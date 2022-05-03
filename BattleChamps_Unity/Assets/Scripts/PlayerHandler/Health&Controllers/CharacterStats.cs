@@ -7,6 +7,7 @@ public class CharacterStats : MonoBehaviour
 {
     public int playerID;
     public string playerName;
+    public int teamNumber;
 
     public float startingHealth = 50f;
     private float maxHealth;
@@ -25,6 +26,7 @@ public class CharacterStats : MonoBehaviour
         maxHealth = startingHealth;
         currentHealth = maxHealth;
 
+        GetComponent<PlayerUI_Handler>().teamNum = teamNumber;
         GetComponent<PlayerUI_Handler>().EnableUI(playerID);
     }
 
