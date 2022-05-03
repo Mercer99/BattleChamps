@@ -15,13 +15,15 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public int levelNum;
 
+    public string[] scenes;
+
     public static PlayerConfigurationManager Instance { get; private set; }
 
     private void Awake()
     {
         if (Instance != null)
         {
-            Debug.Log("[Singleton] Trying to instantiate a seccond instance of a singleton class.");
+            Debug.Log("[Singleton] Trying to instantiate a second instance of a singleton class.");
         }
         else
         {
@@ -71,18 +73,25 @@ public class PlayerConfigurationManager : MonoBehaviour
         playerConfigs[pIndex].chosenBodyAccessory = bodyAccInt;
         playerConfigs[pIndex].chosenWeapon = weaponInt;
 
-        ReadyPlayer(pIndex);
+        ReadyPlayer(pIndex, false);
     }
 
-    public void ReadyPlayer(int index)
+    public void ReadyPlayer(int index, bool toLevel)
     {
         playerConfigs[index].isReady = true;
 
         if (playerConfigs.All(p => p.isReady == true))
         {
-            GameObject gameConfig = GameObject.Find("GameConfigManager");
-            GameConfigurationManager gameConfigManager = gameConfig.GetComponent<GameConfigurationManager>();
-            SceneManager.LoadScene(gameConfigManager.levelName);
+            if (toLevel)
+            {
+                SceneManager.LoadScene(5);
+                /*if (GameObject.Find("GameConfigManager") != null)
+                {
+                    SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                }
+                else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }*/
+            }
+            else { SceneManager.LoadScene("MENU_TeamSelection"); }
         }
     }
     public void UnreadyPlayer(int index)
@@ -105,4 +114,6 @@ public class PlayerConfiguration
     public int chosenWeapon { get; set; }
     public int chosenHeadAccessory { get; set; }
     public int chosenBodyAccessory { get; set; }
+
+    public int teamNum { get; set; }
 }

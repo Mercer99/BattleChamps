@@ -21,7 +21,6 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<CharacterHandler>().head.transform.localScale *= 2;
             Destroy(gameObject);
         }
     }

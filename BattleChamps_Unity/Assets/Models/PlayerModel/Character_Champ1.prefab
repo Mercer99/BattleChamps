@@ -2090,10 +2090,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charAnimator: {fileID: 7347708007913862275}
-  head: {fileID: 0}
   uiManager: {fileID: 0}
   defaultSpeed: 12
-  gravity: -9.81
+  gravity: -5
   playerName: 
   dashCooldown: 2
   dashSpeed: 50
@@ -2147,6 +2146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   playerName: 
+  teamNumber: 0
   startingHealth: 50
   currentHealth: 0
   playerDied: 0
@@ -2178,6 +2178,10 @@ MonoBehaviour:
   - {r: 0.58431375, g: 1, b: 0.36078432, a: 1}
   - {r: 1, g: 0.72156864, b: 0.30588236, a: 1}
   playerColour: {r: 0, g: 0, b: 0, a: 0}
+  teamNum: 0
+  teamColours:
+  - {r: 0.29411766, g: 0.29411766, b: 1, a: 1}
+  - {r: 1, g: 0.29411766, b: 0.29411766, a: 1}
   healthBar: {fileID: 298733268069935562}
   dashIcon: {fileID: 298733268652805079}
   shieldIcon: {fileID: 298733268128002691}
@@ -2321,6 +2325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityHolder: 2
   ability: {fileID: 11400000, guid: 6b5f654a225551d458fc3e04130449d0, type: 2}
+  activeTime: 0
+  state: 0
 --- !u!1 &2197045857956763366
 GameObject:
   m_ObjectHideFlags: 0
@@ -2367,6 +2373,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityHolder: 1
   ability: {fileID: 11400000, guid: 7d6671e1d39f7604389ab47cdba98262, type: 2}
+  activeTime: 0
+  state: 0
 --- !u!1 &2939436991690096600
 GameObject:
   m_ObjectHideFlags: 0

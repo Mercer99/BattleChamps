@@ -12,6 +12,9 @@ public class PlayerUI_Handler : MonoBehaviour
     [HideInInspector]
     public Color playerColour;
 
+    public int teamNum;
+    public Color[] teamColours;
+
     public Image healthBar;
     public Image dashIcon;
     public Image shieldIcon;
@@ -28,10 +31,21 @@ public class PlayerUI_Handler : MonoBehaviour
     // Start is called before the first frame update
     public void EnableUI(int playerID)
     {
-        foreach (Image image in playerUI)
+        if (teamNum > 0)
         {
-            image.color = playerColours[playerID];
-            playerColour = playerColours[playerID];
+            foreach (Image image in playerUI)
+            {
+                image.color = teamColours[teamNum - 1];
+                playerColour = teamColours[teamNum - 1];
+            }
+        }
+        else
+        {
+            foreach (Image image in playerUI)
+            {
+                image.color = playerColours[playerID];
+                playerColour = playerColours[playerID];
+            }
         }
 
         foreach (GameObject player in playerNumber)

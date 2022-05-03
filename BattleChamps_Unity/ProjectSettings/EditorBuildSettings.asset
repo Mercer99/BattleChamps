@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_ArenaTest.unity
     guid: 83b9b8cc06fefc242a55d4b9ba0d1fc1
+  - enabled: 1
+    path: Assets/Scenes/MENU_TeamSelection.unity
+    guid: 8b47c269fb8e2bc4a9a84e04cb683e8b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: c6a23f934f682a849a902760648117c3, type: 2}

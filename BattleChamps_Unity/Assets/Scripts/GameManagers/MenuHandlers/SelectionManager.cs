@@ -6,24 +6,42 @@ using UnityEngine.SceneManagement;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
-    // https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/Components.html
+    public GameObject[] Arenas;
 
-    //Local Multiplayer
-    public int numberOfPlayers;
+    public GameObject teamMenu;
 
-    public GameObject[] Customisers;
+    public GameObject gameConfig;
+    public GameObject configManager;
+
+    public void Awake()
+    {
+        configManager = GameObject.Find("ConfigManager");
+
+        if (GameObject.Find("GameConfigManager") != null)
+        {
+            gameConfig = GameObject.Find("GameConfigManager");
+
+            foreach (GameObject arena in Arenas)
+            {
+                if (gameConfig.GetComponent<GameConfigurationManager>().levelName == arena.name)
+                { arena.SetActive(true); break; }
+            }
+        }
+        else { Arenas[0].SetActive(true); }
+    }
+
+    [SerializeField]
+    private GameObject playerPrefab;
 
     void Start()
     {
-    }
+        var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
 
-    public int NumberOfConnectedDevices()
-    {
-        return InputSystem.devices.Count;
-    }
-
-    public void ReturnToStart()
-    {
-        SceneManager.LoadScene(0);
+        for (int i = 0; i < playerConfigs.Length; i++)
+        {
+            var selectionMenu = Instantiate(playerPrefab, teamMenu.transform);
+            playerConfigs[i].Input.SwitchCurrentActionMap("MenuActions");
+            selectionMenu.GetComponent<TeamSelectionMenu>().InitializePlayer(playerConfigs[i]);
+        }
     }
 }

@@ -44,6 +44,5 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
             playerConfigs[i].Input.SwitchCurrentActionMap("InGameActions");
             player.GetComponent<CharacterHandler>().InitializePlayer(playerConfigs[i]);
         }
-
     }
 }
