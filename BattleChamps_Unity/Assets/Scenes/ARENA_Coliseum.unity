@@ -11388,7 +11388,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.6
     m_Bias: 0.99
     m_NormalBias: 0
     m_NearPlane: 0.1
@@ -14783,7 +14783,7 @@ Transform:
   m_GameObject: {fileID: 1338067009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.03, y: -7.92, z: -1.98}
-  m_LocalScale: {x: 12.872676, y: 1.3556708, z: 12.872676}
+  m_LocalScale: {x: 15.830816, y: 2.4664614, z: 15.830816}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -18590,8 +18590,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 125
-  m_fontSizeBase: 125
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

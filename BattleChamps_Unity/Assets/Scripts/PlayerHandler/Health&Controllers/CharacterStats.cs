@@ -39,9 +39,9 @@ public class CharacterStats : MonoBehaviour
         GetComponent<PlayerUI_Handler>().UpdateUI(currentHealth, maxHealth);
     }
 
-    public void TakeDamage(float damage, int damageDealer)
+    public void TakeDamage(float damage, int damageDealer, bool goThroughBlock)
     {
-        if (canBeDamaged)
+        if (canBeDamaged || goThroughBlock)
         {
             currentHealth -= damage;
 

@@ -11,7 +11,7 @@ public class BombHitbox : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.GetComponent<CharacterStats>().TakeDamage(bombDamage, bomb.playerInt);
+            other.GetComponent<CharacterStats>().TakeDamage(bombDamage, bomb.playerInt, true);
             other.GetComponent<KnockbackReceiver>().Knockback(gameObject.transform.root.gameObject);
         }
     }

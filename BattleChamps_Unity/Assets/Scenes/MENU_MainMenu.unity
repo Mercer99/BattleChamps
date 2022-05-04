@@ -9323,8 +9323,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.11, y: 4.0913243, z: 5.3072004}
-  m_Center: {x: -0.00000032089815, y: 2.0756617, z: 2.146956}
+  m_Size: {x: 1.11, y: 4.0913243, z: 13.027615}
+  m_Center: {x: -0.00000032089815, y: 2.0756614, z: 6.007163}
 --- !u!1001 &592517788
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11242,7 +11242,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 6.429367}
+  m_BoundingSphereOverride: {x: 9.01e-43, y: 0, z: 0, w: -20982}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -13120,6 +13120,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Small_Pillar (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f42c3b0c14de021408ae0e5218273dc2, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f42c3b0c14de021408ae0e5218273dc2, type: 3}
 --- !u!4 &890031471 stripped
@@ -13143,8 +13147,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0132904, y: 3.9284542, z: 4.7091446}
-  m_Center: {x: -0.0000005348303, y: 1.9642271, z: 1.8479272}
+  m_Size: {x: 1.0132904, y: 3.9284542, z: 12.549908}
+  m_Center: {x: -0.0000005348303, y: 1.9642271, z: 5.7683096}
 --- !u!1001 &892651322
 PrefabInstance:
   m_ObjectHideFlags: 0

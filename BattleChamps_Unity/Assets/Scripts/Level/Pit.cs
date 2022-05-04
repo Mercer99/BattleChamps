@@ -9,8 +9,8 @@ public class Pit : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             float instantKillDamage = other.GetComponent<CharacterStats>().currentHealth;
-            other.GetComponent<CharacterStats>().TakeDamage(instantKillDamage, 6);
+            other.GetComponent<CharacterStats>().canBeDamaged = true;
+            other.GetComponent<CharacterStats>().TakeDamage(instantKillDamage, 6, true);
         }
-        
     }
 }
