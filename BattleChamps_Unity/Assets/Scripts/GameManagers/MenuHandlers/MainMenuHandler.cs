@@ -22,7 +22,9 @@ public class MainMenuHandler : Singleton<MainMenuHandler>
         optionsActive = false;
         menuActive = true;
         if (GameObject.Find("ConfigManager") != null)
-        { Destroy(GameObject.Find("ConfigManager")); }
+        {
+            Destroy(GameObject.Find("ConfigManager")); 
+        }
         if (GameObject.Find("GameConfigManager") != null)
         { Destroy(GameObject.Find("GameConfigManager")); }
 

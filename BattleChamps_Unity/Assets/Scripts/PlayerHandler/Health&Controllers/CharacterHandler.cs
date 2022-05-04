@@ -45,6 +45,8 @@ public class CharacterHandler : MonoBehaviour
     private float currentSpeed;
     private float animLength;
 
+    public bool removeRotation;
+
     private bool chargingAbility = false;
     public bool disabled = false;
 
@@ -124,12 +126,15 @@ public class CharacterHandler : MonoBehaviour
         if (applyMovement())
         { ApplyMovement(); }
 
-        HandleRotation();
+        if (!removeRotation)
+        { HandleRotation(); }
         charAnimator.SetBool("AnimBoolStunned", disabled);
 
         if (abilityHolder1.state == AbilityHolder.AbilityState.active || abilityHolder2.state == AbilityHolder.AbilityState.active || shield.activeInHierarchy || currentSpeed != defaultSpeed)
         { usingAbility = true; }
         else { usingAbility = false; }
+
+        WhirlwindAbility();
     }
     #endregion
 
@@ -257,6 +262,9 @@ public class CharacterHandler : MonoBehaviour
         abilityHolder2.Activate();
 
         StartCoroutine(AbilityCoroutine2(abilityCooldown, abilityHolder2.ability.activeTime));
+
+        if (abilityHolder2.ability.abilityName == "Whirlwind")
+        { Invoke("DeactivateWhirlwind", abilityHolder2.ability.activeTime); }
     }
     #endregion
 
@@ -345,12 +353,38 @@ public class CharacterHandler : MonoBehaviour
     }
     private IEnumerator AbilityCoroutine2(float cooldown, float activeTime)
     {
-        //if (abilityHolder1.state == AbilityHolder.AbilityState.ready)
-        //{ GetComponent<PlayerUI_Handler>().Ability1CDTimer(activeTime); }
-        //GetComponent<PlayerUI_Handler>().Ability2CDTimer(cooldown);
-
-        disabled = true;
+        if (abilityHolder1.state == AbilityHolder.AbilityState.ready)
+        { GetComponent<PlayerUI_Handler>().Ability1CDTimer(activeTime); }
+        GetComponent<PlayerUI_Handler>().Ability2CDTimer(cooldown);
         yield break;
     }
     #endregion
+
+    [SerializeField] private float whirlwindSpeed = 1000;
+    [HideInInspector] public bool activateWhirlwind;
+    public GameObject whirlwindAxe;
+    float yRotation = 0;
+    public void WhirlwindAbility()
+    {
+        if (activateWhirlwind)
+        {
+            currentWeapon.SetActive(false);
+            removeRotation = true;
+
+            // Deltatime is the amount of time it takes for a frame to pass
+            // This means it is an accurate way of counting upwards.
+            yRotation += Time.deltaTime * 900;
+
+            // This will set the rotation to a new rotation based on an increasing Y axis.
+            // Which will make it spin horizontally
+            transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        }
+    }
+    public void DeactivateWhirlwind()
+    {
+        currentWeapon.SetActive(true);
+        activateWhirlwind = false;
+        removeRotation = false;
+        charAnimator.Play("Base Layer.IG_Idle");
+    }
 }

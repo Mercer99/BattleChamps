@@ -73,25 +73,34 @@ public class PlayerConfigurationManager : MonoBehaviour
         playerConfigs[pIndex].chosenBodyAccessory = bodyAccInt;
         playerConfigs[pIndex].chosenWeapon = weaponInt;
 
-        ReadyPlayer(pIndex, false);
+        ReadyPlayer(pIndex);
     }
 
-    public void ReadyPlayer(int index, bool toLevel)
+    public bool called;
+
+    public void ReadyPlayer(int index)
     {
         playerConfigs[index].isReady = true;
 
         if (playerConfigs.All(p => p.isReady == true))
         {
-            if (toLevel)
+            if (called == false)
             {
-                SceneManager.LoadScene(5);
-                /*if (GameObject.Find("GameConfigManager") != null)
+                if (SceneManager.GetActiveScene().name == "MENU_TeamSelection")
                 {
-                    SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                    Debug.Log("ALL READY");
+                    called = true;
+
+                    SceneManager.LoadScene(5);
+
+                    //if (GameObject.Find("GameConfigManager") != null)
+                    //{
+                    //SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                    //}
+                    //else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
                 }
-                else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }*/
+                else { SceneManager.LoadScene("MENU_TeamSelection"); }
             }
-            else { SceneManager.LoadScene("MENU_TeamSelection"); }
         }
     }
     public void UnreadyPlayer(int index)

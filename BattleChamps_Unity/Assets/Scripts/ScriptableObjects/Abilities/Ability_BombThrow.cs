@@ -6,10 +6,11 @@ using UnityEngine;
 public class Ability_BombThrow : Ability_Base
 {
     public GameObject bombObject;
-
     public override void ActivateAbility(GameObject parent)
     {
         parent.GetComponent<CharacterHandler>().charAnimator.Play("Attack Layer.A_BombThrow");
-        Instantiate(bombObject, parent.transform.position, parent.transform.rotation);
+        GameObject bomb = Instantiate(bombObject, parent.transform.position, parent.transform.rotation);
+        bomb.GetComponent<BombBehaviour>().forward = parent.transform;
+        bomb.GetComponent<BombBehaviour>().StartCoroutine(bomb.GetComponent<BombBehaviour>().BombExplosion());
     }
 }

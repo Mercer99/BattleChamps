@@ -34,7 +34,7 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
     [SerializeField]
     private GameObject playerPrefab;
     // Start is called before the first frame update
-    void Start()
+    public void SpawnPlayers()
     {
         var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
 

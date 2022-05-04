@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
@@ -41,6 +40,7 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             var selectionMenu = Instantiate(playerPrefab, teamMenu.transform);
             playerConfigs[i].Input.SwitchCurrentActionMap("MenuActions");
+            playerConfigs[i].isReady = false;
             selectionMenu.GetComponent<TeamSelectionMenu>().InitializePlayer(playerConfigs[i]);
         }
     }
