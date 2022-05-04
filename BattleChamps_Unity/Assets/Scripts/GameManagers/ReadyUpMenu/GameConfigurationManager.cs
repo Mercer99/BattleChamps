@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GameConfigurationManager : MonoBehaviour
 {
-    public GameMode Gamemode { get; set; }
+    public GameMode currentGamemode { get; set; }
     public string levelName { get; set; }
     public float gameLength { get; set; }
+    public int pointLimit { get; set; }
     public int numOfTeams { get; set; }
     public int team1Size { get; set; }
     public int team2Size { get; set; }

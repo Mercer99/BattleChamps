@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 6585098710570194866}
   - component: {fileID: 758269031774045640}
   - component: {fileID: 3087901523540576389}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BG_Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -395,7 +395,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9185257616252152725}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ReadyUpIndicators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 8829778015445887193}
   - component: {fileID: 3299997745607227483}
   - component: {fileID: 7458718880862739030}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: CustomiserPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -689,7 +689,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 85dad11997d5962408bd09ba24f3fce7, type: 3}
   - {fileID: 8300000, guid: 32297c069b495d44181e3eb160878f82, type: 3}
   - {fileID: 8300000, guid: bd60c59b8b95ede47993eacc596e4b59, type: 3}
-  swing: {fileID: 8300000, guid: 353e341f40596bb46979f23745a1cfe4, type: 3}
+  swing: {fileID: 8300000, guid: fbf8e0fa20e31ed419cc266db3ac4bbf, type: 3}
   click: {fileID: 8300000, guid: b380090ef7b1d6242a6c14f42d12afe7, type: 3}
   index: 0
   maxIndex: 0
@@ -741,7 +741,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b380090ef7b1d6242a6c14f42d12afe7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1410,7 +1410,7 @@ GameObject:
   - component: {fileID: 6436769755626310450}
   - component: {fileID: 5754256530796909545}
   - component: {fileID: 1618395424976336887}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: BG Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1487,7 +1487,7 @@ GameObject:
   - component: {fileID: 7490251358480152028}
   - component: {fileID: 1051619104338067846}
   - component: {fileID: 264100078073226851}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image_Ready!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1897,9 +1897,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'PULL
-
-'
+  m_text: BOMB
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2221,7 +2219,7 @@ GameObject:
   - component: {fileID: 1639392903430382868}
   - component: {fileID: 335224713597417613}
   - component: {fileID: 4713703183496775214}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image_PlayerNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2737,7 +2735,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MEGA PUSH
+  m_text: WHIRLWIND
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3353,7 +3351,7 @@ GameObject:
   - component: {fileID: 7004465189388741535}
   - component: {fileID: 9034371048056067309}
   - component: {fileID: 7446825207806179701}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: PlayerIdentifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3598,7 +3596,7 @@ GameObject:
   - component: {fileID: 7683890360550362267}
   - component: {fileID: 1613047918052155118}
   - component: {fileID: 9097070451924746728}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3967,7 +3965,7 @@ GameObject:
   - component: {fileID: 8187112553699113359}
   - component: {fileID: 4532026982052955303}
   - component: {fileID: 5433372486584730527}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4353,7 +4351,7 @@ GameObject:
   - component: {fileID: 5066674750890524880}
   - component: {fileID: 6930178129038123112}
   - component: {fileID: 3343001443901779141}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Divider_Long (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class SelectionManager : Singleton<SelectionManager>
 {
@@ -10,7 +9,6 @@ public class SelectionManager : Singleton<SelectionManager>
 
     public GameObject teamMenu;
 
-    public GameObject gameConfig;
     public GameObject configManager;
 
     public void Awake()
@@ -19,6 +17,8 @@ public class SelectionManager : Singleton<SelectionManager>
 
         if (GameObject.Find("GameConfigManager") != null)
         {
+            GameObject gameConfig;
+
             gameConfig = GameObject.Find("GameConfigManager");
 
             foreach (GameObject arena in Arenas)
@@ -41,6 +41,7 @@ public class SelectionManager : Singleton<SelectionManager>
         {
             var selectionMenu = Instantiate(playerPrefab, teamMenu.transform);
             playerConfigs[i].Input.SwitchCurrentActionMap("MenuActions");
+            playerConfigs[i].isReady = false;
             selectionMenu.GetComponent<TeamSelectionMenu>().InitializePlayer(playerConfigs[i]);
         }
     }

@@ -14,6 +14,11 @@ public class UIManager : Singleton<UIManager>
     public GameObject coloursPanel;
     public GameObject coloursPrefab;
 
+    public GameObject killFeedEntry;
+    public GameObject killFeed;
+
+    public string[] killVerses;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -21,10 +26,25 @@ public class UIManager : Singleton<UIManager>
         Pause_ResumeGame();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PrintOnKillFeed(int deadPlayer, int killer)
     {
+        if (GameConfigurationManager.Instance != null)
+        {
+            if (GameConfigurationManager.Instance.currentGamemode.gamemodeName == "Attrition")
+            {
+                if(deadPlayer == killer)
+                { return; }
+                Mode_AttritionManager.Instance.AddKill(killer);
+            } 
+        }
+        else { }
 
+        string verse = killVerses[Random.Range(0, killVerses.Length - 1)];
+        int killerNum = killer + 1;
+        int killedPlayer = deadPlayer + 1;
+        string entry = "Player " + killerNum + " " + verse + " Player " + killedPlayer;
+        GameObject killEntry = Instantiate(killFeedEntry, killFeed.transform);
+        killEntry.GetComponent<KillFeedEntry>().killFeedText.text = entry;
     }
 
     #region Pause Menu Functions

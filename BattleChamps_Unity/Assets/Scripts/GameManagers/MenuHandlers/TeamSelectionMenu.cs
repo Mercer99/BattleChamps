@@ -26,6 +26,8 @@ public class TeamSelectionMenu : MonoBehaviour
 
     public int playerIndex;
 
+    bool ready;
+
     public PlayerConfiguration playerConfig;
 
     public void Awake()
@@ -39,8 +41,6 @@ public class TeamSelectionMenu : MonoBehaviour
     public void InitializePlayer(PlayerConfiguration config)
     {
         playerConfig = config;
-        playerConfig.isReady = false;
-
         playerIndex = config.PlayerIndex;
 
         playerIcon[config.PlayerIndex].SetActive(true);
@@ -50,7 +50,6 @@ public class TeamSelectionMenu : MonoBehaviour
 
         config.Input.onActionTriggered += Input_onActionTriggered;
 
-        Debug.Log(config.Input.devices[0].device.name);
         if (config.Input.devices[0].device.name == "XInputControllerWindows")
         { controllerIcon.sprite = xbControllerSprite; }
         else if (config.Input.devices[0].device.name == "DualShock4GamepadHID")
@@ -62,18 +61,17 @@ public class TeamSelectionMenu : MonoBehaviour
     {
         if (obj.action.name == controls.MenuActions.Submit.name)
         {
-            playerConfig.isReady = true;
-            PlayerConfigurationManager.Instance.ReadyPlayer(playerIndex, true);
+            if (!ready)
+            { ready = true; PlayerConfigurationManager.Instance.ReadyPlayer(playerIndex); }
         }
         if (obj.action.name == controls.MenuActions.Cancel.name)
         {
             if (obj.performed)
             {
-                if (playerConfig.isReady)
+                if (ready)
                 {
-                    playerConfig.isReady = false;
-
-                    return;
+                    ready = false;
+                    PlayerConfigurationManager.Instance.UnreadyPlayer(playerIndex);
                 }
                 else
                 {

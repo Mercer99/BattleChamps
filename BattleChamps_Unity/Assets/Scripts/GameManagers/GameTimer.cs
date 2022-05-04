@@ -6,35 +6,48 @@ public class GameTimer : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
     public float currentTime;
-    public float maxTime;
+    public bool endless;
 
     GameObject config;
     public GameConfigurationManager configManager;
 
-    void Awake()
+    bool timeStarted = false;
+
+    public void Awake()
     {
         if (GameObject.Find("GameConfigManager") != null)
         {
             config = GameObject.Find("GameConfigManager");
             configManager = config.GetComponent<GameConfigurationManager>();
             if (configManager.gameLength > 0)
-            { currentTime = configManager.gameLength; }
-            else { timerText.text = "ENDLESS"; }
+            { endless = false; currentTime = configManager.gameLength; timerText.text = currentTime.ToString("F0"); }
+            else { endless = true; timerText.text = "ENDLESS"; }
         }
-        else { currentTime = 60; }
+        else { currentTime = 60; timerText.text = currentTime.ToString("F0"); }
+    }
+
+    public void StartTimer()
+    {
+        if (!endless)
+        {
+            timeStarted = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentTime > 0)
+        if (timeStarted)
         {
-            currentTime -= Time.deltaTime;
-            timerText.text = currentTime.ToString("F0");
-        }
-        else if (currentTime <= 0)
-        {
-            timerText.text = "GAME OVER";
+            if (currentTime > 0)
+            {
+                currentTime -= Time.deltaTime;
+                timerText.text = currentTime.ToString("F0");
+            }
+            else if (currentTime <= 0)
+            {
+                timerText.text = "GAME OVER";
+            }
         }
     }
 }
