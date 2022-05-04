@@ -21647,8 +21647,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -103}
-  m_SizeDelta: {x: 3840, y: 1384.0574}
+  m_AnchoredPosition: {x: 0, y: -195.20856}
+  m_SizeDelta: {x: 3223.3555, y: 1199.6404}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &904925600
 MonoBehaviour:
@@ -30161,7 +30161,6 @@ MonoBehaviour:
   - {fileID: 2036564557}
   - {fileID: 742476965}
   teamMenu: {fileID: 904925598}
-  gameConfig: {fileID: 0}
   configManager: {fileID: 0}
   playerPrefab: {fileID: 8676429349133401066, guid: a14e51706b093244789d5c055b30c4ba, type: 3}
 --- !u!4 &1244850594

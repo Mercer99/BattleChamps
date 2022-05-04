@@ -17,6 +17,7 @@ public class GameMode
     public string description;
 
     public float defaultLength;
+    public int defaultPointLimit;
 }
 
 public class GameSelection : MonoBehaviour
@@ -24,6 +25,7 @@ public class GameSelection : MonoBehaviour
     public Arena[] allArenas;
     public GameMode[] allGamemodes;
     public float[] gameLengths;
+    public int[] pointLimits;
 
     public int currentLevelNum;
 
@@ -45,6 +47,12 @@ public class GameSelection : MonoBehaviour
 
     public TextMeshProUGUI gameLengthTextbox;
 
+    public int currentPointLimitNum;
+
+    public int pointLimit;
+
+    public TextMeshProUGUI pointLimitTextbox;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -64,7 +72,11 @@ public class GameSelection : MonoBehaviour
         if (gameLength <= 0)
         { gameLengthTextbox.text = "Endless"; }
         else { gameLengthTextbox.text = gameLength.ToString("F0"); }
-        
+
+        pointLimit = allGamemodes[currentGamemodeNum].defaultPointLimit;
+        if (pointLimit <= 0)
+        { pointLimitTextbox.text = "No Limit"; }
+        else { pointLimitTextbox.text = pointLimit.ToString("F0"); }
     }
 
     public void ChangeLevel()
@@ -111,6 +123,19 @@ public class GameSelection : MonoBehaviour
         else { gameLengthTextbox.text = gameLength.ToString("F0"); }
     }
 
+    public void ChangePointLimit()
+    {
+        currentPointLimitNum++;
+        if (currentPointLimitNum == pointLimits.Length)
+        { currentPointLimitNum = 0; }
+
+        pointLimit = pointLimits[currentPointLimitNum];
+
+        if (pointLimit <= 0)
+        { pointLimitTextbox.text = "NO LIMIT"; }
+        else { pointLimitTextbox.text = pointLimit.ToString("F0"); }
+    }
+
     public void ConfirmSettings()
     {
         GameObject config = GameObject.Find("GameConfigManager");
@@ -119,6 +144,7 @@ public class GameSelection : MonoBehaviour
         configManager.gameLength = gameLength;
         configManager.currentGamemode = allGamemodes[currentGamemodeNum];
         configManager.levelName = arenaSwitchName;
+        configManager.pointLimit = pointLimit;
 
         SceneManager.LoadScene(2);
     }

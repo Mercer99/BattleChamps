@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterHandler : MonoBehaviour
@@ -71,9 +72,6 @@ public class CharacterHandler : MonoBehaviour
 
     public GameObject[] bodyAccessories;
     #endregion
-
-    public AnimationClip[] chargeAbilities;
-    public AnimationClip[] quickAbilites;
 
     public GameObject currentWeapon;
     public GameObject abilityHolderObj1;
@@ -176,15 +174,6 @@ public class CharacterHandler : MonoBehaviour
     {
         int animCheckCounter = 0;
 
-        foreach (AnimationClip abilityAnim in chargeAbilities)
-        {
-            int animHash = Animator.StringToHash("Attack Layer.Shield");
-            if (charAnimator.GetCurrentAnimatorStateInfo(1).fullPathHash == animHash)
-            {
-                animCheckCounter++;
-            }
-        }
-
         if (animCheckCounter > 0)
         {
             chargingAbility = true;
@@ -199,8 +188,10 @@ public class CharacterHandler : MonoBehaviour
 
     public void OnMove(CallbackContext context)
     { movementInput = context.ReadValue<Vector2>(); }
+
+    public bool rotating;
     public void PlayerRotation(CallbackContext context)
-    { rotationInput = -context.ReadValue<Vector2>(); }
+    { rotationInput = -context.ReadValue<Vector2>(); rotating = context.performed; }
 
     public void OnDash(CallbackContext context)
     {
@@ -282,7 +273,7 @@ public class CharacterHandler : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         charController.Move(velocity * Time.deltaTime);
     }
-
+    public Vector3 moveDirection;
     private void ApplyMovement()
     {
         float movementValue()
@@ -300,18 +291,25 @@ public class CharacterHandler : MonoBehaviour
         if (applyMovement() == false)
         { return; }
 
-        Vector3 moveDirection = new Vector3(movementInput.x, 0, movementInput.y);
+        moveDirection = new Vector3(movementInput.x, 0, movementInput.y).normalized;
         charController.Move(moveDirection * currentSpeed * Time.deltaTime);
     }
+    public GameObject rotationIndicator;
     private void HandleRotation()
     {
         if (disabled)
         { return; }
 
-        Vector3 lookDirection = new Vector3(rotationInput.x, 0, rotationInput.y).normalized;
+        Vector3 lookDirection;
+
+        lookDirection = new Vector3(rotationInput.x, 0, rotationInput.y).normalized;
 
         if (rotationInput != Vector2.zero)
         { transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection).normalized, 0.15F); }
+        else if (movementInput != Vector2.zero) 
+        { transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(-moveDirection).normalized, 0.15F); }
+
+        rotationIndicator.transform.rotation = gameObject.transform.rotation;
     }
     #endregion
 
