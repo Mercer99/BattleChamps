@@ -19,6 +19,10 @@ public class CharacterStats : MonoBehaviour
     public AudioClip hitSound;
     public AudioSource audioSource;
 
+    public int lastCharacter;
+    public float hitCD = 5;
+    private float lastHitCD;
+
     private void OnEnable()
     {
         canBeDamaged = true;
@@ -37,6 +41,10 @@ public class CharacterStats : MonoBehaviour
         { currentHealth = maxHealth; }
 
         GetComponent<PlayerUI_Handler>().UpdateUI(currentHealth, maxHealth);
+
+        if (lastHitCD > 0)
+        { lastHitCD -= Time.deltaTime; }
+        else { lastHitCD = 0; }
     }
 
     public void TakeDamage(float damage, int damageDealer, bool goThroughBlock)
@@ -48,12 +56,20 @@ public class CharacterStats : MonoBehaviour
             ParticleSystem particle = Instantiate(hitParticle, particlePos);
             //GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
 
+            if (damageDealer < 4)
+            {
+                lastCharacter = damageDealer;
+                lastHitCD = hitCD;
+            }
+
             if (currentHealth <= 0 && playerDied == false)
             {
                 playerDied = true;
 
-                UIManager.Instance.PrintOnKillFeed(playerID, damageDealer);
-
+                if (lastHitCD > 0)
+                { UIManager.Instance.PrintOnKillFeed(playerID, lastCharacter); }
+                else { UIManager.Instance.PrintOnKillFeed(playerID, damageDealer); }
+               
                 StartCoroutine(DeathWait());
             }
             else { 

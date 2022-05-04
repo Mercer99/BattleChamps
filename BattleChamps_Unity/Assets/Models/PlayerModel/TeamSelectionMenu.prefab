@@ -490,8 +490,8 @@ RectTransform:
   m_GameObject: {fileID: 8676429349133401066}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8676429349026897078}
   - {fileID: 8676429347752016517}
@@ -564,7 +564,6 @@ MonoBehaviour:
   - {r: 1, g: 0.72156864, b: 0.30588236, a: 1}
   readyColour: {r: 0.5882353, g: 1, b: 0.5882353, a: 1}
   unreadyColour: {r: 1, g: 0.5882353, b: 0.5882353, a: 1}
-  playerReady: 0
   inputDisabled: 0
   playerIcon:
   - {fileID: 8676429347752016516}
@@ -575,3 +574,4 @@ MonoBehaviour:
   controllerIcon: {fileID: 8676429349026897079}
   xbControllerSprite: {fileID: 21300000, guid: 894563952b3cb594a997417871b1cac4, type: 3}
   psControllerSprite: {fileID: 21300000, guid: 09684aec9693ca04ba1bc7be241ecbd3, type: 3}
+  playerIndex: 0
