@@ -250,6 +250,9 @@ public class CharacterHandler : MonoBehaviour
         abilityHolder1.Activate();
 
         StartCoroutine(AbilityCoroutine1(abilityCooldown, abilityHolder1.ability.activeTime));
+
+        if (abilityHolder1.ability.abilityName == "Whirlwind")
+        { Invoke("DeactivateWhirlwind", abilityHolder1.ability.activeTime); }
     }
     public void OnAbility2(CallbackContext context)
     {
@@ -362,7 +365,6 @@ public class CharacterHandler : MonoBehaviour
 
     [SerializeField] private float whirlwindSpeed = 1000;
     [HideInInspector] public bool activateWhirlwind;
-    public GameObject whirlwindAxe;
     float yRotation = 0;
     public void WhirlwindAbility()
     {
@@ -373,7 +375,7 @@ public class CharacterHandler : MonoBehaviour
 
             // Deltatime is the amount of time it takes for a frame to pass
             // This means it is an accurate way of counting upwards.
-            yRotation += Time.deltaTime * 900;
+            yRotation += Time.deltaTime * whirlwindSpeed;
 
             // This will set the rotation to a new rotation based on an increasing Y axis.
             // Which will make it spin horizontally

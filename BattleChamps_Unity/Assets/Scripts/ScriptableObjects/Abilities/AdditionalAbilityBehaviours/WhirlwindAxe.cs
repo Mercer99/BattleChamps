@@ -9,14 +9,14 @@ public class WhirlwindAxe : MonoBehaviour
     public float weaponDamage;
 
     private GameObject playerObj;
-    private string playerName;
+    private int playerName;
 
     void Start()
     {
         weaponCollider = GetComponent<Collider>();
 
         playerObj = transform.root.gameObject;
-        playerName = "DAVE"; //playerObj.GetComponent<CharacterStats>().playerName;
+        playerName = playerObj.GetComponent<CharacterStats>().playerID;
 
         // Ignore collision between weapon & weapon holder
         Physics.IgnoreCollision(playerObj.GetComponent<CharacterController>(), weaponCollider);

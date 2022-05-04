@@ -12,5 +12,6 @@ public class Ability_BombThrow : Ability_Base
         GameObject bomb = Instantiate(bombObject, parent.transform.position, parent.transform.rotation);
         bomb.GetComponent<BombBehaviour>().forward = parent.transform;
         bomb.GetComponent<BombBehaviour>().StartCoroutine(bomb.GetComponent<BombBehaviour>().BombExplosion());
+        bomb.GetComponent<BombBehaviour>().playerInt = parent.GetComponent<CharacterStats>().playerID;
     }
 }

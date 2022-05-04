@@ -9,7 +9,6 @@ public class SelectionManager : Singleton<SelectionManager>
 
     public GameObject teamMenu;
 
-    public GameObject gameConfig;
     public GameObject configManager;
 
     public void Awake()
@@ -18,6 +17,8 @@ public class SelectionManager : Singleton<SelectionManager>
 
         if (GameObject.Find("GameConfigManager") != null)
         {
+            GameObject gameConfig;
+
             gameConfig = GameObject.Find("GameConfigManager");
 
             foreach (GameObject arena in Arenas)

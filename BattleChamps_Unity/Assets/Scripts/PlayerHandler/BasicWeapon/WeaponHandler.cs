@@ -11,24 +11,18 @@ public class WeaponHandler : MonoBehaviour
     public bool enableDamage = false;
 
     private GameObject playerObj;
-    private string playerName;
+    private int playerName;
 
-    void Start()
+    void OnEnable()
     {
         weaponCollider = GetComponent<Collider>();
         enableDamage = false;
 
         playerObj = transform.root.gameObject;
-        playerName = "DAVE"; //playerObj.GetComponent<CharacterStats>().playerName;
+        playerName = playerObj.GetComponent<CharacterStats>().playerID;
         
         // Ignore collision between weapon & weapon holder
         Physics.IgnoreCollision(playerObj.GetComponent<CharacterController>(), weaponCollider);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void EnableCollider(bool colliderEnable)

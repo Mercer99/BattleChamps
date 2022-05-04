@@ -93,11 +93,11 @@ public class PlayerConfigurationManager : MonoBehaviour
 
                     SceneManager.LoadScene(5);
 
-                    //if (GameObject.Find("GameConfigManager") != null)
-                    //{
-                    //SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
-                    //}
-                    //else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
+                    if (GameObject.Find("GameConfigManager") != null)
+                    {
+                    SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                    }
+                    else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
                 }
                 else { SceneManager.LoadScene("MENU_TeamSelection"); }
             }

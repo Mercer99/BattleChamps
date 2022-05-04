@@ -117,7 +117,7 @@ public class GameSelection : MonoBehaviour
         GameConfigurationManager configManager = config.GetComponent<GameConfigurationManager>();
 
         configManager.gameLength = gameLength;
-        configManager.Gamemode = allGamemodes[currentGamemodeNum];
+        configManager.currentGamemode = allGamemodes[currentGamemodeNum];
         configManager.levelName = arenaSwitchName;
 
         SceneManager.LoadScene(2);

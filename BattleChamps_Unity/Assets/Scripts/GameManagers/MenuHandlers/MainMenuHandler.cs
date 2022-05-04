@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenuHandler : Singleton<MainMenuHandler>
+public class MainMenuHandler : MonoBehaviour//Singleton<MainMenuHandler>
 {
     public GameObject playerObj;
     public GameObject mainPanel;
@@ -16,20 +16,19 @@ public class MainMenuHandler : Singleton<MainMenuHandler>
     public bool optionsActive;
     public bool menuActive;
 
-    void Start()
+    void Awake()
     {
         creditsActive = false;
         optionsActive = false;
         menuActive = true;
+
         if (GameObject.Find("ConfigManager") != null)
-        {
-            Destroy(GameObject.Find("ConfigManager")); 
-        }
+        { Destroy(GameObject.Find("ConfigManager"));  }
         if (GameObject.Find("GameConfigManager") != null)
         { Destroy(GameObject.Find("GameConfigManager")); }
 
-        GetComponent<PlayerInputManager>().enabled = true;
         playerObj.SetActive(true);
+        GetComponent<PlayerInputManager>().enabled = true;
     }
 
     public void BackToMain()

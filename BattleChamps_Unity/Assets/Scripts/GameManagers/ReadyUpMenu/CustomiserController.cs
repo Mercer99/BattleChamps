@@ -98,8 +98,8 @@ public class CustomiserController : MonoBehaviour
         }
         if (obj.action.name == controls.MenuActions.Submit.name)
         {
-            PlayerReady();
             playerReady = true;
+            PlayerReady();
         }
         if (obj.action.name == controls.MenuActions.Cancel.name)
         {
@@ -107,8 +107,8 @@ public class CustomiserController : MonoBehaviour
             {
                 if (playerReady)
                 {
-                    PlayerUnready();
                     playerReady = false;
+                    PlayerUnready();
                     return;
                 }
                 else

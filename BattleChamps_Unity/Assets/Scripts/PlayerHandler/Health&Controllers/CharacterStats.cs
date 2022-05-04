@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CharacterStats : MonoBehaviour
 {
     public int playerID;
@@ -28,6 +27,7 @@ public class CharacterStats : MonoBehaviour
 
         GetComponent<PlayerUI_Handler>().teamNum = teamNumber;
         GetComponent<PlayerUI_Handler>().EnableUI(playerID);
+        playerName = "Player " + playerID;
     }
 
     // Update is called once per frame
@@ -39,7 +39,7 @@ public class CharacterStats : MonoBehaviour
         GetComponent<PlayerUI_Handler>().UpdateUI(currentHealth, maxHealth);
     }
 
-    public void TakeDamage(float damage, string damageDealer)
+    public void TakeDamage(float damage, int damageDealer)
     {
         if (canBeDamaged)
         {
@@ -48,8 +48,12 @@ public class CharacterStats : MonoBehaviour
             ParticleSystem particle = Instantiate(hitParticle, particlePos);
             //GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
 
-            if (currentHealth <= 0)
+            if (currentHealth <= 0 && playerDied == false)
             {
+                playerDied = true;
+
+                UIManager.Instance.PrintOnKillFeed(playerID, damageDealer);
+
                 StartCoroutine(DeathWait());
             }
             else { 
@@ -60,19 +64,21 @@ public class CharacterStats : MonoBehaviour
     }
     IEnumerator DeathWait()
     {
-        currentHealth = 0; playerDied = true;
         Camera.main.GetComponent<Screenshake>().StartShake(1);
-        CameraFollow.Instance.targetPositions.Remove(transform);
 
-        GetComponent<CharacterHandler>().disabled = true;
         GetComponent<CharacterHandler>().StopAllCoroutines();
 
-        yield return new WaitForSeconds(0.5f);
-        gameObject.SetActive(false);
-    }
+        GetComponent<CharacterHandler>().disabled = true;
+        GetComponent<CharacterController>().enabled = false;
 
-    public void HealHealth()
-    {
+        yield return new WaitForSeconds(1);
+        currentHealth = maxHealth;
+        gameObject.transform.position = Mode_AttritionManager.Instance.PlayerSpawns[Random.Range(0, Mode_AttritionManager.Instance.PlayerSpawns.Length - 1)].transform.position;
 
+        GetComponent<CharacterHandler>().disabled = false;
+        GetComponent<CharacterController>().enabled = true;
+        playerDied = false;
+
+        yield break;
     }
 }

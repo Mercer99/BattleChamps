@@ -12,6 +12,8 @@ public class BombBehaviour : MonoBehaviour
     public ParticleSystem explosion;
     public GameObject particleSpawnpoint;
 
+    public int playerInt;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -23,7 +25,8 @@ public class BombBehaviour : MonoBehaviour
         rb.AddForce(-forward.forward.normalized * 50, ForceMode.Impulse);
         yield return new WaitForSeconds(bombLifetime);
         ParticleSystem particle = Instantiate(explosion, particleSpawnpoint.transform);
-        yield return new WaitForSeconds(0.2f);
+        GetComponent<Animator>().Play("Explode");
+        yield return new WaitForSeconds(0.35f);
         Destroy(gameObject);
     }
 }
