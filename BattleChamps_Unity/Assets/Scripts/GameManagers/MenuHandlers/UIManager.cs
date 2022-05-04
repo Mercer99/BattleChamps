@@ -28,6 +28,9 @@ public class UIManager : Singleton<UIManager>
 
     public void PrintOnKillFeed(int deadPlayer, int killer)
     {
+        if (killer > PlayerConfigurationManager.Instance.playerConfigs.Count - 1)
+        { return; }
+
         if (GameConfigurationManager.Instance != null)
         {
             if (GameConfigurationManager.Instance.currentGamemode.gamemodeName == "Attrition")
