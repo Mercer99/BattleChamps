@@ -98,8 +98,8 @@ public class CharacterHandler : MonoBehaviour
 
         uiManager = UIManager.Instance;
 
-        GetComponent<CharacterStats>().playerID = Mode_AttritionManager.Instance.allPlayers.Count;
-        Mode_AttritionManager.Instance.PlayerJoined(gameObject);
+        GetComponent<CharacterStats>().playerID = GameModeManager.Instance.allPlayers.Count;
+        GameModeManager.Instance.PlayerJoined(gameObject);
     }
 
     public void InitializePlayer(PlayerConfiguration config)

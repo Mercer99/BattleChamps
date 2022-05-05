@@ -2226,7 +2226,7 @@ MonoBehaviour:
   charAnimator: {fileID: 7347708007913862275}
   uiManager: {fileID: 0}
   defaultSpeed: 12
-  gravity: -5
+  gravity: -9.81
   playerName: 
   dashCooldown: 2
   dashSpeed: 50
@@ -2293,6 +2293,8 @@ MonoBehaviour:
   hitParticle: {fileID: 6956493709795414690, guid: cf906e3f06c9d0f43bb117eac19401f4, type: 3}
   hitSound: {fileID: 8300000, guid: 5425e8e2ffb37e74f9cd9d8501d5669b, type: 3}
   audioSource: {fileID: 298733269170340108}
+  lastCharacter: 0
+  hitCD: 5
 --- !u!114 &298733269170340115
 MonoBehaviour:
   m_ObjectHideFlags: 0

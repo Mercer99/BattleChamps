@@ -13204,7 +13204,6 @@ MonoBehaviour:
   - {fileID: 769203012}
   - {fileID: 1374508431}
   teamMenu: {fileID: 0}
-  gameConfig: {fileID: 0}
   configManager: {fileID: 0}
   playerPrefab: {fileID: 0}
 --- !u!1 &579963916
@@ -17464,7 +17463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &769203013
 Transform:
   m_ObjectHideFlags: 0
@@ -36425,7 +36424,7 @@ MonoBehaviour:
   - ARENA_Temple
   - ARENA_Coliseum
   - ARENA_Temple
-  startingGame: 0
+  called: 0
 --- !u!1001 &1574685962
 PrefabInstance:
   m_ObjectHideFlags: 0

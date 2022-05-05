@@ -85,14 +85,12 @@ public class CharacterStats : MonoBehaviour
         GetComponent<CharacterHandler>().StopAllCoroutines();
 
         GetComponent<CharacterHandler>().disabled = true;
-        GetComponent<CharacterController>().enabled = false;
 
         yield return new WaitForSeconds(1);
         currentHealth = maxHealth;
-        gameObject.transform.position = Mode_AttritionManager.Instance.PlayerSpawns[Random.Range(0, Mode_AttritionManager.Instance.PlayerSpawns.Length - 1)].transform.position;
+        gameObject.transform.position = GameModeManager.Instance.PlayerSpawns[Random.Range(0, GameModeManager.Instance.PlayerSpawns.Length - 1)].transform.position;
 
         GetComponent<CharacterHandler>().disabled = false;
-        GetComponent<CharacterController>().enabled = true;
         playerDied = false;
 
         yield break;

@@ -91,7 +91,7 @@ public class PlayerConfigurationManager : MonoBehaviour
                     Debug.Log("ALL READY");
                     called = true;
 
-                    SceneManager.LoadScene(5);
+                    //SceneManager.LoadScene(5);
 
                     if (GameObject.Find("GameConfigManager") != null)
                     {
@@ -99,7 +99,8 @@ public class PlayerConfigurationManager : MonoBehaviour
                     }
                     else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
                 }
-                else { SceneManager.LoadScene("MENU_TeamSelection"); }
+                else
+                { SceneManager.LoadScene("MENU_TeamSelection"); }
             }
         }
     }

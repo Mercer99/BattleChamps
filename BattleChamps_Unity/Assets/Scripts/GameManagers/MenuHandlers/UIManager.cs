@@ -19,6 +19,8 @@ public class UIManager : Singleton<UIManager>
 
     public string[] killVerses;
 
+    public TextMeshProUGUI[] playerUI;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,7 +42,12 @@ public class UIManager : Singleton<UIManager>
                 Mode_AttritionManager.Instance.AddKill(killer);
             } 
         }
-        else { }
+        else 
+        {
+            if (deadPlayer == killer)
+            { return; }
+            Mode_AttritionManager.Instance.AddKill(killer);
+        }
 
         string verse = killVerses[Random.Range(0, killVerses.Length - 1)];
         int killerNum = killer + 1;

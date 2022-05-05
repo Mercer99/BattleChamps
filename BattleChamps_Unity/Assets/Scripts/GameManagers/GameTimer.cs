@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 public class GameTimer : MonoBehaviour
 {
+    public TextMeshProUGUI pointLimitText;
+
     public TextMeshProUGUI timerText;
     public float currentTime;
     public bool endless;
@@ -22,8 +24,12 @@ public class GameTimer : MonoBehaviour
             if (configManager.gameLength > 0)
             { endless = false; currentTime = configManager.gameLength; timerText.text = currentTime.ToString("F0"); }
             else { endless = true; timerText.text = "ENDLESS"; }
+
+            if (configManager.pointLimit > 0)
+            { pointLimitText.text = "GOAL: " + configManager.pointLimit; }
+            else { pointLimitText.text = "NO GOAL"; }
         }
-        else { currentTime = 60; timerText.text = currentTime.ToString("F0"); }
+        else { currentTime = 60; timerText.text = currentTime.ToString("F0"); pointLimitText.text = "GOAL: " + "10"; }
     }
 
     public void StartTimer()
@@ -46,6 +52,10 @@ public class GameTimer : MonoBehaviour
             }
             else if (currentTime <= 0)
             {
+                if (Mode_AttritionManager.Instance != null)
+                {
+                    GameModeManager.Instance.GameOver(true, Mode_AttritionManager.Instance.leader.playerID);
+                }
                 timerText.text = "GAME OVER";
             }
         }
