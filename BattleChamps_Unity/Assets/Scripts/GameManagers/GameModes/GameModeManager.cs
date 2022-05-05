@@ -102,7 +102,8 @@ public class GameModeManager : Singleton<GameModeManager>
             pointImage.SetActive(true);
         }
 
-        winnerName.text = "PLAYER " + winner;
+        string win = (winner + 1).ToString();
+        winnerName.text = "PLAYER " + win;
         
         if (GameObject.Find("ConfigManager") != null)
         { Destroy(GameObject.Find("ConfigManager")); }

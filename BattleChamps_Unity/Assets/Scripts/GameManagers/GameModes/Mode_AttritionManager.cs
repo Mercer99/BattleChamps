@@ -12,8 +12,6 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
 
     public GameObject killCounterObj;
 
-    public TextMeshProUGUI playerText;
-
     public void AddKill(int playerID)
     {
         killCounts[playerID].counter++;
@@ -32,8 +30,7 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
                 leader = killCounter;
             }
         }
-
-        playerText.text = killCounts[playerID].counter.ToString();
+        UIManager.Instance.playerUI[playerID].text = killCounts[playerID].counter.ToString();
 
         if (killCounts[playerID].counter >= GameModeManager.Instance.pointLimit)
         { GameModeManager.Instance.GameOver(false, leader.playerID); return; } //GameOver
@@ -45,8 +42,7 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
         killCounts.Add(killCounter.GetComponent<KillCounter>());
         killCounter.GetComponent<KillCounter>().playerID = playerConfig.PlayerIndex;
 
-        playerText = UIManager.Instance.playerUI[playerConfig.PlayerIndex];
-        playerText.text = "0";
+        UIManager.Instance.playerUI[playerConfig.PlayerIndex].text = "0";
 
         leader = killCounts[0];
     }
