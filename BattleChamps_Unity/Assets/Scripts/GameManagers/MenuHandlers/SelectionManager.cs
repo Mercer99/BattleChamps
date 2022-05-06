@@ -35,14 +35,17 @@ public class SelectionManager : Singleton<SelectionManager>
 
     void Start()
     {
-        var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
-
-        for (int i = 0; i < playerConfigs.Length; i++)
+        if (PlayerConfigurationManager.Instance != null)
         {
-            var selectionMenu = Instantiate(playerPrefab, teamMenu.transform);
-            playerConfigs[i].Input.SwitchCurrentActionMap("MenuActions");
-            playerConfigs[i].isReady = false;
-            selectionMenu.GetComponent<TeamSelectionMenu>().InitializePlayer(playerConfigs[i]);
+            var playerConfigs = PlayerConfigurationManager.Instance.GetPlayerConfigs().ToArray();
+
+            for (int i = 0; i < playerConfigs.Length; i++)
+            {
+                var selectionMenu = Instantiate(playerPrefab, teamMenu.transform);
+                playerConfigs[i].Input.SwitchCurrentActionMap("MenuActions");
+                playerConfigs[i].isReady = false;
+                selectionMenu.GetComponent<TeamSelectionMenu>().InitializePlayer(playerConfigs[i]);
+            }
         }
     }
 }

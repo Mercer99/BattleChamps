@@ -41,6 +41,9 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         if (playerConfigs.Count < maxPlayers)
         {
+            //if (CustomisationScreenManager.Instance != null)
+            //{ CustomisationScreenManager.Instance.DeleteInput(); }
+
             Debug.Log("player joined " + pi.playerIndex);
             pi.transform.SetParent(transform);
 
@@ -95,19 +98,58 @@ public class PlayerConfigurationManager : MonoBehaviour
 
                     if (GameObject.Find("GameConfigManager") != null)
                     {
-                    SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                        SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
                     }
                     else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
                 }
                 else
-                { SceneManager.LoadScene("MENU_TeamSelection"); }
+                { ReadyUpMenuTimer(); }
             }
         }
     }
     public void UnreadyPlayer(int index)
     {
         playerConfigs[index].isReady = false;
+        if (SceneManager.GetActiveScene().name == "MENU_PlayerSelection")
+        {
+            UnreadyMenuTimer();
+        }
     }
+
+    #region Player Customisation Menu
+    public void ShowBackOutMenu(int configNum)
+    {
+        foreach (GameObject customiser in customisers)
+        {
+            if (playerConfigs[customiser.GetComponent<CustomiserController>().thisConfig.PlayerIndex].isReady)
+            { UnreadyPlayer(customiser.GetComponent<CustomiserController>().thisConfig.PlayerIndex); }
+
+            customiser.GetComponent<CustomiserController>().inputDisabled = true;
+        }
+
+        customisers[configNum].GetComponent<CustomiserController>().inputDisabled = false;
+    }
+    public void Menu_BackToGame()
+    {
+        foreach (GameObject customiser in customisers)
+        {
+            customiser.GetComponent<CustomiserController>().inputDisabled = false;
+            if (customiser.GetComponent<CustomiserController>().playerReady)
+            {
+                ReadyPlayer(customiser.GetComponent<CustomiserController>().thisConfig.PlayerIndex);
+            }
+        }
+    }
+
+    public void ReadyUpMenuTimer()
+    {
+        CustomisationScreenManager.Instance.StartCountdown();
+    }
+    public void UnreadyMenuTimer()
+    {
+        CustomisationScreenManager.Instance.StopCountdown();
+    }
+    #endregion
 }
 
 public class PlayerConfiguration

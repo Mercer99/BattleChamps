@@ -13,6 +13,8 @@ public class CustomiserController : MonoBehaviour
     public TextMeshProUGUI headName;
     public TextMeshProUGUI bodyName;
 
+    public PlayerConfiguration thisConfig;
+
     public bool playerJoined;
     public bool playerReady;
     public GameObject player;
@@ -43,6 +45,8 @@ public class CustomiserController : MonoBehaviour
     public AudioClip swing;
     public AudioClip click;
 
+    public Image playerColourIm;
+
     private PlayerControls controls;
 
     // Start is called before the first frame update
@@ -59,6 +63,7 @@ public class CustomiserController : MonoBehaviour
 
     public void InitializePlayer(PlayerConfiguration config)
     {
+        thisConfig = config;
         config.Input.onActionTriggered += Input_onActionTriggered;
     }
 
@@ -66,12 +71,13 @@ public class CustomiserController : MonoBehaviour
     {
         if (obj.action.name == controls.MenuActions.Navigate.name)
         {
+            if (inputDisabled)
+            { return; }
+
             Vector2 scrollValue = obj.ReadValue<Vector2>();
 
             if (obj.action.WasPressedThisFrame())
             {
-                if (inputDisabled)
-                { return; }
                 if (scrollValue.y > 0)
                 {
                     onPressUp();
@@ -95,11 +101,49 @@ public class CustomiserController : MonoBehaviour
                     onReleaseDown();
                 }
             }
+
+            if (obj.action.WasPressedThisFrame())
+            {
+                if (inputDisabled)
+                { return; }
+                if (scrollValue.x > 0)
+                {
+                    onPressRight();
+                }
+                else if (scrollValue.x < 0)
+                {
+                    onPressLeft();
+                }
+            }
+
+            if (obj.action.WasReleasedThisFrame())
+            {
+                onReleaseLeft();
+                onReleaseRight();
+                if (scrollValue.x > 0)
+                {
+                    onReleaseRight();
+                }
+                else if (scrollValue.x < 0)
+                {
+                    onReleaseLeft();
+                }
+            }
         }
         if (obj.action.name == controls.MenuActions.Submit.name)
         {
-            playerReady = true;
-            PlayerReady();
+            if (CustomisationScreenManager.Instance.activated)
+            {
+                CustomisationScreenManager.Instance.QuitToMenu();
+            }
+            else
+            {
+                if (playerReady == false)
+                {
+                    playerReady = true;
+                    PlayerReady();
+                }
+            }
         }
         if (obj.action.name == controls.MenuActions.Cancel.name)
         {
@@ -113,23 +157,39 @@ public class CustomiserController : MonoBehaviour
                 }
                 else
                 {
-                    PlayerConfigurationManager.Instance.Destroy();
-                    SceneManager.LoadScene(0);
+                    if (CustomisationScreenManager.Instance.activated)
+                    {
+                        CustomisationScreenManager.Instance.BackToGame();
+                    }
+                    else
+                    {
+                        Color colour = playerColourIm.color;
+                        CustomisationScreenManager.Instance.BackOut(thisConfig, colour);
+                    }
                 }
             }
         }
         if (obj.action.name == controls.MenuActions.ChangeMenu.name)
         {
+            if (inputDisabled)
+            { return; }
+
             if (obj.performed)
             { MenuSwap(); }
         }
         if (obj.action.name == controls.MenuActions.ShuffleLeft.name)
         {
+            if (inputDisabled)
+            { return; }
+
             if (obj.performed)
             { PreviousItem(); }
         }
         if (obj.action.name == controls.MenuActions.ShuffleRight.name)
         {
+            if (inputDisabled)
+            { return; }
+
             if (obj.performed)
             { NextItem(); }
         }
@@ -138,9 +198,15 @@ public class CustomiserController : MonoBehaviour
     #region Scroll Inputs
     public int index;
     public int maxIndex;
+
+    public int indexS;
+    public int maxIndexS;
     [SerializeField] bool keyDown;
+    [SerializeField] bool keyDownS;
     public bool isPressUp, isPressDown;
+    public bool isPressLeft, isPressRight;
     int VerticalMovement;
+    int HorizontalMovement;
 
     PlayerItemsManager itemManager;
 
@@ -163,14 +229,36 @@ public class CustomiserController : MonoBehaviour
     {
         isPressDown = false;
     }
+
+    public void onPressLeft()
+    {
+        isPressLeft = true;
+    }
+
+    public void onReleaseLeft()
+    {
+        isPressLeft = false;
+    }
+
+    public void onPressRight()
+    {
+        isPressRight = true;
+    }
+
+    public void onReleaseRight()
+    {
+        isPressRight = false;
+    }
     #endregion
 
     #region Start & Update
     void Start()
     {
         maxIndex = 1;
+        maxIndexS = 1;
         playerReady = false;
         isPressUp = isPressDown = false;
+        isPressLeft = isPressRight = false;
 
         itemManager = player.GetComponent<PlayerItemsManager>();
         weaponAmount = itemManager.weapons.Length - 1;
@@ -180,6 +268,16 @@ public class CustomiserController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        VerticalMove();
+        HorizontalMove();
+
+        weaponName.text = itemManager.weaponName;
+        headName.text = itemManager.headAccName;
+        bodyName.text = itemManager.bodyAccName;
+    }
+
+    void VerticalMove()
     {
         if (isPressUp) VerticalMovement = 1;
         if (isPressDown) VerticalMovement = -1;
@@ -220,10 +318,34 @@ public class CustomiserController : MonoBehaviour
         {
             keyDown = false;
         }
+    }
 
-        weaponName.text = itemManager.weaponName;
-        headName.text = itemManager.headAccName;
-        bodyName.text = itemManager.bodyAccName;
+    void HorizontalMove()
+    {
+        if (isPressRight) HorizontalMovement = 1;
+        if (isPressLeft) HorizontalMovement = -1;
+        if (!isPressLeft && !isPressRight) HorizontalMovement = 0;
+
+        if (HorizontalMovement != 0)
+        {
+            if (!keyDownS)
+            {
+                if (HorizontalMovement < 0)
+                {
+                    PreviousItem();
+                }
+                else if (HorizontalMovement > 0)
+                {
+                    PreviousItem();
+                }
+
+                keyDownS = true;
+            }
+        }
+        else
+        {
+            keyDownS = false;
+        }
     }
     #endregion
 
@@ -246,11 +368,12 @@ public class CustomiserController : MonoBehaviour
     }
     public void PlayerReady()
     {
-        if (inputDisabled) { return; }
-        joinedIndicator.sprite = readyImage;
-        player.GetComponent<Animator>().SetBool("AnimBoolPlayerReady", true);
         if (menuSwapped)
         { MenuSwap(); }
+
+        joinedIndicator.sprite = readyImage;
+        player.GetComponent<Animator>().SetBool("AnimBoolPlayerReady", true);
+
         playerReady = true;
         inputDisabled = true;
 
@@ -348,7 +471,7 @@ public class CustomiserController : MonoBehaviour
     #region Menu Transitions
     public void MenuSwap()
     {
-        if (playerReady)
+        if (inputDisabled)
         { return; }
 
         menuSwapped = !menuSwapped;

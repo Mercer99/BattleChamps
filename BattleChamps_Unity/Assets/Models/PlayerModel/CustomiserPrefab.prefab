@@ -691,11 +691,18 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bd60c59b8b95ede47993eacc596e4b59, type: 3}
   swing: {fileID: 8300000, guid: fbf8e0fa20e31ed419cc266db3ac4bbf, type: 3}
   click: {fileID: 8300000, guid: b380090ef7b1d6242a6c14f42d12afe7, type: 3}
+  playerColourIm: {fileID: 758269031774045640}
+  confirmBackScreen: {fileID: 0}
   index: 0
   maxIndex: 0
+  indexS: 0
+  maxIndexS: 0
   keyDown: 0
+  keyDownS: 0
   isPressUp: 0
   isPressDown: 0
+  isPressLeft: 0
+  isPressRight: 0
 --- !u!114 &8829778015445887193
 MonoBehaviour:
   m_ObjectHideFlags: 0

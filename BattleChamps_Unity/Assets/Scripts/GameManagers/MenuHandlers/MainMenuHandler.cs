@@ -11,14 +11,17 @@ public class MainMenuHandler : MonoBehaviour//Singleton<MainMenuHandler>
     public GameObject playerObj;
     public GameObject mainPanel;
     public GameObject optionsPanel;
+    public GameObject controlsPanel;
     public GameObject creditsPanel;
     public bool creditsActive;
+    public bool controlsActive;
     public bool optionsActive;
     public bool menuActive;
 
     void Awake()
     {
         creditsActive = false;
+        controlsActive = false;
         optionsActive = false;
         menuActive = true;
 
@@ -44,9 +47,12 @@ public class MainMenuHandler : MonoBehaviour//Singleton<MainMenuHandler>
         { creditsPanel.GetComponent<MenuPanels>().SlideOut(); }
         else if (optionsActive)
         { optionsPanel.GetComponent<MenuPanels>().SlideOut(); }
+        else if (controlsActive)
+        { controlsPanel.GetComponent<MenuPanels>().SlideOut(); }
         yield return new WaitForSeconds(0.2f);
         mainPanel.GetComponent<MenuPanels>().SlideIn();
         creditsActive = false;
+        controlsActive = false;
         optionsActive = false;
     }
 
@@ -69,6 +75,16 @@ public class MainMenuHandler : MonoBehaviour//Singleton<MainMenuHandler>
         mainPanel.GetComponent<MenuPanels>().SlideOut();
         yield return new WaitForSeconds(0.2f);
         creditsPanel.GetComponent<MenuPanels>().SlideIn();
+    }
+    public void Controls()
+    { StartCoroutine(ControlsSwitch()); }
+    IEnumerator ControlsSwitch()
+    {
+        controlsActive = true;
+        menuActive = false;
+        mainPanel.GetComponent<MenuPanels>().SlideOut();
+        yield return new WaitForSeconds(0.2f);
+        controlsPanel.GetComponent<MenuPanels>().SlideIn();
     }
 
     public void LoadLevel(int levelNum)
