@@ -83,15 +83,17 @@ public class CharacterStats : MonoBehaviour
         Camera.main.GetComponent<Screenshake>().StartShake(1);
 
         GetComponent<CharacterHandler>().StopAllCoroutines();
-
         GetComponent<CharacterHandler>().disabled = true;
 
         yield return new WaitForSeconds(1);
         currentHealth = maxHealth;
+        
         gameObject.transform.position = GameModeManager.Instance.PlayerSpawns[Random.Range(0, GameModeManager.Instance.PlayerSpawns.Length - 1)].transform.position;
 
         GetComponent<CharacterHandler>().disabled = false;
+        GetComponent<CharacterHandler>().shield.SetActive(false);
         playerDied = false;
+        canBeDamaged = true;
 
         yield break;
     }
