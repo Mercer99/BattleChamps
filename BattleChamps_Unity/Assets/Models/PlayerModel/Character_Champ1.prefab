@@ -2224,18 +2224,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charAnimator: {fileID: 7347708007913862275}
+  playerMaterials:
+  - {fileID: 2100000, guid: e06f5002ec569134d8e8144b9394d31a, type: 2}
+  - {fileID: 2100000, guid: b1ab73549c0ead749a1abd5ae44a1976, type: 2}
+  - {fileID: 2100000, guid: f524e126394e3344e908f527184b707c, type: 2}
+  - {fileID: 2100000, guid: eec2d6bd9b71f8448b63a6a97a47c556, type: 2}
+  playerMesh: {fileID: 147916193737393473}
   uiManager: {fileID: 0}
-  defaultSpeed: 12
-  gravity: -9.81
+  defaultSpeed: 9
+  gravity: -30
   playerName: 
   dashCooldown: 2
   dashSpeed: 50
-  dashTime: 0.2
+  dashTime: 0.1
   groundCheck: {fileID: 298733268668222571}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  attackComboBufferTime: 0.2
+  basicAttackCD: 0.2
+  basicAttackTimerSet: 0.5
   removeRotation: 0
   disabled: 0
   applyGravity: 1
@@ -2295,6 +2304,7 @@ MonoBehaviour:
   audioSource: {fileID: 298733269170340108}
   lastCharacter: 0
   hitCD: 5
+  lastHitCooldown: 1
 --- !u!114 &298733269170340115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2355,7 +2365,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640700280512478278}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ec4d9350cedf3f46b729bbd26d101ea, type: 3}
   m_Name: 
@@ -3842,6 +3852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}
+--- !u!137 &147916193737393473 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3841037347906993321, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}
+  m_PrefabInstance: {fileID: 3982197884505291240}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1910881152441992075 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3298688437811722851, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}

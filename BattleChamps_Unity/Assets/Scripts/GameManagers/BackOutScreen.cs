@@ -7,13 +7,12 @@ using TMPro;
 public class BackOutScreen : MonoBehaviour
 {
     public TextMeshProUGUI playerNumText;
-    public string playerNum;
     public Image playerColourImage;
 
-    public void StartPanel(Color pColour)
+    public void StartPanel(Color pColour, int playerNum)
     {
         transform.root.GetComponent<Animator>().SetBool("AnimBoolMenuActive", true);
-        playerNumText.text = "PLAYER " + playerNum;
+        playerNumText.text = "PLAYER " + (playerNum + 1);
         playerColourImage.color = pColour;
     }
 

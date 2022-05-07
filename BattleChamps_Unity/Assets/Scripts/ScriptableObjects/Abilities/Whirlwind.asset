@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: Whirlwind
   m_EditorClassIdentifier: 
   abilityName: Whirlwind
-  cooldownTime: 5
-  activeTime: 4
-  activate: 0
-  speed: 90
+  cooldownTime: 8
+  activeTime: 3

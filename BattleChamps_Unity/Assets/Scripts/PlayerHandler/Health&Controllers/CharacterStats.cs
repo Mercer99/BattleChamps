@@ -23,7 +23,14 @@ public class CharacterStats : MonoBehaviour
     public float hitCD = 5;
     private float lastHitCD;
 
+    private float hitCooldown;
+    public float lastHitCooldown = 1;
+
     private void OnEnable()
+    {
+        
+    }
+    public void InitializePlayerStats()
     {
         canBeDamaged = true;
         maxHealth = startingHealth;
@@ -47,35 +54,48 @@ public class CharacterStats : MonoBehaviour
         else { lastHitCD = 0; }
     }
 
+    private void FixedUpdate()
+    {
+        if (hitCooldown > 0)
+        { hitCooldown -= Time.deltaTime; }
+        else { hitCooldown = 0; }
+    }
+
     public void TakeDamage(float damage, int damageDealer, bool goThroughBlock)
     {
         if (canBeDamaged || goThroughBlock)
         {
-            currentHealth -= damage;
+            if (damageDealer != lastCharacter)
+            { hitCooldown = lastHitCooldown; }
 
-            ParticleSystem particle = Instantiate(hitParticle, particlePos);
-            //GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
-
-            if (damageDealer < 4)
+            if ((damageDealer == lastCharacter && hitCooldown <= 0) || damageDealer != lastCharacter)
             {
-                lastCharacter = damageDealer;
-                lastHitCD = hitCD;
-            }
+                currentHealth -= damage;
 
-            if (currentHealth <= 0 && playerDied == false)
-            {
-                playerDied = true;
+                ParticleSystem particle = Instantiate(hitParticle, particlePos);
+                GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
 
-                if (lastHitCD > 0)
-                { UIManager.Instance.PrintOnKillFeed(playerID, lastCharacter); }
-                else { UIManager.Instance.PrintOnKillFeed(playerID, damageDealer); }
-               
-                StartCoroutine(DeathWait());
+                if (damageDealer < 4)
+                {
+                    lastCharacter = damageDealer;
+                    lastHitCD = hitCD;
+                }
+
+                if (currentHealth <= 0 && playerDied == false)
+                {
+                    playerDied = true;
+
+                    if (lastHitCD > 0)
+                    { UIManager.Instance.PrintOnKillFeed(playerID, lastCharacter); }
+                    else { UIManager.Instance.PrintOnKillFeed(playerID, damageDealer); }
+
+                    StartCoroutine(DeathWait());
+                }
+                else
+                { Camera.main.GetComponent<Screenshake>().StartShake(0); }
+
+                audioSource.PlayOneShot(hitSound);
             }
-            else { 
-                Camera.main.GetComponent<Screenshake>().StartShake(0);
-            }
-            audioSource.PlayOneShot(hitSound);
         }
     }
     IEnumerator DeathWait()

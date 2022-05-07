@@ -1585,8 +1585,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Games Designer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: de3182ca71b0f5246aead0740b044607, type: 2}
+  m_sharedMaterial: {fileID: 7086496787808668472, guid: de3182ca71b0f5246aead0740b044607, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10711,8 +10711,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Daniel Wegrzyn
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de3182ca71b0f5246aead0740b044607, type: 2}
-  m_sharedMaterial: {fileID: 7086496787808668472, guid: de3182ca71b0f5246aead0740b044607, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fcb7b63734a302b4e9498552e262f04d, type: 2}
+  m_sharedMaterial: {fileID: -7181821144109262037, guid: fcb7b63734a302b4e9498552e262f04d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10746,7 +10746,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -10990,8 +10990,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Daniel Mercer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de3182ca71b0f5246aead0740b044607, type: 2}
-  m_sharedMaterial: {fileID: 7086496787808668472, guid: de3182ca71b0f5246aead0740b044607, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fcb7b63734a302b4e9498552e262f04d, type: 2}
+  m_sharedMaterial: {fileID: -7181821144109262037, guid: fcb7b63734a302b4e9498552e262f04d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11025,7 +11025,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -11642,7 +11642,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 3.59e-43, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: -44.963013}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -15134,8 +15134,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de3182ca71b0f5246aead0740b044607, type: 2}
-  m_sharedMaterial: {fileID: 7086496787808668472, guid: de3182ca71b0f5246aead0740b044607, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fcb7b63734a302b4e9498552e262f04d, type: 2}
+  m_sharedMaterial: {fileID: -7181821144109262037, guid: fcb7b63734a302b4e9498552e262f04d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15169,7 +15169,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: 5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -15849,7 +15849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5975636402884437036, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.64
+      value: 5.02
       objectReference: {fileID: 0}
     - target: {fileID: 5975636402884437036, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16113,8 +16113,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 3D Artist
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: de3182ca71b0f5246aead0740b044607, type: 2}
+  m_sharedMaterial: {fileID: 7086496787808668472, guid: de3182ca71b0f5246aead0740b044607, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -28802,8 +28802,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Level Designer
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: de3182ca71b0f5246aead0740b044607, type: 2}
+  m_sharedMaterial: {fileID: 7086496787808668472, guid: de3182ca71b0f5246aead0740b044607, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

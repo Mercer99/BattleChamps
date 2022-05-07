@@ -11,9 +11,11 @@ public class CharacterHandler : MonoBehaviour
     [Header("Initialising")]
     public Animator charAnimator;
     private CharacterController charController;
+    public Material[] playerMaterials;
+    public SkinnedMeshRenderer playerMesh;
 
     private PlayerControls controls;
-    private PlayerConfiguration playerConfig;
+    public PlayerConfiguration playerConfig;
 
     [HideInInspector]
     public UIManager uiManager;
@@ -45,6 +47,12 @@ public class CharacterHandler : MonoBehaviour
 
     private float currentSpeed;
     private float animLength;
+
+    public float attackComboBufferTime = 0.2f;
+    public float basicAttackCD = 0.5f;
+    private float basicAttackTimer = 0;
+    [SerializeField] private float basicAttackTimerSet;
+    private int comboHits;
 
     public bool removeRotation;
 
@@ -83,7 +91,7 @@ public class CharacterHandler : MonoBehaviour
     private void Awake()
     { controls = new PlayerControls(); }
 
-    private void OnEnable()
+    private void Start()
     {
         abilityHolder1 = abilityHolderObj1.GetComponent<AbilityHolder>();
         abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
@@ -98,15 +106,13 @@ public class CharacterHandler : MonoBehaviour
 
         uiManager = UIManager.Instance;
 
-        GetComponent<CharacterStats>().playerID = GameModeManager.Instance.allPlayers.Count;
         GameModeManager.Instance.PlayerJoined(gameObject);
     }
 
     public void InitializePlayer(PlayerConfiguration config)
     {
         playerConfig = config;
-        GetComponent<CharacterStats>().teamNumber = playerConfig.teamNum;
-
+        
         currentWeapon = allWeapons[playerConfig.chosenWeapon];
         currentWeapon.SetActive(true);
 
@@ -115,6 +121,16 @@ public class CharacterHandler : MonoBehaviour
         headAccessories[playerConfig.chosenHeadAccessory].SetActive(true);
         bodyAccessories[playerConfig.chosenBodyAccessory].SetActive(true);
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
+
+        Material[] mats = playerMesh.materials;
+        mats[0] = playerMaterials[playerConfig.PlayerIndex];
+        playerMesh.materials = mats;
+
+        GetComponent<CharacterStats>().playerID = config.PlayerIndex;
+        GetComponent<CharacterStats>().teamNumber = playerConfig.teamNum;
+        GetComponent<CharacterStats>().InitializePlayerStats();
+
+        GetComponent<ControllerRumbler>().InitializeRumbler();
     }
 
     void Update()
@@ -133,6 +149,16 @@ public class CharacterHandler : MonoBehaviour
         else { usingAbility = false; }
 
         WhirlwindAbility();
+
+        if (basicAttackTimer > 0)
+        { basicAttackTimer -= Time.deltaTime; }
+        else if (basicAttackTimer <= basicAttackTimerSet )
+        {
+            if (basicAttackTimer <= 0)
+            { comboHits = 0; }
+        }
+        else
+        { comboHits = 0; }
     }
     #endregion
 
@@ -170,7 +196,7 @@ public class CharacterHandler : MonoBehaviour
 
     #region Inputs
     #region Check Current Animation
-    public void AnimLengthCheck()
+    public float AnimLengthCheck()
     {
         int animCheckCounter = 0;
 
@@ -179,7 +205,7 @@ public class CharacterHandler : MonoBehaviour
             chargingAbility = true;
         }
 
-        animLength = charAnimator.GetCurrentAnimatorStateInfo(1).length;
+        return animLength = charAnimator.GetCurrentAnimatorStateInfo(1).length;
     }
     #endregion
 
@@ -215,11 +241,10 @@ public class CharacterHandler : MonoBehaviour
         if (usingAbility || attacking)
         { return; }
 
-        attacking = true;
-        weaponHandler.EnableCollider(true);
-        AnimLengthCheck();
-        GetComponent<PlayerSounds>().playAttackVoiceline();
-        StartCoroutine(AttackCoroutine());
+        if (context.performed)
+        {
+            StartCoroutine(AttackCoroutine());
+        }
     }
     public void OnShield(CallbackContext context)
     {
@@ -327,14 +352,67 @@ public class CharacterHandler : MonoBehaviour
     }
     private IEnumerator AttackCoroutine()
     {
-        charAnimator.SetTrigger("AnimTriggerAttacking");
-        
-        yield return new WaitForSecondsRealtime(animLength);
-        attacking = false;
-        weaponHandler.EnableCollider(false);
+        if (attacking == false)
+        {
+            switch (comboHits)
+            {
+                case 0:
+                    FirstHit();
+                    attacking = true;
+                    weaponHandler.EnableCollider(true);
+                    GetComponent<PlayerSounds>().playAttackVoiceline();
+                    yield return new WaitForSecondsRealtime(AnimLengthCheck()*0.5f);
+                    weaponHandler.EnableCollider(false);
+                    attacking = false;
+                    break;
+                case 1:
+                    SecondHit();
+                    attacking = true;
+                    weaponHandler.EnableCollider(true);
+                    GetComponent<PlayerSounds>().playAttackVoiceline();
+                    yield return new WaitForSecondsRealtime(AnimLengthCheck()*0.5f);
+                    weaponHandler.EnableCollider(false);
+                    attacking = false;
+                    break;
+                case 2:
+                    FinalHit();
+                    attacking = true;
+                    weaponHandler.EnableCollider(true);
+                    GetComponent<PlayerSounds>().playAttackVoiceline();
+                    yield return new WaitForSecondsRealtime(AnimLengthCheck() + basicAttackCD);
+                    weaponHandler.EnableCollider(false);
+                    attacking = false;
+                    break;
+            }
+        }
     }
+    void FirstHit()
+    {
+        print("First Hit");
+        charAnimator.Play("IG_BasicMeleeAttack");
+        comboHits++;
+        basicAttackTimer = AnimLengthCheck() + attackComboBufferTime;
+    }
+    void SecondHit()
+    {
+        print("Second Hit");
+        charAnimator.Play("IG_BasicMeleeAttackP2");
+        comboHits++;
+        basicAttackTimer = AnimLengthCheck() + attackComboBufferTime;
+    }
+    void FinalHit()
+    {
+        print("Third Hit");
+        charAnimator.Play("IG_BasicMeleeAttackP3");
+        comboHits = 0;
+        basicAttackTimer = 0;
+    }
+
     private IEnumerator ShieldCoroutine()
     {
+        weaponHandler.EnableCollider(false);
+        attacking = false;
+
         shield.SetActive(true);
         GetComponent<CharacterStats>().canBeDamaged = false;
         charAnimator.Play("A_Shield");
