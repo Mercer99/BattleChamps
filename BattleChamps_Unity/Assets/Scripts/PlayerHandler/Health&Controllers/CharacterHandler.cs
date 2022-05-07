@@ -142,6 +142,7 @@ public class CharacterHandler : MonoBehaviour
 
         if (!removeRotation)
         { HandleRotation(); }
+
         charAnimator.SetBool("AnimBoolStunned", disabled);
 
         if (abilityHolder1.state == AbilityHolder.AbilityState.active || abilityHolder2.state == AbilityHolder.AbilityState.active || shield.activeInHierarchy || currentSpeed != defaultSpeed)

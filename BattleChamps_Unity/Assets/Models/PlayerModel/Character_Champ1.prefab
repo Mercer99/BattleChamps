@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4c4e74b8d2675419d0d6e89d897b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackAmount: 15
+  knockbackAmount: 25
   knockbackTime: 0.2
 --- !u!114 &298733269170340109
 MonoBehaviour:
