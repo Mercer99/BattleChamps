@@ -56,7 +56,7 @@ public class CustomisationScreenManager : Singleton<CustomisationScreenManager>
     {
         if (readyMenuCurrentTimer <= 0)
         {
-            backOutPanel.GetComponent<BackOutScreen>().StartPanel(color);
+            backOutPanel.GetComponent<BackOutScreen>().StartPanel(color, config.PlayerIndex);
 
             activated = true;
             PlayerConfigurationManager.Instance.ShowBackOutMenu(config.PlayerIndex);

@@ -106,6 +106,7 @@ public class CustomiserController : MonoBehaviour
             {
                 if (inputDisabled)
                 { return; }
+
                 if (scrollValue.x > 0)
                 {
                     onPressRight();

@@ -36,7 +36,7 @@ public class WeaponHandler : MonoBehaviour
             {
                 other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
                 other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
-                enableDamage = false;
+                //enableDamage = false;
             }
         }
     }

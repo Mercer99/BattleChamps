@@ -8,10 +8,9 @@ public class ControllerRumbler : MonoBehaviour
 {
     PlayerInput playerInput;
 
-    // Start is called before the first frame update
-    void Awake()
+    public void InitializeRumbler()
     {
-        playerInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<CharacterHandler>().playerConfig.Input;
     }
 
     // Update is called once per frame

@@ -9916,11 +9916,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1238150523830775706, guid: 98c7e30c30c145a4b84ff677b20c24ab, type: 3}
       propertyPath: m_fontSize
-      value: 35
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1238150523830775706, guid: 98c7e30c30c145a4b84ff677b20c24ab, type: 3}
       propertyPath: m_fontSizeBase
-      value: 35
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98c7e30c30c145a4b84ff677b20c24ab, type: 3}
