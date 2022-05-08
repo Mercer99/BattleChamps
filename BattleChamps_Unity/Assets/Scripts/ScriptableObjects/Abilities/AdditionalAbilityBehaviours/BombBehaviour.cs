@@ -8,25 +8,60 @@ public class BombBehaviour : MonoBehaviour
     public float bombLifetime;
 
     public Transform forward;
-
     public ParticleSystem explosion;
-    public GameObject particleSpawnpoint;
-
     public int playerInt;
+
+    public float bombRadius = 10;
+    public float bombDamage = 30;
+
+    bool exploded;
 
     // Start is called before the first frame update
     void OnEnable()
     {
         rb = GetComponent<Rigidbody>();
     }
+    public void StartBomb(GameObject parent)
+    {
+        Physics.IgnoreCollision(parent.transform.root.GetComponent<CharacterController>(), GetComponent<Collider>());
+    }
 
     public IEnumerator BombExplosion()
     {
-        rb.AddForce(-forward.forward.normalized * 50, ForceMode.Impulse);
+        rb.AddForce(-forward.forward.normalized * 100, ForceMode.Impulse);
+       //rb.AddForce(-forward.up.normalized * 50, ForceMode.Impulse);
         yield return new WaitForSeconds(bombLifetime);
-        ParticleSystem particle = Instantiate(explosion, particleSpawnpoint.transform);
-        GetComponent<Animator>().Play("Explode");
+
+        exploded = true;
+        StartCoroutine(BombCollision());
+    }
+    public IEnumerator BombCollision()
+    {
+        ParticleSystem particle = Instantiate(explosion, transform.position, transform.rotation);
+        particle.Play();
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (Vector3.Distance(gameObject.transform.position, player.transform.position) < bombRadius)
+            {
+                player.GetComponent<CharacterStats>().TakeDamage(bombDamage, playerInt, true);
+                player.GetComponent<KnockbackReceiver>().Knockback(gameObject.transform.root.gameObject);
+            }
+        }
+
         yield return new WaitForSeconds(0.35f);
         Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (exploded == false)
+            {
+                StopCoroutine(BombExplosion());
+                StartCoroutine(BombCollision());
+            }
+        }
     }
 }

@@ -21,10 +21,8 @@ public class KnockbackReceiver : MonoBehaviour
     {
         if (currentKnockbacktime > 0)
         {
-            GetComponent<CharacterHandler>().disabled = true;
             GetComponent<CharacterController>().Move(-knockbackDirection * knockbackAmount * Time.deltaTime);
             currentKnockbacktime -= Time.deltaTime;
         }
-        else { GetComponent<CharacterHandler>().disabled = false; }
     }
 }

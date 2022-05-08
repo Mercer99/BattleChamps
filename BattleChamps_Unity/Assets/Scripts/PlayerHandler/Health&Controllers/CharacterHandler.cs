@@ -42,7 +42,7 @@ public class CharacterHandler : MonoBehaviour
     private Vector2 rotationInput;
 
     private bool dashed = false;
-    private bool attacking = false;
+    public bool attacking = false;
     private bool usingAbility = false;
 
     private float currentSpeed;
@@ -50,14 +50,16 @@ public class CharacterHandler : MonoBehaviour
 
     public float attackComboBufferTime = 0.2f;
     public float basicAttackCD = 0.5f;
-    private float basicAttackTimer = 0;
+    public float basicAttackTimer = 0;
     [SerializeField] private float basicAttackTimerSet;
-    private int comboHits;
+    public int comboHits;
 
     public bool removeRotation;
 
     private bool chargingAbility = false;
     public bool disabled = false;
+
+    public ParticleSystem dustParticles;
 
     [HideInInspector]
     public bool applyGravity = true;
@@ -74,7 +76,7 @@ public class CharacterHandler : MonoBehaviour
     public GameObject shield;
 
     public GameObject[] allWeapons;
-    private WeaponHandler weaponHandler;
+    public WeaponHandler weaponHandler;
 
     public GameObject[] headAccessories;
 
@@ -97,15 +99,10 @@ public class CharacterHandler : MonoBehaviour
         abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
 
         applyGravity = true;
-
         shield.SetActive(false);
-
         charController = GetComponent<CharacterController>();
-
         currentSpeed = defaultSpeed;
-
         uiManager = UIManager.Instance;
-
         GameModeManager.Instance.PlayerJoined(gameObject);
     }
 
@@ -137,13 +134,11 @@ public class CharacterHandler : MonoBehaviour
     {
         if (applyGravity)
         { ApplyGravity(); }
-        if (applyMovement())
+        if (applyMovement() == true)
         { ApplyMovement(); }
 
         if (!removeRotation)
         { HandleRotation(); }
-
-        charAnimator.SetBool("AnimBoolStunned", disabled);
 
         if (abilityHolder1.state == AbilityHolder.AbilityState.active || abilityHolder2.state == AbilityHolder.AbilityState.active || shield.activeInHierarchy || currentSpeed != defaultSpeed)
         { usingAbility = true; }
@@ -319,6 +314,9 @@ public class CharacterHandler : MonoBehaviour
 
         moveDirection = new Vector3(movementInput.x, 0, movementInput.y).normalized;
         charController.Move(moveDirection * currentSpeed * Time.deltaTime);
+
+        if (movementValue() != 0) { dustParticles.Play(); }
+        else { dustParticles.Stop(); }
     }
     public GameObject rotationIndicator;
     private void HandleRotation()

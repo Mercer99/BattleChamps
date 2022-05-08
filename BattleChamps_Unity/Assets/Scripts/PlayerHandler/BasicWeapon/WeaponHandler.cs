@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class WeaponHandler : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class WeaponHandler : MonoBehaviour
 
     private GameObject playerObj;
     private int playerName;
+
+    public VisualEffect hitEffect;
 
     void OnEnable()
     {
@@ -36,6 +39,8 @@ public class WeaponHandler : MonoBehaviour
             {
                 other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
                 other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
+
+                hitEffect.Play();
                 //enableDamage = false;
             }
         }

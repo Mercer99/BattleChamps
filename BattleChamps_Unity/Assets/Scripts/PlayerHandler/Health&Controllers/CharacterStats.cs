@@ -13,9 +13,10 @@ public class CharacterStats : MonoBehaviour
     public float currentHealth;
     public bool playerDied;
 
-    public bool canBeDamaged;
-    public Transform particlePos;
     public ParticleSystem hitParticle;
+    public Transform particlePos;
+
+    public bool canBeDamaged;
     public AudioClip hitSound;
     public AudioSource audioSource;
 
@@ -72,8 +73,10 @@ public class CharacterStats : MonoBehaviour
             {
                 currentHealth -= damage;
 
-                ParticleSystem particle = Instantiate(hitParticle, particlePos);
                 GetComponent<ControllerRumbler>().StartRumble(0.5f, playerID);
+
+                ParticleSystem hitEffect = Instantiate(hitParticle, particlePos);
+                hitEffect.Play();
 
                 if (damageDealer < 4)
                 {
@@ -114,6 +117,10 @@ public class CharacterStats : MonoBehaviour
         GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolDeath", false);
         GetComponent<CharacterHandler>().disabled = false;
         GetComponent<CharacterHandler>().shield.SetActive(false);
+        GetComponent<CharacterHandler>().comboHits = 0;
+        GetComponent<CharacterHandler>().basicAttackTimer = 0;
+        GetComponent<CharacterHandler>().weaponHandler.EnableCollider(false);
+        GetComponent<CharacterHandler>().attacking = false;
         playerDied = false;
         canBeDamaged = true;
 
