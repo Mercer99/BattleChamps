@@ -12,7 +12,6 @@ public class WeaponHandler : MonoBehaviour
     public bool enableDamage = false;
 
     private GameObject playerObj;
-    private int playerName;
 
     public VisualEffect hitEffect;
 
@@ -22,7 +21,6 @@ public class WeaponHandler : MonoBehaviour
         enableDamage = false;
 
         playerObj = transform.root.gameObject;
-        playerName = playerObj.GetComponent<CharacterStats>().playerID;
         
         // Ignore collision between weapon & weapon holder
         Physics.IgnoreCollision(playerObj.GetComponent<CharacterController>(), weaponCollider);
@@ -37,7 +35,10 @@ public class WeaponHandler : MonoBehaviour
         {
             if (other.gameObject.tag == "Player")
             {
-                other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
+                if (other.GetComponent<CharacterHandler>().shield.activeInHierarchy)
+                { playerObj.GetComponent<CharacterHandler>().StunPlayer(2); }
+
+                other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerObj.GetComponent<CharacterStats>().playerID, false);
                 other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
 
                 hitEffect.Play();

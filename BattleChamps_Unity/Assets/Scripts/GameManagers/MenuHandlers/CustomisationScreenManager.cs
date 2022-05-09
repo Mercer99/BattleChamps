@@ -67,5 +67,5 @@ public class CustomisationScreenManager : Singleton<CustomisationScreenManager>
     { backOutPanel.GetComponent<BackOutScreen>().DisablePause(); activated = false; }
 
     public void QuitToMenu()
-    { SceneManager.LoadScene(0); }
+    { SceneManager.LoadScene(1); }
 }

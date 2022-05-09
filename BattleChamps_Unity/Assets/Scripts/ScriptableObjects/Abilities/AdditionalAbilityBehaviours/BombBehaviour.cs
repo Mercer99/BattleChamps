@@ -39,12 +39,13 @@ public class BombBehaviour : MonoBehaviour
     {
         ParticleSystem particle = Instantiate(explosion, transform.position, transform.rotation);
         particle.Play();
+        Destroy(particle, 1f);
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
             if (Vector3.Distance(gameObject.transform.position, player.transform.position) < bombRadius)
             {
-                player.GetComponent<CharacterStats>().TakeDamage(bombDamage, playerInt, true);
+                player.GetComponent<CharacterStats>().TakeDamage(bombDamage, playerInt, false);
                 player.GetComponent<KnockbackReceiver>().Knockback(gameObject.transform.root.gameObject);
             }
         }

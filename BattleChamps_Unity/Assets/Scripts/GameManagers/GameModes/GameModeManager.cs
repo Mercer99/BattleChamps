@@ -116,6 +116,6 @@ public class GameModeManager : Singleton<GameModeManager>
 
     public void BackToMain()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

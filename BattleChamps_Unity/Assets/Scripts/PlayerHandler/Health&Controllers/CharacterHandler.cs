@@ -25,6 +25,9 @@ public class CharacterHandler : MonoBehaviour
     public float gravity = -9.81f;
     [HideInInspector]
     public string playerName;
+    private float currentShieldCD;
+    public float shieldCD = 5f;
+    public float currentStunDuration = 0f;
 
     [Header("Dash")]
     public float dashCooldown = 2f;
@@ -56,7 +59,7 @@ public class CharacterHandler : MonoBehaviour
 
     public bool removeRotation;
 
-    private bool chargingAbility = false;
+    public bool chargingAbility = false;
     public bool disabled = false;
 
     public ParticleSystem dustParticles;
@@ -95,9 +98,6 @@ public class CharacterHandler : MonoBehaviour
 
     private void Start()
     {
-        abilityHolder1 = abilityHolderObj1.GetComponent<AbilityHolder>();
-        abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
-
         applyGravity = true;
         shield.SetActive(false);
         charController = GetComponent<CharacterController>();
@@ -117,6 +117,12 @@ public class CharacterHandler : MonoBehaviour
 
         headAccessories[playerConfig.chosenHeadAccessory].SetActive(true);
         bodyAccessories[playerConfig.chosenBodyAccessory].SetActive(true);
+
+        abilityHolder1 = abilityHolderObj1.GetComponent<AbilityHolder>();
+        abilityHolder2 = abilityHolderObj2.GetComponent<AbilityHolder>();
+        abilityHolder1.ability = playerConfig.chosenAbility1;
+        abilityHolder2.ability = playerConfig.chosenAbility2;
+
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
 
         Material[] mats = playerMesh.materials;
@@ -145,6 +151,10 @@ public class CharacterHandler : MonoBehaviour
         else { usingAbility = false; }
 
         WhirlwindAbility();
+
+        if (currentShieldCD > 0)
+        { currentShieldCD -= Time.deltaTime; }
+        else { currentShieldCD = 0; }
 
         if (basicAttackTimer > 0)
         { basicAttackTimer -= Time.deltaTime; }
@@ -247,9 +257,12 @@ public class CharacterHandler : MonoBehaviour
         if (usingAbility || disabled)
         { return; }
 
-        usingAbility = true;
-        AnimLengthCheck();
-        StartCoroutine(ShieldCoroutine());
+        if (currentShieldCD <= 0)
+        {
+            usingAbility = true;
+            AnimLengthCheck();
+            StartCoroutine(ShieldCoroutine());
+        }
     }
     public void OnAbility1(CallbackContext context)
     {
@@ -415,7 +428,8 @@ public class CharacterHandler : MonoBehaviour
         shield.SetActive(true);
         GetComponent<CharacterStats>().canBeDamaged = false;
         charAnimator.Play("A_Shield");
-        GetComponent<PlayerUI_Handler>().ShieldCDTimer(animLength);
+        currentShieldCD = shieldCD;
+        GetComponent<PlayerUI_Handler>().ShieldCDTimer(currentShieldCD);
 
         yield return new WaitForSecondsRealtime(animLength);
         shield.SetActive(false);
@@ -463,5 +477,18 @@ public class CharacterHandler : MonoBehaviour
         activateWhirlwind = false;
         removeRotation = false;
         charAnimator.Play("Base Layer.IG_Idle");
+    }
+
+    public void StunPlayer(float stun)
+    {
+        disabled = true;
+        charAnimator.SetBool("AnimBoolStunned", true);
+        Debug.Log("STUNNED");
+        Invoke("Unstun", stun);
+    }
+    public void Unstun()
+    {
+        charAnimator.SetBool("AnimBoolStunned", false);
+        disabled = false;
     }
 }

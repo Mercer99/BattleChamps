@@ -8,12 +8,15 @@ public class GameStarter : MonoBehaviour
     private Animator uiAnimator;
 
     public AudioSource musicSource;
+    public AudioSource announcerSource;
+
+    public AudioClip readyClip;
 
     // Start is called before the first frame update
     void Awake()
     {
         uiAnimator = popupUI.GetComponent<Animator>();
-
+        announcerSource = GetComponent<AudioSource>();
         StartCoroutine(GameStartCoroutine());
     }
 
@@ -21,6 +24,7 @@ public class GameStarter : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         uiAnimator.SetBool("GameStart", true);
+        announcerSource.PlayOneShot(readyClip);
         yield return new WaitForSeconds(1.05f);
         GetComponent<GameTimer>().StartTimer();
         GetComponent<GameModeManager>().SpawnPlayers();

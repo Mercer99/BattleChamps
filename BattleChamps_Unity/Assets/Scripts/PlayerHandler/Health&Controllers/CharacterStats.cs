@@ -91,7 +91,7 @@ public class CharacterStats : MonoBehaviour
                     if (lastHitCD > 0)
                     { UIManager.Instance.PrintOnKillFeed(playerID, lastCharacter); }
                     else { UIManager.Instance.PrintOnKillFeed(playerID, damageDealer); }
-
+                    Debug.Log(lastCharacter);
                     StartCoroutine(DeathWait());
                 }
                 else
@@ -115,7 +115,9 @@ public class CharacterStats : MonoBehaviour
         gameObject.transform.position = GameModeManager.Instance.PlayerSpawns[Random.Range(0, GameModeManager.Instance.PlayerSpawns.Length - 1)].transform.position;
 
         GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolDeath", false);
+        GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolStunned", false);
         GetComponent<CharacterHandler>().disabled = false;
+        GetComponent<CharacterHandler>().chargingAbility = false;
         GetComponent<CharacterHandler>().shield.SetActive(false);
         GetComponent<CharacterHandler>().comboHits = 0;
         GetComponent<CharacterHandler>().basicAttackTimer = 0;

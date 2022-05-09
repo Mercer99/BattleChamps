@@ -34,7 +34,7 @@ public class PlayerSetupMenuController : MonoBehaviour
         if (!inputEnabled) { return; }
         CustomiserController controller = GetComponent<CustomiserController>();
         PlayerConfigurationManager.Instance.SetPlayerValues(playerIndex, controller.currentHeadAccessory, 
-            controller.currentBodyAccessory, controller.currentWeapon);
+            controller.currentBodyAccessory, controller.currentWeapon, controller.currentAbility1, controller.currentAbility2);
     }
 
     public void UnreadyPlayer()

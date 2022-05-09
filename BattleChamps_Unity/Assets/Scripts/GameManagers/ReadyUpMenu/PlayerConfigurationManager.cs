@@ -69,14 +69,18 @@ public class PlayerConfigurationManager : MonoBehaviour
         return playerConfigs;
     }
 
-    public void SetPlayerValues(int index, int headAccInt, int bodyAccInt, int weaponInt)
+    public void SetPlayerValues(int index, int headAccInt, int bodyAccInt, int weaponInt, Ability_Base ability1, Ability_Base ability2)
     {
         int pIndex = index;
         playerConfigs[pIndex].chosenHeadAccessory = headAccInt;
         playerConfigs[pIndex].chosenBodyAccessory = bodyAccInt;
         playerConfigs[pIndex].chosenWeapon = weaponInt;
+        playerConfigs[pIndex].chosenAbility1 = ability1;
+        playerConfigs[pIndex].chosenAbility2 = ability2;
 
         ReadyPlayer(pIndex);
+
+        Debug.Log (ability1.abilityName + " " + ability2.abilityName);
     }
 
     public bool called;
@@ -166,6 +170,9 @@ public class PlayerConfiguration
     public int chosenWeapon { get; set; }
     public int chosenHeadAccessory { get; set; }
     public int chosenBodyAccessory { get; set; }
+
+    public Ability_Base chosenAbility1;
+    public Ability_Base chosenAbility2;
 
     public int teamNum { get; set; }
 }

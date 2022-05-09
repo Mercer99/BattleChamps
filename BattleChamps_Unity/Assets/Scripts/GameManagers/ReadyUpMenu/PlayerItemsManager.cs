@@ -8,13 +8,22 @@ public class PlayerItemsManager : MonoBehaviour
     public GameObject[] bodyAccessories;
     public GameObject[] weapons;
 
+    public Ability_Base[] abilities1;
+    public Ability_Base[] abilities2;
+
     public string headAccName;
     public string bodyAccName;
     public string weaponName;
 
+    public string ability1Name;
+    public string ability2Name;
+
     public int headAccNum;
     public int bodyAccNum;
     public int weaponNum;
+
+    public int ability1Num;
+    public int ability2Num;
 
     public ParticleSystem poof;
 
@@ -23,6 +32,8 @@ public class PlayerItemsManager : MonoBehaviour
         headAccNum = 0;
         bodyAccNum = 0;
         weaponNum = 0;
+        ability1Num = 0;
+        ability2Num = 0;
 
         foreach (GameObject item in weapons)
         { item.SetActive(false); }
@@ -41,6 +52,9 @@ public class PlayerItemsManager : MonoBehaviour
         bodyAccessories[bodyAccNum].SetActive(true);
 
         bodyAccName = bodyAccessories[bodyAccNum].name;
+
+        ability1Name = abilities1[ability1Num].abilityName;
+        ability2Name = abilities2[ability2Num].abilityName;
     }
 
     public void ChangeWeapon()
@@ -66,5 +80,13 @@ public class PlayerItemsManager : MonoBehaviour
         bodyAccessories[bodyAccNum].SetActive(true);
 
         bodyAccName = bodyAccessories[bodyAccNum].name;
+    }
+    public void ChangeAbility1()
+    {
+        ability1Name = abilities1[ability1Num].abilityName;
+    }
+    public void ChangeAbility2()
+    {
+        ability2Name = abilities2[ability2Num].abilityName;
     }
 }

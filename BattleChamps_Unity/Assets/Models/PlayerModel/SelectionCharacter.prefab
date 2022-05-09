@@ -153,12 +153,24 @@ MonoBehaviour:
   - {fileID: 2052132146104567866}
   - {fileID: 1328864386515092164}
   - {fileID: 6200095055754888261}
+  abilities1:
+  - {fileID: 11400000, guid: 7d6671e1d39f7604389ab47cdba98262, type: 2}
+  - {fileID: 11400000, guid: 6b5f654a225551d458fc3e04130449d0, type: 2}
+  - {fileID: 11400000, guid: 280691ff5653f5f4a9180f6dac22e38c, type: 2}
+  abilities2:
+  - {fileID: 11400000, guid: 6b5f654a225551d458fc3e04130449d0, type: 2}
+  - {fileID: 11400000, guid: 7d6671e1d39f7604389ab47cdba98262, type: 2}
+  - {fileID: 11400000, guid: 280691ff5653f5f4a9180f6dac22e38c, type: 2}
   headAccName: 
   bodyAccName: 
   weaponName: 
+  ability1Name: 
+  ability2Name: 
   headAccNum: 0
   bodyAccNum: 0
   weaponNum: 0
+  ability1Num: 0
+  ability2Num: 0
   poof: {fileID: 0}
 --- !u!1 &1899456273689988814
 GameObject:

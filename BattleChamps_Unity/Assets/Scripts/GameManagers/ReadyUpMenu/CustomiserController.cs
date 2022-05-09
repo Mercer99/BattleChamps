@@ -13,6 +13,9 @@ public class CustomiserController : MonoBehaviour
     public TextMeshProUGUI headName;
     public TextMeshProUGUI bodyName;
 
+    public TextMeshProUGUI ability1Name;
+    public TextMeshProUGUI ability2Name;
+
     public PlayerConfiguration thisConfig;
 
     public bool playerJoined;
@@ -20,7 +23,7 @@ public class CustomiserController : MonoBehaviour
     public GameObject player;
 
     public Image joinedIndicator;
-    public Sprite notjoinedImage;
+    public Sprite notJoinedImage;
     public Sprite notReadyImage;
     public Sprite readyImage;
 
@@ -39,6 +42,14 @@ public class CustomiserController : MonoBehaviour
     public int currentWeapon;
     public int weaponAmount;
 
+    public int currentAbility1Num;
+    public Ability_Base currentAbility1;
+    public int abilityAmount1;
+
+    public int currentAbility2Num;
+    public Ability_Base currentAbility2;
+    public int abilityAmount2;
+
     public AudioSource buttonSoundsSource;
     public AudioSource voicelinesSource;
     public AudioClip[] readyVoicelines;
@@ -53,7 +64,7 @@ public class CustomiserController : MonoBehaviour
     void Awake()
     {
         playerJoined = false;
-        joinedIndicator.sprite = notjoinedImage;
+        joinedIndicator.sprite = notJoinedImage;
 
         menu1.SetActive(true);
         menu2.SetActive(false);
@@ -64,6 +75,8 @@ public class CustomiserController : MonoBehaviour
     public void InitializePlayer(PlayerConfiguration config)
     {
         thisConfig = config;
+        currentAbility1 = itemManager.abilities1[0];
+        currentAbility2 = itemManager.abilities2[0];
         config.Input.onActionTriggered += Input_onActionTriggered;
     }
 
@@ -265,6 +278,9 @@ public class CustomiserController : MonoBehaviour
         weaponAmount = itemManager.weapons.Length - 1;
         headAccessoryAmount = itemManager.headAccessories.Length - 1;
         bodyAccessoryAmount = itemManager.bodyAccessories.Length - 1;
+
+        abilityAmount1 = itemManager.abilities1.Length - 1;
+        abilityAmount2 = itemManager.abilities2.Length - 1;
     }
 
     // Update is called once per frame
@@ -276,6 +292,8 @@ public class CustomiserController : MonoBehaviour
         weaponName.text = itemManager.weaponName;
         headName.text = itemManager.headAccName;
         bodyName.text = itemManager.bodyAccName;
+        ability1Name.text = itemManager.ability1Name;
+        ability2Name.text = itemManager.ability2Name;
     }
 
     void VerticalMove()
@@ -362,7 +380,7 @@ public class CustomiserController : MonoBehaviour
         PlayerUnready();
         player.GetComponent<Animator>().SetBool("AnimBoolPlayerActive", false);
         playerJoined = false;
-        joinedIndicator.sprite = notjoinedImage;
+        joinedIndicator.sprite = notJoinedImage;
 
         menu1.SetActive(true);
         menu2.SetActive(false);
@@ -414,6 +432,19 @@ public class CustomiserController : MonoBehaviour
                 CheckBodyAcc();
             }
         }
+        else
+        {
+            if (index == 0)
+            {
+                currentAbility1Num++;
+                CheckAbility1(true);
+            }
+            else if (index == 1)
+            {
+                currentAbility2Num++;
+                CheckAbility2(true);
+            }
+        }
     }
     public void PreviousItem()
     {
@@ -435,6 +466,19 @@ public class CustomiserController : MonoBehaviour
             {
                 currentBodyAccessory--;
                 CheckBodyAcc();
+            }
+        }
+        else
+        {
+            if (index == 0)
+            {
+                currentAbility1Num--;
+                CheckAbility1(false);
+            }
+            else if (index == 1)
+            {
+                currentAbility2Num--;
+                CheckAbility2(false);
             }
         }
     }
@@ -467,6 +511,55 @@ public class CustomiserController : MonoBehaviour
         itemManager.bodyAccNum = currentBodyAccessory;
         itemManager.ChangeBody();
     }
+    public void CheckAbility1(bool next)
+    {
+        if (currentAbility1Num < 0)
+        { currentAbility1Num = abilityAmount1; }
+        else if (currentAbility1Num > abilityAmount1)
+        { currentAbility1Num = 0; }
+        itemManager.ability1Num = currentAbility1Num;
+
+        itemManager.ChangeAbility1(); currentAbility1 = itemManager.abilities1[currentAbility1Num];
+
+        if (itemManager.ability1Name == itemManager.ability2Name)
+        {
+            if (next)
+            {
+                currentAbility1Num++;
+                CheckAbility1(true);
+            }
+            else
+            {
+                currentAbility1Num--;
+                CheckAbility1(false);
+            }
+        }
+    }
+    public void CheckAbility2(bool next)
+    {
+        if (currentAbility2Num < 0)
+        { currentAbility2Num = abilityAmount2; }
+        else if (currentAbility2Num > abilityAmount2)
+        { currentAbility2Num = 0; }
+        itemManager.ability2Num = currentAbility2Num;
+
+        itemManager.ChangeAbility2(); currentAbility2 = itemManager.abilities2[currentAbility2Num];
+
+        if (itemManager.ability1Name == itemManager.ability2Name)
+        {
+            if (next)
+            {
+                currentAbility2Num++;
+                CheckAbility2(true);
+            }
+            else
+            {
+                currentAbility2Num--;
+                CheckAbility2(false);
+            }
+        }
+    }
+
     #endregion
 
     #region Menu Transitions

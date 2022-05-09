@@ -657,11 +657,13 @@ MonoBehaviour:
   weaponName: {fileID: 5926498293960915763}
   headName: {fileID: 2141825240387089463}
   bodyName: {fileID: 8251447161134573263}
+  ability1Name: {fileID: 2896700993945967421}
+  ability2Name: {fileID: 8459829455385454602}
   playerJoined: 0
   playerReady: 0
   player: {fileID: 0}
   joinedIndicator: {fileID: 1051619104338067846}
-  notjoinedImage: {fileID: 21300000, guid: f4b45f85ba1827645b9013d32e35435f, type: 3}
+  notJoinedImage: {fileID: 21300000, guid: f4b45f85ba1827645b9013d32e35435f, type: 3}
   notReadyImage: {fileID: 21300000, guid: 4a0b994b207e2114ca94b277689211bb, type: 3}
   readyImage: {fileID: 21300000, guid: c06088950c0192143bd0d6227b0bf7bc, type: 3}
   menu1: {fileID: 6542144447514288116}
@@ -680,6 +682,12 @@ MonoBehaviour:
   bodyAccessoryAmount: 0
   currentWeapon: 0
   weaponAmount: 0
+  currentAbility1Num: 0
+  currentAbility1: {fileID: 0}
+  abilityAmount1: 0
+  currentAbility2Num: 0
+  currentAbility2: {fileID: 0}
+  abilityAmount2: 0
   buttonSoundsSource: {fileID: 7458718880862739030}
   voicelinesSource: {fileID: 3087901523540576389}
   readyVoicelines:

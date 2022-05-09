@@ -146,11 +146,11 @@ public class GameSelection : MonoBehaviour
         configManager.levelName = arenaSwitchName;
         configManager.pointLimit = pointLimit;
 
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void BackToMain()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

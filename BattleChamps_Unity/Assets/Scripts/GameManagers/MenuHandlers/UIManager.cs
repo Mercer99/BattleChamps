@@ -65,7 +65,7 @@ public class UIManager : Singleton<UIManager>
     }
     public void Pause_RestartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         Pause_ResumeGame();
     }
     public void Pause_QuitGame()
