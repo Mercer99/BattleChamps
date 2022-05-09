@@ -93,6 +93,7 @@ public class CharacterHandler : MonoBehaviour
     private AbilityHolder abilityHolder2;
 
     #region Initialising & Update
+
     private void Awake()
     { controls = new PlayerControls(); }
 
@@ -310,6 +311,8 @@ public class CharacterHandler : MonoBehaviour
     public Vector3 moveDirection;
     private void ApplyMovement()
     {
+        dustParticles.Play();
+
         float movementValue()
         {
             if (applyMovement() == false)
@@ -320,6 +323,10 @@ public class CharacterHandler : MonoBehaviour
             else { return 0; }
         }
 
+        if (movementValue() == 0)
+        { dustParticles.transform.localScale = Vector3.Lerp(new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0.1f, 0.1f, 0.1f), 1f); }
+        else { dustParticles.transform.localScale = new Vector3(1, 1, 1); }
+
         charAnimator.SetFloat("AnimFloatRunning", movementValue());
 
         if (applyMovement() == false)
@@ -327,9 +334,6 @@ public class CharacterHandler : MonoBehaviour
 
         moveDirection = new Vector3(movementInput.x, 0, movementInput.y).normalized;
         charController.Move(moveDirection * currentSpeed * Time.deltaTime);
-
-        if (movementValue() != 0) { dustParticles.Play(); }
-        else { dustParticles.Stop(); }
     }
     public GameObject rotationIndicator;
     private void HandleRotation()
