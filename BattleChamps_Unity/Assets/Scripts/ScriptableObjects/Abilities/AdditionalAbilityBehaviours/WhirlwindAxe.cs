@@ -33,7 +33,7 @@ public class WhirlwindAxe : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
-            other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
+            other.GetComponent<KnockbackReceiver>().Knockback(playerObj, 10, false, "");
         }
     }
 }

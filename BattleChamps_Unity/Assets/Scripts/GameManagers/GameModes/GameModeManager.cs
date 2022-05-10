@@ -61,6 +61,36 @@ public class GameModeManager : Singleton<GameModeManager>
         }
     }
 
+    public void DespawnPlayer(GameObject player)
+    {
+        player.SetActive(false);
+        StartCoroutine(SpawnPlayer(player));
+    }
+    IEnumerator SpawnPlayer(GameObject player)
+    {
+        yield return new WaitForSeconds(3);
+        RespawnPlayer(player);
+    }
+    public void RespawnPlayer(GameObject player)
+    {
+        player.GetComponent<CharacterStats>().currentHealth = player.GetComponent<CharacterStats>().startingHealth;
+        //player.GetComponent<CharacterHandler>().charAnimator.Play("Base Layer.IG_Idle");
+        player.GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolDeath", false);
+        player.GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolStunned", false);
+        player.GetComponent<CharacterHandler>().disabled = false;
+        player.GetComponent<CharacterHandler>().playerDead = false;
+        player.GetComponent<CharacterHandler>().chargingAbility = false;
+        player.GetComponent<CharacterHandler>().shield.SetActive(false);
+        player.GetComponent<CharacterHandler>().comboHits = 0;
+        player.GetComponent<CharacterHandler>().basicAttackTimer = 0;
+        player.GetComponent<CharacterHandler>().weaponHandler.EnableCollider(false);
+        player.GetComponent<CharacterHandler>().attacking = false;
+        player.GetComponent<CharacterStats>().playerDied = false;
+        player.GetComponent<CharacterStats>().canBeDamaged = true;
+
+        player.SetActive(true);
+    }
+
     public void SpawnCounters(PlayerConfiguration playerConfig)
     {
         if (Mode_AttritionManager.Instance != null)

@@ -36,10 +36,10 @@ public class WeaponHandler : MonoBehaviour
             if (other.gameObject.tag == "Player")
             {
                 if (other.GetComponent<CharacterHandler>().shield.activeInHierarchy)
-                { playerObj.GetComponent<CharacterHandler>().StunPlayer(2); }
+                { playerObj.GetComponent<CharacterHandler>().StunPlayer(2); playerObj.GetComponent<CharacterHandler>().SpawnNotification("PARRIED"); }
 
                 other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerObj.GetComponent<CharacterStats>().playerID, false);
-                other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
+                other.GetComponent<KnockbackReceiver>().Knockback(playerObj, 25, false, "");
 
                 hitEffect.Play();
                 //enableDamage = false;

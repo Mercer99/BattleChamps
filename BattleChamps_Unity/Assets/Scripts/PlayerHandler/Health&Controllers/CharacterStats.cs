@@ -108,23 +108,14 @@ public class CharacterStats : MonoBehaviour
         GetComponent<CharacterHandler>().StopAllCoroutines();
         GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolDeath", true);
         GetComponent<CharacterHandler>().disabled = true;
+        GetComponent<CharacterHandler>().playerDead = true;
+        GetComponent<CharacterHandler>().DeactivateWhirlwind();
 
-        yield return new WaitForSeconds(1);
-        currentHealth = maxHealth;
-        
-        gameObject.transform.position = GameModeManager.Instance.PlayerSpawns[Random.Range(0, GameModeManager.Instance.PlayerSpawns.Length - 1)].transform.position;
+        yield return new WaitForSeconds(0.5f);
 
-        GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolDeath", false);
-        GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolStunned", false);
-        GetComponent<CharacterHandler>().disabled = false;
-        GetComponent<CharacterHandler>().chargingAbility = false;
-        GetComponent<CharacterHandler>().shield.SetActive(false);
-        GetComponent<CharacterHandler>().comboHits = 0;
-        GetComponent<CharacterHandler>().basicAttackTimer = 0;
-        GetComponent<CharacterHandler>().weaponHandler.EnableCollider(false);
-        GetComponent<CharacterHandler>().attacking = false;
-        playerDied = false;
-        canBeDamaged = true;
+        Transform spawn = GameModeManager.Instance.PlayerSpawns[Random.Range(0, GameModeManager.Instance.PlayerSpawns.Length - 1)].transform;
+        gameObject.transform.position = new Vector3(spawn.position.x, spawn.position.y, spawn.position.z);
+        GameModeManager.Instance.DespawnPlayer(gameObject);
 
         yield break;
     }

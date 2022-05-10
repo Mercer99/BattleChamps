@@ -42,7 +42,7 @@ public class GroundSlamBehaviour : MonoBehaviour
     private void DoDamage()
     {
         playerObj.GetComponent<CharacterStats>().TakeDamage(damage, parentObj.GetComponent<CharacterHandler>().playerConfig.PlayerIndex, false);
-        playerObj.GetComponent<KnockbackReceiver>().Knockback(parentObj.transform.root.gameObject);
+        playerObj.GetComponent<KnockbackReceiver>().Knockback(parentObj.transform.root.gameObject, 40, false, "");
     }
 
     private void Particle()
