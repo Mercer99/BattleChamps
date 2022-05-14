@@ -119,6 +119,8 @@ public class CharacterHandler : MonoBehaviour
     public void InitializePlayer(PlayerConfiguration config)
     {
         playerConfig = config;
+
+        Debug.Log(config.teamNum);
         
         currentWeapon = allWeapons[playerConfig.chosenWeapon];
         currentWeapon.SetActive(true);
@@ -140,7 +142,8 @@ public class CharacterHandler : MonoBehaviour
         playerMesh.materials = mats;
 
         GetComponent<CharacterStats>().playerID = config.PlayerIndex;
-        GetComponent<CharacterStats>().teamNumber = playerConfig.teamNum;
+        GetComponent<PlayerUI_Handler>().teamNum = config.teamNum;
+        GetComponent<CharacterStats>().teamNumber = config.teamNum;
         GetComponent<CharacterStats>().InitializePlayerStats();
 
         GetComponent<ControllerRumbler>().InitializeRumbler();

@@ -35,9 +35,13 @@ public class PlayerUI_Handler : MonoBehaviour
         {
             foreach (Image image in playerUI)
             {
-                image.color = teamColours[teamNum - 1];
-                playerColour = teamColours[teamNum - 1];
+                //image.color = teamColours[teamNum - 1];
+                //playerColour = teamColours[teamNum - 1];
+                image.color = playerColours[playerID];
+                playerColour = playerColours[playerID];
             }
+            playerUI[5].color = teamColours[teamNum - 1];
+            playerUI[0].color = teamColours[teamNum - 1];
         }
         else
         {

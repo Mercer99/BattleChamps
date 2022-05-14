@@ -89,25 +89,45 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         playerConfigs[index].isReady = true;
 
-        if (playerConfigs.All(p => p.isReady == true))
+        if (playerConfigs.Count > 1)
         {
-            if (called == false)
+            if (playerConfigs.All(p => p.isReady == true))
             {
-                if (SceneManager.GetActiveScene().name == "MENU_TeamSelection")
+                if (called == false)
                 {
-                    Debug.Log("ALL READY");
-                    called = true;
-
-                    //SceneManager.LoadScene(5);
-
-                    if (GameObject.Find("GameConfigManager") != null)
+                    if (SceneManager.GetActiveScene().name == "MENU_TeamSelection")
                     {
-                        SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                        Debug.Log("ALL READY");
+                        called = true;
+
+                        int teamCounterBlue = 0;
+                        int teamCounterRed = 0;
+
+                        foreach (var playerConfig in playerConfigs)
+                        {
+                            if (playerConfig.teamNum < 0)
+                            { teamCounterBlue++; }
+                            if (playerConfig.teamNum < 0)
+                            { teamCounterRed++; }
+                        }
+                        if (teamCounterBlue > 2)
+                        { return; }
+                        else if (teamCounterRed > 2)
+                        { return; }
+                        else
+                        {
+                            //SceneManager.LoadScene(6);
+
+                            if (GameObject.Find("GameConfigManager") != null)
+                            {
+                                SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
+                            }
+                            else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
+                        }
                     }
-                    else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
+                    else
+                    { ReadyUpMenuTimer(); }
                 }
-                else
-                { ReadyUpMenuTimer(); }
             }
         }
     }

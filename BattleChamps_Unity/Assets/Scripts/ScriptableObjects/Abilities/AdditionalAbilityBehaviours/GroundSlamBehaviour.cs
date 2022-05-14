@@ -41,8 +41,22 @@ public class GroundSlamBehaviour : MonoBehaviour
     }
     private void DoDamage()
     {
-        playerObj.GetComponent<CharacterStats>().TakeDamage(damage, parentObj.GetComponent<CharacterHandler>().playerConfig.PlayerIndex, false);
-        playerObj.GetComponent<KnockbackReceiver>().Knockback(parentObj.transform.root.gameObject, 40, false, "");
+        PlayerConfiguration thisConfig = PlayerConfigurationManager.Instance.playerConfigs[parentObj.GetComponent<CharacterStats>().playerID];
+        PlayerConfiguration otherConfig = playerObj.GetComponent<CharacterHandler>().playerConfig;
+        if (thisConfig.teamNum <= 0)
+        {
+            playerObj.GetComponent<CharacterStats>().TakeDamage(damage, parentObj.GetComponent<CharacterHandler>().playerConfig.PlayerIndex, false);
+            playerObj.GetComponent<KnockbackReceiver>().Knockback(parentObj.transform.root.gameObject, 40, false, "");
+        }
+        else
+        {
+            if (thisConfig.teamNum != otherConfig.teamNum)
+            {
+                playerObj.GetComponent<CharacterStats>().TakeDamage(damage, parentObj.GetComponent<CharacterHandler>().playerConfig.PlayerIndex, false);
+                playerObj.GetComponent<KnockbackReceiver>().Knockback(parentObj.transform.root.gameObject, 40, false, "");
+            }
+        }
+        
     }
 
     private void Particle()

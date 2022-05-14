@@ -146,16 +146,19 @@ public class CustomiserController : MonoBehaviour
         }
         if (obj.action.name == controls.MenuActions.Submit.name)
         {
-            if (CustomisationScreenManager.Instance.activated)
+            if (SceneManager.GetActiveScene().name == "MENU_PlayerSelection")
             {
-                CustomisationScreenManager.Instance.QuitToMenu();
-            }
-            else
-            {
-                if (playerReady == false)
+                if (CustomisationScreenManager.Instance.activated)
                 {
-                    playerReady = true;
-                    PlayerReady();
+                    CustomisationScreenManager.Instance.QuitToMenu();
+                }
+                else
+                {
+                    if (playerReady == false)
+                    {
+                        playerReady = true;
+                        PlayerReady();
+                    }
                 }
             }
         }

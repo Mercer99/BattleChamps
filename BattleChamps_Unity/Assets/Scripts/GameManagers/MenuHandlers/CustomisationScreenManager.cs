@@ -35,7 +35,17 @@ public class CustomisationScreenManager : Singleton<CustomisationScreenManager>
         if (readyMenuCurrentTimer <= 0)
         { 
             if (countdownStarted)
-            { countdownStarted = false;  SceneManager.LoadScene("MENU_TeamSelection"); }
+            { 
+                if (PlayerConfigurationManager.Instance.playerConfigs.Count < 2)
+                {
+                    Debug.Log("CHANGE THE COUNT BACK TO THREE!");
+                    if (GameObject.Find("GameConfigManager") != null)
+                    { SceneManager.LoadScene(GameConfigurationManager.Instance.levelName); }
+                    else 
+                    { SceneManager.LoadScene(PlayerConfigurationManager.Instance.scenes[Random.Range(0, PlayerConfigurationManager.Instance.scenes.Length - 1)]); }
+                }
+                else { countdownStarted = false; SceneManager.LoadScene("MENU_TeamSelection"); }
+            }
         }
     }
 

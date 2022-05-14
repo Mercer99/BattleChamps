@@ -24,7 +24,10 @@ public class TeamSelectionMenu : MonoBehaviour
     public Sprite xbControllerSprite;
     public Sprite psControllerSprite;
 
+    public int teamSelectIndex;
+    
     public int playerIndex;
+    RectTransform rectTransform;
 
     bool ready;
 
@@ -42,6 +45,9 @@ public class TeamSelectionMenu : MonoBehaviour
     {
         playerConfig = config;
         playerIndex = config.PlayerIndex;
+
+        teamSelectIndex = 0;
+        rectTransform = GetComponent<RectTransform>();
 
         playerIcon[config.PlayerIndex].SetActive(true);
         controllerIcon.color = playerColours[config.PlayerIndex];
@@ -82,12 +88,34 @@ public class TeamSelectionMenu : MonoBehaviour
         if (obj.action.name == controls.MenuActions.ShuffleLeft.name)
         {
             if (obj.performed)
-            { }//HERE }
+            {
+                if (ready)
+                { return; }
+
+                if (teamSelectIndex >= 0)
+                { teamSelectIndex -= 1; ChangeTeam(); }
+            }//HERE }
         }
         if (obj.action.name == controls.MenuActions.ShuffleRight.name)
         {
             if (obj.performed)
-            { }//HERE }
+            {
+                if (ready)
+                { return; }
+
+                if (teamSelectIndex <= 0)
+                { teamSelectIndex += 1; ChangeTeam(); }
+            }//HERE }
         }
+    }
+
+    void ChangeTeam()
+    {
+        if (teamSelectIndex == -1)
+        { rectTransform.anchoredPosition = new Vector3(-1200, rectTransform.anchoredPosition.y); playerConfig.teamNum = 1; }
+        else if (teamSelectIndex == 0)
+        { rectTransform.anchoredPosition = new Vector3(0, rectTransform.anchoredPosition.y); playerConfig.teamNum = 0; }
+        else if (teamSelectIndex == 1)
+        { rectTransform.anchoredPosition = new Vector3(1200, rectTransform.anchoredPosition.y); playerConfig.teamNum = 2; }
     }
 }

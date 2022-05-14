@@ -37,7 +37,6 @@ public class CharacterStats : MonoBehaviour
         maxHealth = startingHealth;
         currentHealth = maxHealth;
 
-        GetComponent<PlayerUI_Handler>().teamNum = teamNumber;
         GetComponent<PlayerUI_Handler>().EnableUI(playerID);
         playerName = "Player " + playerID;
     }

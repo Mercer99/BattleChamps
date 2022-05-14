@@ -502,8 +502,8 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -574,4 +574,5 @@ MonoBehaviour:
   controllerIcon: {fileID: 8676429349026897079}
   xbControllerSprite: {fileID: 21300000, guid: 894563952b3cb594a997417871b1cac4, type: 3}
   psControllerSprite: {fileID: 21300000, guid: 09684aec9693ca04ba1bc7be241ecbd3, type: 3}
+  teamSelectIndex: 0
   playerIndex: 0
