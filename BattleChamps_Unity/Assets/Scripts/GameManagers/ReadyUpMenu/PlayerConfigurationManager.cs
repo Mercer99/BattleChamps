@@ -15,6 +15,8 @@ public class PlayerConfigurationManager : MonoBehaviour
 
     public int levelNum;
 
+    public int numOfTeams;
+
     public string[] scenes;
 
     public static PlayerConfigurationManager Instance { get; private set; }
@@ -116,6 +118,7 @@ public class PlayerConfigurationManager : MonoBehaviour
                         { return; }
                         else
                         {
+                            numOfTeams = teamCounterBlue + teamCounterRed;
                             //SceneManager.LoadScene(6);
 
                             if (GameObject.Find("GameConfigManager") != null)

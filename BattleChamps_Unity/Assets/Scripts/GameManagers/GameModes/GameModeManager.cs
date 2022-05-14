@@ -16,6 +16,8 @@ public class GameModeManager : Singleton<GameModeManager>
     [HideInInspector]
     public GameObject configManager;
 
+    public bool teamsActive;
+
     public GameObject attritionObj;
     public GameObject kingOfTheHillObj;
     public GameObject conquestObj;
@@ -59,6 +61,10 @@ public class GameModeManager : Singleton<GameModeManager>
 
             SpawnCounters(playerConfigs[i]);
         }
+        if (PlayerConfigurationManager.Instance.numOfTeams > 0)
+        { teamsActive = true; }
+        else
+        { teamsActive = false; }
     }
 
     public void DespawnPlayer(GameObject player)
