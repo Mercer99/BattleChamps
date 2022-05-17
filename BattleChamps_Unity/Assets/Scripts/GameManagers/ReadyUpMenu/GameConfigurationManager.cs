@@ -8,9 +8,6 @@ public class GameConfigurationManager : MonoBehaviour
     public string levelName { get; set; }
     public float gameLength { get; set; }
     public int pointLimit { get; set; }
-    public int numOfTeams { get; set; }
-    public int team1Size { get; set; }
-    public int team2Size { get; set; }
 
     public static GameConfigurationManager Instance { get; private set; }
 

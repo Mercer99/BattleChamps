@@ -45,8 +45,21 @@ public class BombBehaviour : MonoBehaviour
         {
             if (Vector3.Distance(gameObject.transform.position, player.transform.position) < bombRadius)
             {
-                player.GetComponent<CharacterStats>().TakeDamage(bombDamage, playerInt, false);
-                player.GetComponent<KnockbackReceiver>().Knockback(gameObject.transform.root.gameObject);
+                PlayerConfiguration thisConfig = PlayerConfigurationManager.Instance.playerConfigs[playerInt];
+                PlayerConfiguration otherConfig = player.GetComponent<CharacterHandler>().playerConfig;
+                if (thisConfig.teamNum <= 0)
+                {
+                    player.GetComponent<CharacterStats>().TakeDamage(bombDamage, playerInt, false);
+                    player.GetComponent<KnockbackReceiver>().Knockback(gameObject.transform.root.gameObject, 25, true, "BOMBED");
+                }
+                else
+                {
+                    if (thisConfig.teamNum != otherConfig.teamNum)
+                    {
+                        player.GetComponent<CharacterStats>().TakeDamage(bombDamage, playerInt, false);
+                        player.GetComponent<KnockbackReceiver>().Knockback(gameObject.transform.root.gameObject, 25, true, "BOMBED");
+                    }
+                }
             }
         }
 

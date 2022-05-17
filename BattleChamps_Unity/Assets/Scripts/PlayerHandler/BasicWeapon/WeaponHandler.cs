@@ -35,11 +35,27 @@ public class WeaponHandler : MonoBehaviour
         {
             if (other.gameObject.tag == "Player")
             {
-                if (other.GetComponent<CharacterHandler>().shield.activeInHierarchy)
-                { playerObj.GetComponent<CharacterHandler>().StunPlayer(2); }
+                PlayerConfiguration thisConfig = PlayerConfigurationManager.Instance.playerConfigs[playerObj.GetComponent<CharacterStats>().playerID];
+                PlayerConfiguration otherConfig = other.GetComponent<CharacterHandler>().playerConfig;
+                if (thisConfig.teamNum <= 0)
+                {
+                    if (other.GetComponent<CharacterHandler>().shield.activeInHierarchy)
+                    { playerObj.GetComponent<CharacterHandler>().StunPlayer(2); playerObj.GetComponent<CharacterHandler>().SpawnNotification("PARRIED"); }
 
-                other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerObj.GetComponent<CharacterStats>().playerID, false);
-                other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
+                    other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerObj.GetComponent<CharacterStats>().playerID, false);
+                    other.GetComponent<KnockbackReceiver>().Knockback(playerObj, 25, false, "");
+                }
+                else
+                {
+                    if (thisConfig.teamNum != otherConfig.teamNum)
+                    {
+                        if (other.GetComponent<CharacterHandler>().shield.activeInHierarchy)
+                        { playerObj.GetComponent<CharacterHandler>().StunPlayer(2); playerObj.GetComponent<CharacterHandler>().SpawnNotification("PARRIED"); }
+
+                        other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerObj.GetComponent<CharacterStats>().playerID, false);
+                        other.GetComponent<KnockbackReceiver>().Knockback(playerObj, 25, false, "");
+                    }
+                }
 
                 hitEffect.Play();
                 //enableDamage = false;

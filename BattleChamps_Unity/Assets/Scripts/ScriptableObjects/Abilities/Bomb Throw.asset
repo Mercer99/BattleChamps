@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bomb Throw
   m_EditorClassIdentifier: 
   abilityName: Bomb Throw
-  cooldownTime: 5
+  cooldownTime: 7
   activeTime: 0.5
   bombObject: {fileID: 8258285977425130083, guid: a4f4e7483780a274eaab6a4446b98142, type: 3}

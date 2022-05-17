@@ -16,6 +16,7 @@ public class CharacterHandler : MonoBehaviour
 
     private PlayerControls controls;
     public PlayerConfiguration playerConfig;
+    public bool playerDead;
 
     [HideInInspector]
     public UIManager uiManager;
@@ -47,6 +48,7 @@ public class CharacterHandler : MonoBehaviour
     private bool dashed = false;
     public bool attacking = false;
     private bool usingAbility = false;
+    public bool resetDisable = false;
 
     private float currentSpeed;
     private float animLength;
@@ -58,6 +60,9 @@ public class CharacterHandler : MonoBehaviour
     public int comboHits;
 
     public bool removeRotation;
+
+    public Transform notificationSpawnPoint;
+    public GameObject notification;
 
     public bool chargingAbility = false;
     public bool disabled = false;
@@ -72,6 +77,10 @@ public class CharacterHandler : MonoBehaviour
         { return false; }
 
         return true;
+    }
+    public void ResetDisable()
+    {
+        disabled = false;
     }
 
     #region Customisation Variables
@@ -110,6 +119,8 @@ public class CharacterHandler : MonoBehaviour
     public void InitializePlayer(PlayerConfiguration config)
     {
         playerConfig = config;
+
+        Debug.Log(config.teamNum);
         
         currentWeapon = allWeapons[playerConfig.chosenWeapon];
         currentWeapon.SetActive(true);
@@ -131,7 +142,8 @@ public class CharacterHandler : MonoBehaviour
         playerMesh.materials = mats;
 
         GetComponent<CharacterStats>().playerID = config.PlayerIndex;
-        GetComponent<CharacterStats>().teamNumber = playerConfig.teamNum;
+        GetComponent<PlayerUI_Handler>().teamNum = config.teamNum;
+        GetComponent<CharacterStats>().teamNumber = config.teamNum;
         GetComponent<CharacterStats>().InitializePlayerStats();
 
         GetComponent<ControllerRumbler>().InitializeRumbler();
@@ -225,6 +237,12 @@ public class CharacterHandler : MonoBehaviour
     public bool rotating;
     public void PlayerRotation(CallbackContext context)
     { rotationInput = -context.ReadValue<Vector2>(); rotating = context.performed; }
+
+    public void SpawnNotification(string popupText)
+    {
+        GameObject popup = Instantiate(notification, notificationSpawnPoint);
+        popup.GetComponent<PlayerUIStateNotification>().Popup(popupText);
+    }
 
     public void OnDash(CallbackContext context)
     {
@@ -485,14 +503,20 @@ public class CharacterHandler : MonoBehaviour
 
     public void StunPlayer(float stun)
     {
-        disabled = true;
-        charAnimator.SetBool("AnimBoolStunned", true);
-        Debug.Log("STUNNED");
-        Invoke("Unstun", stun);
+        if (!playerDead)
+        {
+            disabled = true;
+            charAnimator.SetBool("AnimBoolStunned", true);
+            Debug.Log("STUNNED");
+            Invoke("Unstun", stun);
+        }
     }
     public void Unstun()
     {
-        charAnimator.SetBool("AnimBoolStunned", false);
-        disabled = false;
+        if (!playerDead)
+        {
+            charAnimator.SetBool("AnimBoolStunned", false);
+            disabled = false;
+        }
     }
 }

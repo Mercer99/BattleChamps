@@ -1333,7 +1333,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Champ_Rig_Reference/Champ_Rig_Hips
+    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1343,7 +1343,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Champ_Rig_Reference/Champ_Rig_Hips
+    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1353,7 +1353,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Champ_Rig_Reference/Champ_Rig_Hips
+    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1393,7 +1393,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine
+    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine/Champ_Rig_Spine1/Champ_Rig_Spine2/Champ_Rig_RightShoulder/Champ_Rig_RightArm
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1403,7 +1403,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine
+    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine/Champ_Rig_Spine1/Champ_Rig_Spine2/Champ_Rig_RightShoulder/Champ_Rig_RightArm
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1413,7 +1413,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine
+    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine/Champ_Rig_Spine1/Champ_Rig_Spine2/Champ_Rig_RightShoulder/Champ_Rig_RightArm
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1453,7 +1453,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.x
-    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine/Champ_Rig_Spine1/Champ_Rig_Spine2/Champ_Rig_RightShoulder/Champ_Rig_RightArm
+    path: Champ_Rig_Reference/Champ_Rig_Hips
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1463,7 +1463,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine/Champ_Rig_Spine1/Champ_Rig_Spine2/Champ_Rig_RightShoulder/Champ_Rig_RightArm
+    path: Champ_Rig_Reference/Champ_Rig_Hips
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -1473,7 +1473,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.z
-    path: Champ_Rig_Reference/Champ_Rig_Hips/Champ_Rig_Spine/Champ_Rig_Spine1/Champ_Rig_Spine2/Champ_Rig_RightShoulder/Champ_Rig_RightArm
+    path: Champ_Rig_Reference/Champ_Rig_Hips
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

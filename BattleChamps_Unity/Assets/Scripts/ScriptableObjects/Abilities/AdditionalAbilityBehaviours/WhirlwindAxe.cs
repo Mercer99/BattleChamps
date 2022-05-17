@@ -32,8 +32,21 @@ public class WhirlwindAxe : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
-            other.GetComponent<KnockbackReceiver>().Knockback(playerObj);
+            PlayerConfiguration thisConfig = PlayerConfigurationManager.Instance.playerConfigs[playerName];
+            PlayerConfiguration otherConfig = other.GetComponent<CharacterHandler>().playerConfig;
+            if (thisConfig.teamNum <= 0)
+            {
+                other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
+                other.GetComponent<KnockbackReceiver>().Knockback(playerObj, 10, false, "");
+            }
+            else
+            {
+                if (thisConfig.teamNum != otherConfig.teamNum)
+                {
+                    other.GetComponent<CharacterStats>().TakeDamage(weaponDamage, playerName, false);
+                    other.GetComponent<KnockbackReceiver>().Knockback(playerObj, 10, false, "");
+                }
+            }
         }
     }
 }

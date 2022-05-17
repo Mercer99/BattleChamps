@@ -39,6 +39,7 @@ public class UIManager : Singleton<UIManager>
             {
                 if(deadPlayer == killer)
                 { return; }
+
                 Mode_AttritionManager.Instance.AddKill(killer);
             } 
         }

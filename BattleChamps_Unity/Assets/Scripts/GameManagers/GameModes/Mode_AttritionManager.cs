@@ -32,8 +32,12 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
         }
         UIManager.Instance.playerUI[playerID].text = killCounts[playerID].counter.ToString();
 
-        if (killCounts[playerID].counter >= GameModeManager.Instance.pointLimit)
-        { GameModeManager.Instance.GameOver(false, leader.playerID); return; } //GameOver
+        if (GameConfigurationManager.Instance.pointLimit > 0)
+        {
+            if (killCounts[playerID].counter >= GameModeManager.Instance.pointLimit)
+            { GameModeManager.Instance.GameOver(false, leader.playerID); return; } //GameOver
+        }
+        
     }
 
     public void SpawnObjs(PlayerConfiguration playerConfig)
