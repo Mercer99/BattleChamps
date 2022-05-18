@@ -43,10 +43,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         if (playerConfigs.Count < maxPlayers)
         {
-            //if (CustomisationScreenManager.Instance != null)
-            //{ CustomisationScreenManager.Instance.DeleteInput(); }
-
-            Debug.Log("player joined " + pi.playerIndex);
+            //Debug.Log("player joined " + pi.playerIndex);
             pi.transform.SetParent(transform);
 
             if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
@@ -81,8 +78,6 @@ public class PlayerConfigurationManager : MonoBehaviour
         playerConfigs[pIndex].chosenAbility2 = ability2;
 
         ReadyPlayer(pIndex);
-
-        Debug.Log (ability1.abilityName + " " + ability2.abilityName);
     }
 
     public bool called;
@@ -99,34 +94,38 @@ public class PlayerConfigurationManager : MonoBehaviour
                 {
                     if (SceneManager.GetActiveScene().name == "MENU_TeamSelection")
                     {
-                        Debug.Log("ALL READY");
-                        called = true;
-
-                        int teamCounterBlue = 0;
-                        int teamCounterRed = 0;
+                        int teamCounterBlue = new int();
+                        int teamCounterRed = new int();
+                        int neutralTeamCounter = new int();
 
                         foreach (var playerConfig in playerConfigs)
                         {
-                            if (playerConfig.teamNum < 0)
+                            if (playerConfig.teamNum == 1)
                             { teamCounterBlue++; }
-                            if (playerConfig.teamNum < 0)
+                            if (playerConfig.teamNum == 2)
                             { teamCounterRed++; }
+                            if (playerConfig.teamNum <= 0)
+                            { neutralTeamCounter++; }
                         }
                         if (teamCounterBlue > 2)
                         { return; }
                         else if (teamCounterRed > 2)
                         { return; }
-                        else
-                        {
-                            numOfTeams = teamCounterBlue + teamCounterRed;
-                            //SceneManager.LoadScene(6);
+                        else if ((teamCounterRed + teamCounterBlue > 0) && neutralTeamCounter > 0)
+                        { Debug.Log("STOP"); return; }
 
-                            if (GameObject.Find("GameConfigManager") != null)
-                            {
-                                SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
-                            }
-                            else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
+                        called = true;
+
+                        numOfTeams = teamCounterBlue + teamCounterRed;
+                        Debug.Log("TEAMS " + numOfTeams);
+
+                        //SceneManager.LoadScene(6);
+
+                        if (GameObject.Find("GameConfigManager") != null)
+                        {
+                            SceneManager.LoadScene(GameConfigurationManager.Instance.levelName);
                         }
+                        else { SceneManager.LoadScene(scenes[Random.Range(0, scenes.Length - 1)]); }
                     }
                     else
                     { ReadyUpMenuTimer(); }

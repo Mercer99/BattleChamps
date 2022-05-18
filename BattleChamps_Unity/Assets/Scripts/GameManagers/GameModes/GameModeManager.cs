@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -65,6 +64,7 @@ public class GameModeManager : Singleton<GameModeManager>
         { teamsActive = true; }
         else
         { teamsActive = false; }
+        UIManager.Instance.TeamsActive();
     }
 
     public void DespawnPlayer(GameObject player)
@@ -119,6 +119,14 @@ public class GameModeManager : Singleton<GameModeManager>
 
     public bool gameEnded = false;
 
+    public GameObject endGameEntry;
+    public Transform scoreboard;
+
+    public Color[] playerColours;
+    public Color[] teamColours;
+
+    public int winningTeam;
+
     public void GameOver(bool timeLimit, int winner)
     {
         if (gameEnded)
@@ -139,8 +147,57 @@ public class GameModeManager : Singleton<GameModeManager>
         }
 
         string win = (winner + 1).ToString();
-        winnerName.text = "PLAYER " + win;
-        
+
+        GameObject entry = Instantiate(endGameEntry, scoreboard);
+        entry.GetComponent<EndScreenEntries>().SpawnEntry("PLAYER " + win, playerColours[winner]);
+
+        if (GameObject.Find("ConfigManager") != null)
+        { Destroy(GameObject.Find("ConfigManager")); }
+        if (GameObject.Find("GameConfigManager") != null)
+        { Destroy(GameObject.Find("GameConfigManager")); }
+
+        menuPlayerObj.SetActive(true);
+        menuManagerObj.GetComponent<PlayerInputManager>().enabled = true;
+    }
+    public void TeamGameOver(bool timeLimit, int teamNum)
+    {
+        if (gameEnded)
+        { return; }
+
+        gameEnded = true;
+        GetComponent<GameTimer>().currentTime = 0;
+        endScreen.SetActive(true);
+        endScreen.GetComponent<Animator>().Play("EndScreenPopup");
+
+        if (timeLimit)
+        {
+            timeImage.SetActive(true);
+        }
+        else
+        {
+            pointImage.SetActive(true);
+        }
+
+        string teamColour = "";
+        if (teamNum == 1)
+        { 
+            teamColour = "BLUE TEAM";
+            GameObject entry = Instantiate(endGameEntry, scoreboard);
+            entry.GetComponent<EndScreenEntries>().SpawnEntry(teamColour, teamColours[teamNum - 1]);
+        }
+        else if (teamNum == 2)
+        { 
+            teamColour = "RED TEAM";
+            GameObject entry = Instantiate(endGameEntry, scoreboard);
+            entry.GetComponent<EndScreenEntries>().SpawnEntry(teamColour, teamColours[teamNum - 1]);
+        }
+        else if (teamNum == 0)
+        { 
+            teamColour = "DRAW";
+            GameObject entry = Instantiate(endGameEntry, scoreboard);
+            entry.GetComponent<EndScreenEntries>().SpawnEntry(teamColour, teamColours[2]);
+        }
+
         if (GameObject.Find("ConfigManager") != null)
         { Destroy(GameObject.Find("ConfigManager")); }
         if (GameObject.Find("GameConfigManager") != null)

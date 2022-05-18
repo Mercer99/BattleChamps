@@ -18,7 +18,7 @@ public class KnockbackReceiver : MonoBehaviour
         knockbackAmount = knockbackValue;
         knocked = true;
         knockbackDirection = (player.transform.position - transform.position).normalized;
-        Debug.Log(knockbackDirection);
+
         currentKnockbacktime = knockbackTime;
 
         if (spawnNotif)

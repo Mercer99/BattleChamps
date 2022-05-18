@@ -12,6 +12,13 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
 
     public GameObject killCounterObj;
 
+    private void Awake()
+    {
+        blueTeamKills = 0;
+        redTeamKills = 0;
+        winningTeam = 0;
+    }
+
     public void AddKill(int playerID)
     {
         killCounts[playerID].counter++;
@@ -19,25 +26,72 @@ public class Mode_AttritionManager : Singleton<Mode_AttritionManager>
         CheckKills(playerID);
     }
 
+    int blueTeamKills;
+    int redTeamKills;
+    public int winningTeam;
+
     public void CheckKills(int playerID)
     {
-        lead = leader.counter;
-
-        foreach (KillCounter killCounter in killCounts)
+        if (PlayerConfigurationManager.Instance.numOfTeams > 0)
         {
-            if (killCounter.counter > lead)
+            lead = leader.counter;
+
+            foreach (KillCounter killCounter in killCounts)
             {
-                leader = killCounter;
+                if (killCounter.counter > lead)
+                {
+                    leader = killCounter;
+                }
+            }
+            UIManager.Instance.playerUI[playerID].text = killCounts[playerID].counter.ToString();
+
+            if (PlayerConfigurationManager.Instance.playerConfigs[playerID].teamNum == 1)
+            {
+                blueTeamKills++;
+            }
+            if (PlayerConfigurationManager.Instance.playerConfigs[playerID].teamNum == 2)
+            {
+                redTeamKills++;
+            }
+
+            if (redTeamKills < blueTeamKills)
+            {
+                winningTeam = 1;
+            }
+            else if (blueTeamKills < redTeamKills)
+            {
+                winningTeam = 2;
+            }
+            else if (blueTeamKills == redTeamKills)
+            {
+                winningTeam = 0;
+            }
+
+            if (GameConfigurationManager.Instance.pointLimit > 0)
+            {
+                if (killCounts[playerID].counter >= GameModeManager.Instance.pointLimit)
+                { GameModeManager.Instance.TeamGameOver(false, winningTeam); return; } //GameOver
             }
         }
-        UIManager.Instance.playerUI[playerID].text = killCounts[playerID].counter.ToString();
-
-        if (GameConfigurationManager.Instance.pointLimit > 0)
+        else
         {
-            if (killCounts[playerID].counter >= GameModeManager.Instance.pointLimit)
-            { GameModeManager.Instance.GameOver(false, leader.playerID); return; } //GameOver
+            lead = leader.counter;
+
+            foreach (KillCounter killCounter in killCounts)
+            {
+                if (killCounter.counter > lead)
+                {
+                    leader = killCounter;
+                }
+            }
+            UIManager.Instance.playerUI[playerID].text = killCounts[playerID].counter.ToString();
+
+            if (GameConfigurationManager.Instance.pointLimit > 0)
+            {
+                if (killCounts[playerID].counter >= GameModeManager.Instance.pointLimit)
+                { GameModeManager.Instance.GameOver(false, leader.playerID); return; } //GameOver
+            }
         }
-        
     }
 
     public void SpawnObjs(PlayerConfiguration playerConfig)

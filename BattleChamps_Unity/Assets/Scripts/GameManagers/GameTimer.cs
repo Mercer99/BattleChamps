@@ -54,7 +54,10 @@ public class GameTimer : MonoBehaviour
             {
                 if (Mode_AttritionManager.Instance != null)
                 {
-                    GameModeManager.Instance.GameOver(true, Mode_AttritionManager.Instance.leader.playerID);
+                    if (PlayerConfigurationManager.Instance.numOfTeams > 0)
+                    { GameModeManager.Instance.TeamGameOver(true, Mode_AttritionManager.Instance.winningTeam); }
+                    else
+                    { GameModeManager.Instance.GameOver(true, Mode_AttritionManager.Instance.leader.playerID); }
                 }
                 timerText.text = "GAME OVER";
             }

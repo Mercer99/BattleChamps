@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -20,12 +21,41 @@ public class UIManager : Singleton<UIManager>
     public string[] killVerses;
 
     public TextMeshProUGUI[] playerUI;
+    public Image[] playerTeamIndicator;
+    public Color[] teamColors;
+
+    bool initiated;
 
     // Start is called before the first frame update
     void Awake()
     {
         pauseMenuPanel.SetActive(false);
         Pause_ResumeGame();
+        initiated = false;
+    }
+
+    public void TeamsActive()
+    {
+        if (initiated)
+        { return; }
+
+        if (PlayerConfigurationManager.Instance.numOfTeams > 0)
+        {
+            Debug.Log("SPAWNED");
+            foreach (var config in PlayerConfigurationManager.Instance.playerConfigs)
+            {
+                playerTeamIndicator[config.PlayerIndex].color = teamColors[config.teamNum -1];
+            }
+        }
+        else
+        {
+            Debug.Log("FALSE");
+            foreach (Image indicator in playerTeamIndicator)
+            {
+                indicator.gameObject.SetActive(false);
+            }
+        }
+        initiated = true;
     }
 
     public void PrintOnKillFeed(int deadPlayer, int killer)

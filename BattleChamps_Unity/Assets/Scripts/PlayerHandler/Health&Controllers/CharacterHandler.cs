@@ -254,7 +254,6 @@ public class CharacterHandler : MonoBehaviour
         if (isGrounded)
         {
             dashed = true;
-            Debug.Log("DASHH");
             StartCoroutine(DashCoroutine());
         }
     }
