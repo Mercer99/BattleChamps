@@ -31,7 +31,7 @@ public class KnockbackReceiver : MonoBehaviour
         {
             GetComponent<CharacterController>().Move(-knockbackDirection * knockbackAmount * Time.deltaTime);
             GetComponent<CharacterHandler>().disabled = true;
-            transform.LookAt(-(new Vector3(knocker.position.x, transform.position.y, knocker.position.z)));
+            //transform.LookAt(-(new Vector3(knocker.position.x, transform.position.y, knocker.position.z)));
             currentKnockbacktime -= Time.deltaTime;
         }
         else if (currentKnockbacktime <= 0 && knocked == true)

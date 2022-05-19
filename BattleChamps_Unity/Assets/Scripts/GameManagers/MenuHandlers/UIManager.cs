@@ -71,7 +71,14 @@ public class UIManager : Singleton<UIManager>
                 { return; }
 
                 Mode_AttritionManager.Instance.AddKill(killer);
-            } 
+            }
+            else if (GameConfigurationManager.Instance.currentGamemode.gamemodeName == "Conquest")
+            {
+                if (deadPlayer == killer)
+                { return; }
+
+                //Mode_ConquestManager.Instance.AddPoints(killer);
+            }
         }
         else 
         {

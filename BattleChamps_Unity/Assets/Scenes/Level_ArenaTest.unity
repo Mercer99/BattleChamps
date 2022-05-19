@@ -5929,7 +5929,7 @@ Transform:
   - {fileID: 309291403}
   - {fileID: 1896424699}
   m_Father: {fileID: 1433538913}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &474131027
 MonoBehaviour:
@@ -10200,37 +10200,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f2072bd53a3945247b6ff0ccbe4fc65e, type: 3}
   m_PrefabInstance: {fileID: 771237747}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &776881093
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 776881094}
-  m_Layer: 0
-  m_Name: GameMode_Conquest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &776881094
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 776881093}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1433538913}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &776931986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12801,7 +12770,7 @@ Transform:
   - {fileID: 1647777351}
   - {fileID: 764555645}
   m_Father: {fileID: 1433538913}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &920225950
 PrefabInstance:
@@ -15564,8 +15533,7 @@ MonoBehaviour:
   configManager: {fileID: 0}
   teamsActive: 0
   attritionObj: {fileID: 6566985792857047292, guid: e26cbc8a6ac7f0e42889661808a6109c, type: 3}
-  kingOfTheHillObj: {fileID: 0}
-  conquestObj: {fileID: 0}
+  conquestObj: {fileID: 5914319111012106892, guid: 805829852e09acd4bb8ab96dea03e08e, type: 3}
   PlayerSpawns:
   - {fileID: 182641455}
   - {fileID: 978808900}
@@ -19007,8 +18975,6 @@ Transform:
   - {fileID: 1152433002}
   - {fileID: 435909759}
   - {fileID: 117273329}
-  - {fileID: 1499142673}
-  - {fileID: 776881094}
   - {fileID: 474131026}
   - {fileID: 919026400}
   m_Father: {fileID: 0}
@@ -20255,37 +20221,6 @@ Transform:
   - {fileID: 727686259}
   m_Father: {fileID: 147552980}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1499142672
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1499142673}
-  m_Layer: 0
-  m_Name: GameMode_King of The HIll
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1499142673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499142672}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1433538913}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1502796958
 GameObject:

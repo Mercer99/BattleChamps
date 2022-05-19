@@ -16,5 +16,5 @@ MonoBehaviour:
   cooldownTime: 5
   activeTime: 0.85
   slamRange: 6
-  slamDamage: 10
+  slamDamage: 20
   groundSlamObj: {fileID: 2589338727360597593, guid: c381d452e6f006c4fb08cdcfa55e7168, type: 3}

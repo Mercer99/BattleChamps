@@ -18,7 +18,6 @@ public class GameModeManager : Singleton<GameModeManager>
     public bool teamsActive;
 
     public GameObject attritionObj;
-    public GameObject kingOfTheHillObj;
     public GameObject conquestObj;
 
     // Start is called before the first frame update
@@ -74,16 +73,18 @@ public class GameModeManager : Singleton<GameModeManager>
     }
     IEnumerator SpawnPlayer(GameObject player)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         RespawnPlayer(player);
     }
     public void RespawnPlayer(GameObject player)
     {
         player.GetComponent<CharacterStats>().currentHealth = player.GetComponent<CharacterStats>().startingHealth;
-        //player.GetComponent<CharacterHandler>().charAnimator.Play("Base Layer.IG_Idle");
+        player.GetComponent<CharacterHandler>().charAnimator.Play("Base Layer.IG_Idle");
+        player.GetComponent<CharacterHandler>().charAnimator.Play("Override Layer.New State");
         player.GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolDeath", false);
         player.GetComponent<CharacterHandler>().charAnimator.SetBool("AnimBoolStunned", false);
         player.GetComponent<CharacterHandler>().disabled = false;
+        player.GetComponent<CharacterHandler>().dashed = false;
         player.GetComponent<CharacterHandler>().playerDead = false;
         player.GetComponent<CharacterHandler>().chargingAbility = false;
         player.GetComponent<CharacterHandler>().shield.SetActive(false);

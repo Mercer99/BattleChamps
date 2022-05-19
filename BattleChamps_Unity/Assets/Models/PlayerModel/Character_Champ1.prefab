@@ -2233,6 +2233,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: f524e126394e3344e908f527184b707c, type: 2}
   - {fileID: 2100000, guid: eec2d6bd9b71f8448b63a6a97a47c556, type: 2}
   playerMesh: {fileID: 147916193737393473}
+  playerDead: 0
   uiManager: {fileID: 0}
   defaultSpeed: 9
   gravity: -30
@@ -2247,6 +2248,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  dashed: 0
   attacking: 0
   resetDisable: 0
   attackComboBufferTime: 0.2
@@ -4622,6 +4624,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 265687287516374780}
     m_Modifications:
+    - target: {fileID: 1228537885, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}
+      propertyPath: weaponDamage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 919132147573653174, guid: 0bba56dca9a597f4ab0d196b72f8227c, type: 3}
       propertyPath: m_IsActive
       value: 0

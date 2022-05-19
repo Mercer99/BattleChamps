@@ -45,7 +45,7 @@ public class CharacterHandler : MonoBehaviour
     private Vector2 movementInput = Vector2.zero;
     private Vector2 rotationInput;
 
-    private bool dashed = false;
+    public bool dashed = false;
     public bool attacking = false;
     private bool usingAbility = false;
     public bool resetDisable = false;

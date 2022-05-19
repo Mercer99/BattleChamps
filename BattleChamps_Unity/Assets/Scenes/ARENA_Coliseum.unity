@@ -2355,7 +2355,7 @@ Transform:
   - {fileID: 39705648}
   - {fileID: 1081045260}
   m_Father: {fileID: 900011502}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &157758860
 GameObject:
@@ -3717,37 +3717,6 @@ RectTransform:
   m_AnchoredPosition: {x: -1870, y: -1030}
   m_SizeDelta: {x: 941.4477, y: 296.049}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &286866207
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 286866208}
-  m_Layer: 0
-  m_Name: GameMode_Conquest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &286866208
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286866207}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 900011502}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &292378501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11082,7 +11051,7 @@ Transform:
   - {fileID: 1135906415}
   - {fileID: 1590795670}
   m_Father: {fileID: 900011502}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &779889130
 MonoBehaviour:
@@ -12427,8 +12396,6 @@ Transform:
   - {fileID: 1674757950}
   - {fileID: 1010974717}
   - {fileID: 1771121467}
-  - {fileID: 1110026228}
-  - {fileID: 286866208}
   - {fileID: 779889129}
   - {fileID: 155644391}
   m_Father: {fileID: 0}
@@ -15102,37 +15069,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7b4325b8c5664684fb95364697cc2f45, type: 3}
   m_PrefabInstance: {fileID: 512158103}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1110026227
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1110026228}
-  m_Layer: 0
-  m_Name: GameMode_King of The HIll
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1110026228
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110026227}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 900011502}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1110782709
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22567,7 +22503,6 @@ MonoBehaviour:
   configManager: {fileID: 0}
   teamsActive: 0
   attritionObj: {fileID: 6566985792857047292, guid: e26cbc8a6ac7f0e42889661808a6109c, type: 3}
-  kingOfTheHillObj: {fileID: 0}
   conquestObj: {fileID: 0}
   PlayerSpawns:
   - {fileID: 840579464}
